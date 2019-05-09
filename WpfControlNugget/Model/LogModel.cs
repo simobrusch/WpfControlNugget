@@ -16,5 +16,16 @@ namespace WpfControlNugget.Model
         public string severity { get; set; }
         public DateTime zeit { get; set; }
         public string message { get; set; }
+
+        public LogModel(int idLogging, string pod, string location, string hostname, string severity, DateTime zeit, string message)
+        {
+            this.idLogging = idLogging;
+            this.pod = pod;
+            this.location = location;
+            this.hostname = hostname;
+            this.severity = severity;
+            this.zeit = zeit;
+            this.message = message;
+        }
     }
 }
