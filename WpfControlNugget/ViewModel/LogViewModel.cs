@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using MySql.Data.MySqlClient;
 using WpfControlNugget.Model;
 
@@ -15,14 +16,29 @@ namespace WpfControlNugget.ViewModel
 {
     public class LogViewModel : INotifyPropertyChanged
     {
-        string txtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
+        public string TxtConnectionString;
+
+        public LogViewModel()
+        {
+            this.TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
+        }
 
         public ObservableCollection<Model.LogModel> Logs { get; set; }
-        private void btnloaddata_Click(object sender, RoutedEventArgs e)
+        public event PropertyChangedEventHandler PropertyChanged;
+        public ICommand BtnLoadDataClick { set; get; }
+        public ICommand BtnConfirmdataClick { set; get; }
+        public ICommand BtnAdddataClick { set; get; }
+
+        public string GetTxtConnectionString()
+        {
+            return TxtConnectionString;
+        }
+
+        public void BtnLoadData_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                using (var conn = new MySqlConnection(this.txtConnectionString))
+                using (var conn = new MySqlConnection(this.TxtConnectionString))
                 {
                     conn.Open();
                     using (MySqlCommand cmd = new MySqlCommand("SELECT idLogging, location, Hostname, severity, zeit, message FROM v_logentries ORDER BY zeit", conn))
@@ -51,7 +67,7 @@ namespace WpfControlNugget.ViewModel
         private void LoadData()
         {
             this.Logs.Clear();
-            using (var conn = new MySqlConnection(this.txtConnectionString))
+            using (var conn = new MySqlConnection(this.TxtConnectionString))
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
@@ -129,9 +145,6 @@ namespace WpfControlNugget.ViewModel
         //        MessageBox.Show(ex.ToString());
         //    }
         //}
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
         {
@@ -140,6 +153,5 @@ namespace WpfControlNugget.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        #endregion
     }
 }
