@@ -28,9 +28,8 @@ namespace WpfControlNugget.ViewModel
             Logs = new ObservableCollection<LogModel>();
         }
 
-        public ObservableCollection<Model.LogModel> Logs { get; set; }
+        public ObservableCollection<LogModel> Logs { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
-
 
         public string TxtConnectionString
         {
@@ -75,13 +74,12 @@ namespace WpfControlNugget.ViewModel
                            }));
             }
         }
-
         public void BtnLoadData_Click()
         {
             try
             {
-                this.Logs.Clear();
-                using (var conn = new MySqlConnection(this.TxtConnectionString))
+                Logs.Clear();
+                using (var conn = new MySqlConnection(TxtConnectionString))
                 {
                     conn.Open();
                     using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries ORDER BY timestamp", conn))
@@ -109,36 +107,42 @@ namespace WpfControlNugget.ViewModel
         }
         private void LoadData()
         {
-            this.Logs.Clear();
-            using (var conn = new MySqlConnection(this.TxtConnectionString))
+            try
             {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
+                Logs.Clear();
+                using (var conn = new MySqlConnection(TxtConnectionString))
                 {
-                    cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries  WHERE `Quitiert`=false ORDER BY timestamp";
-                    var reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    conn.Open();
+                    using (var cmd = conn.CreateCommand())
                     {
-                        Logs.Add(new LogModel(
-                            reader.GetInt32("id"),
-                            reader.GetString("pod"),
-                            reader.GetString("location"),
-                            reader.GetString("hostname"),
-                            reader.GetString("severity"),
-                            reader.GetDateTime("timestamp"),
-                            reader.GetString("message")
-                            ));
+                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries  WHERE `Quitiert`=false ORDER BY timestamp";
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            Logs.Add(new LogModel(
+                                reader.GetInt32("id"),
+                                reader.GetString("pod"),
+                                reader.GetString("location"),
+                                reader.GetString("hostname"),
+                                reader.GetString("severity"),
+                                reader.GetDateTime("timestamp"),
+                                reader.GetString("message")
+                                ));
+                        }
                     }
                 }
             }
-        }
+            catch(MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
 
-        ////Method not working System.InvalidCastException
+        }
         private void BtnLogClear_Click()
         {
             try
             {
-                using (var conn = new MySqlConnection(this.TxtConnectionString))
+                using (var conn = new MySqlConnection(TxtConnectionString))
                 {
                     //conn.Open();
                     //foreach (DataGridRow row in dataGridCustomers.SelectedItems)
@@ -151,20 +155,18 @@ namespace WpfControlNugget.ViewModel
                     //    }
                     //}
                 }
-                this.LoadData();
+                LoadData();
             }
             catch (MySqlException ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        ////Method not working MySQLexception
         private void btnAdd_Click()
         {
             try
             {
-                using (var conn = new MySqlConnection(this.TxtConnectionString))
+                using (var conn = new MySqlConnection(TxtConnectionString))
                 {
                     using (MySqlCommand cmd = new MySqlCommand("LogMessageAdd", conn))
                     {
@@ -174,10 +176,11 @@ namespace WpfControlNugget.ViewModel
                         {
                             DataSet ds = new DataSet();
                             //dataGridCustomers.DataContext = ds;
-                            cmd.Parameters.Add(new MySqlParameter("iHostname", conn));
+                            cmd.Parameters.Add(new MySqlParameter("i_pod", conn));
+                            cmd.Parameters.Add(new MySqlParameter("timestamp(now)", conn));
                             cmd.Parameters.Add(new MySqlParameter("iSeverity", conn));
                             cmd.Parameters.Add(new MySqlParameter("iMessage", conn));
-                            cmd.Parameters.Add(new MySqlParameter("iTimeStamp", conn));
+                            
                             adp.Fill(ds, "LoadDataBinding");
                         }
                     }
@@ -188,7 +191,6 @@ namespace WpfControlNugget.ViewModel
                 MessageBox.Show(ex.ToString());
             }
         }
-
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
