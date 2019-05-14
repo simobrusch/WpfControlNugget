@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MySql.Data.MySqlClient;
 using WpfControlNugget.Model;
+using WpfControlNugget.ViewModel.Commands;
 
 namespace WpfControlNugget.ViewModel
 {
@@ -25,14 +26,30 @@ namespace WpfControlNugget.ViewModel
 
         public ObservableCollection<Model.LogModel> Logs { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        public ICommand BtnLoadDataClick { set; get; }
-        public ICommand BtnConfirmdataClick { set; get; }
-        public ICommand BtnAdddataClick { set; get; }
+        private ICommand _btnLoadDataClick;
+        public ICommand _btnConfirmdataClick { set; get; }
+        public ICommand _btnAdddataClick { set; get; }
 
         public string GetTxtConnectionString()
         {
             return TxtConnectionString;
         }
+
+        //public ICommand BtnLoadDataClick
+        //{
+        //    get
+        //    {
+        //        return _btnLoadDataClick ?? (_btnLoadDataClick = new RelayCommand())
+        //        {
+        //            {
+        //                LoadData(); 
+        //            };
+                    
+        //        }
+        //        return _btnLoadDataClick;
+        //    }
+        //}
+
 
         public void BtnLoadData_Click(object sender, RoutedEventArgs e)
         {
