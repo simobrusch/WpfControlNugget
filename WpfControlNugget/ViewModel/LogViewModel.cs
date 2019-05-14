@@ -43,23 +43,19 @@ namespace WpfControlNugget.ViewModel
             }
         }
 
-        //public ICommand BtnLoadDataClick
-        //{
-        //    get
-        //    {
-        //        return _btnLoadDataClick ?? (_btnLoadDataClick = new RelayCommand())
-        //        {
-        //            {
-        //                LoadData(); 
-        //            };
-                    
-        //        }
-        //        return _btnLoadDataClick;
-        //    }
-        //}
+        public ICommand BtnLoadDataClick
+        {
+            get
+            {
+                return _btnLoadDataClick ?? (_btnLoadDataClick = new RelayCommand(
+                           x =>
+                           {
+                               BtnLoadData_Click();
+                           }));
+            }
+        }
 
-
-        public void BtnLoadData_Click(object sender, RoutedEventArgs e)
+        public void BtnLoadData_Click()
         {
             try
             {

@@ -24,7 +24,7 @@ CanUserResizeRows="False">
             </DataGrid>
             <Label Content="Database Connection" HorizontalAlignment="Left" Margin="150,18,0,0" VerticalAlignment="Top" Height="23" Width="124" Background="{x:Null}"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="279,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="txtConnectionString"  VerticalAlignment="Top" Width="310" />
-            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="279,275,0,0" Name="btnloaddata" VerticalAlignment="Top" Width="100" Command="{Binding _btnLoadDataClick}"/>
+            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="279,275,0,0" Name="btnloaddata" VerticalAlignment="Top" Width="100" Command="{Binding BtnLoadDataClick}"/>
             <Button Content="Confirm" Height="25" HorizontalAlignment="Left" Margin="489,275,0,0" Name="btnConfirm" VerticalAlignment="Top" Width="100" Command="{Binding _btnConfirmdataClick}"/>
             <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="384,275,0,0" Name="btnAdd" VerticalAlignment="Top" Width="100" Command="{Binding _btnAdddataClick}"/>
         </Grid>
