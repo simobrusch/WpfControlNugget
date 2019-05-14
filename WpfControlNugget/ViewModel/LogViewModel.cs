@@ -27,8 +27,8 @@ namespace WpfControlNugget.ViewModel
         public ObservableCollection<Model.LogModel> Logs { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         private ICommand _btnLoadDataClick;
-        public ICommand _btnConfirmdataClick { set; get; }
-        public ICommand _btnAdddataClick { set; get; }
+        public ICommand _btnConfirmdataClick;
+        public ICommand _btnAdddataClick;
 
         public string TxtConnectionString
         {
@@ -51,6 +51,28 @@ namespace WpfControlNugget.ViewModel
                            x =>
                            {
                                BtnLoadData_Click();
+                           }));
+            }
+        }
+        public ICommand BtnAddDataClick
+        {
+            get
+            {
+                return _btnAdddataClick ?? (_btnAdddataClick = new RelayCommand(
+                           x =>
+                           {
+                               btnAdd_Click();
+                           }));
+            }
+        }
+        public ICommand BtnConfirmDataClick
+        {
+            get
+            {
+                return _btnConfirmdataClick ?? (_btnConfirmdataClick = new RelayCommand(
+                           x =>
+                           {
+                               btnLogClear_Click();
                            }));
             }
         }
@@ -112,60 +134,60 @@ namespace WpfControlNugget.ViewModel
         }
 
         ////Method not working System.InvalidCastException
-        //private void btnLogClear_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        using (var conn = new MySqlConnection(this.txtConnectionString.Text))
-        //        {
-        //            conn.Open();
-        //            foreach (DataGridRow row in dataGridCustomers.SelectedItems)
-        //            {
-        //                using (var cmd = conn.CreateCommand())
-        //                {
-        //                    cmd.CommandText = "LogClear";
-        //                    cmd.CommandType = CommandType.StoredProcedure;
-        //                    cmd.ExecuteNonQuery();
-        //                }
-        //            }
-        //        }
-        //        this.LoadData();
-        //    }
-        //    catch (MySqlException ex)
-        //    {
-        //        MessageBox.Show(ex.ToString());
-        //    }
-        //}
+        private void btnLogClear_Click()
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(this.TxtConnectionString))
+                {
+                    //conn.Open();
+                    //foreach (DataGridRow row in dataGridCustomers.SelectedItems)
+                    //{
+                    //    using (var cmd = conn.CreateCommand())
+                    //    {
+                    //        cmd.CommandText = "LogClear";
+                    //        cmd.CommandType = CommandType.StoredProcedure;
+                    //        cmd.ExecuteNonQuery();
+                    //    }
+                    //}
+                }
+                this.LoadData();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
         ////Method not working MySQLexception
-        //private void btnAdd_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        using (var conn = new MySqlConnection(this.txtConnectionString.Text))
-        //        {
-        //            using (MySqlCommand cmd = new MySqlCommand("LogMessageAdd", conn))
-        //            {
-        //                conn.Open();
-        //                cmd.CommandType = CommandType.StoredProcedure;
-        //                using (MySqlDataAdapter adp = new MySqlDataAdapter(cmd))
-        //                {
-        //                    DataSet ds = new DataSet();
-        //                    dataGridCustomers.DataContext = ds;
-        //                    cmd.Parameters.Add(new MySqlParameter("iHostname", conn));
-        //                    cmd.Parameters.Add(new MySqlParameter("iSeverity", conn));
-        //                    cmd.Parameters.Add(new MySqlParameter("iMessage", conn));
-        //                    cmd.Parameters.Add(new MySqlParameter("iTimeStamp", conn));
-        //                    adp.Fill(ds, "LoadDataBinding");
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (MySqlException ex)
-        //    {
-        //        MessageBox.Show(ex.ToString());
-        //    }
-        //}
+        private void btnAdd_Click()
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(this.TxtConnectionString))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("LogMessageAdd", conn))
+                    {
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        using (MySqlDataAdapter adp = new MySqlDataAdapter(cmd))
+                        {
+                            DataSet ds = new DataSet();
+                            //dataGridCustomers.DataContext = ds;
+                            cmd.Parameters.Add(new MySqlParameter("iHostname", conn));
+                            cmd.Parameters.Add(new MySqlParameter("iSeverity", conn));
+                            cmd.Parameters.Add(new MySqlParameter("iMessage", conn));
+                            cmd.Parameters.Add(new MySqlParameter("iTimeStamp", conn));
+                            adp.Fill(ds, "LoadDataBinding");
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
         private void OnPropertyChanged(string propertyName)
         {
