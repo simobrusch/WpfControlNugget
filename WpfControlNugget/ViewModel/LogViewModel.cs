@@ -17,11 +17,11 @@ namespace WpfControlNugget.ViewModel
 {
     public class LogViewModel : INotifyPropertyChanged
     {
-        public string TxtConnectionString;
+        private string _txtConnectionString;
 
         public LogViewModel()
         {
-            this.TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
+            TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
         }
 
         public ObservableCollection<Model.LogModel> Logs { get; set; }
@@ -30,9 +30,17 @@ namespace WpfControlNugget.ViewModel
         public ICommand _btnConfirmdataClick { set; get; }
         public ICommand _btnAdddataClick { set; get; }
 
-        public string GetTxtConnectionString()
+        public string TxtConnectionString
         {
-            return TxtConnectionString;
+            get
+            {
+                return _txtConnectionString;
+            }
+            set
+            {
+                _txtConnectionString = value;
+                OnPropertyChanged(nameof(TxtConnectionString));
+            }
         }
 
         //public ICommand BtnLoadDataClick

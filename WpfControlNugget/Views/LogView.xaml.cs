@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Data;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Security.Cryptography.X509Certificates;
+using WpfControlNugget.ViewModel;
 
 namespace WpfControlNugget.Views
 {
@@ -26,6 +28,7 @@ namespace WpfControlNugget.Views
         public LogView()
         {
             InitializeComponent();
+            DataContext = new LogViewModel();
             //txtConnectionString.Text = "Server=localhost;Database=;Uid=root;Pwd=;";
         }
 
