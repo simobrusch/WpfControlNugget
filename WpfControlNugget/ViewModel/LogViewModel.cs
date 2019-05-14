@@ -18,24 +18,23 @@ namespace WpfControlNugget.ViewModel
     public class LogViewModel : INotifyPropertyChanged
     {
         private string _txtConnectionString;
+        private ICommand _btnLoadDataClick;
+        private ICommand _btnConfirmdataClick;
+        private ICommand _btnAdddataClick;
 
         public LogViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
+            Logs = new ObservableCollection<LogModel>();
         }
 
         public ObservableCollection<Model.LogModel> Logs { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        private ICommand _btnLoadDataClick;
-        public ICommand _btnConfirmdataClick;
-        public ICommand _btnAdddataClick;
+        
 
         public string TxtConnectionString
         {
-            get
-            {
-                return _txtConnectionString;
-            }
+            get => _txtConnectionString;
             set
             {
                 _txtConnectionString = value;
@@ -72,7 +71,7 @@ namespace WpfControlNugget.ViewModel
                 return _btnConfirmdataClick ?? (_btnConfirmdataClick = new RelayCommand(
                            x =>
                            {
-                               btnLogClear_Click();
+                               BtnLogClear_Click();
                            }));
             }
         }
@@ -81,17 +80,18 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
+                this.Logs.Clear();
                 using (var conn = new MySqlConnection(this.TxtConnectionString))
                 {
                     conn.Open();
-                    using (MySqlCommand cmd = new MySqlCommand("SELECT idLogging, location, Hostname, severity, zeit, message FROM v_logentries ORDER BY zeit", conn))
+                    using (var cmd = new MySqlCommand("SELECT idLogging, location, Hostname, severity, zeit, message FROM v_logentries ORDER BY zeit", conn))
                     {
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             Logs.Add(new LogModel(
                                                     reader.GetInt32("idLogging"),
-                                                    reader.GetString("pod"),
+                                                    //reader.GetString("pod"),
                                                     reader.GetString("location"),
                                                     reader.GetString("hostname"),
                                                     reader.GetString("severity"),
@@ -121,7 +121,7 @@ namespace WpfControlNugget.ViewModel
                     {
                         Logs.Add(new LogModel(
                             reader.GetInt32("idLogging"),
-                            reader.GetString("pod"),
+                            //reader.GetString("pod"),
                             reader.GetString("location"),
                             reader.GetString("hostname"),
                             reader.GetString("severity"),
@@ -134,7 +134,7 @@ namespace WpfControlNugget.ViewModel
         }
 
         ////Method not working System.InvalidCastException
-        private void btnLogClear_Click()
+        private void BtnLogClear_Click()
         {
             try
             {
@@ -191,10 +191,7 @@ namespace WpfControlNugget.ViewModel
 
         private void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
