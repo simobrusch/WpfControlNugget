@@ -13,12 +13,12 @@ Text="Customers" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch=
             <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="14,55,0,46" Name="DataGridCustomers" Width="575" ItemsSource="{Binding Path=Logs}"
 CanUserResizeRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=idLogging}" Header="idLogging" Width="80" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=id}" Header="idLogging" Width="80" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=pod}" Header="pod" Width="80" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=location}" Header="location" Width="80" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=hostname}" Header="hostname" Width="80" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=severity}" Header="severity" Width="80" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=zeit}" Header="zeit" Width="80" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=timestamp}" Header="zeit" Width="80" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=message}" Header="message" Width="120" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>

@@ -30,7 +30,7 @@ namespace WpfControlNugget.ViewModel
 
         public ObservableCollection<Model.LogModel> Logs { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
 
         public string TxtConnectionString
         {
@@ -84,18 +84,18 @@ namespace WpfControlNugget.ViewModel
                 using (var conn = new MySqlConnection(this.TxtConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT idLogging, location, Hostname, severity, zeit, message FROM v_logentries ORDER BY zeit", conn))
+                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries ORDER BY timestamp", conn))
                     {
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             Logs.Add(new LogModel(
-                                                    reader.GetInt32("idLogging"),
-                                                    //reader.GetString("pod"),
+                                                    reader.GetInt32("id"),
+                                                    reader.GetString("pod"),
                                                     reader.GetString("location"),
                                                     reader.GetString("hostname"),
                                                     reader.GetString("severity"),
-                                                    reader.GetDateTime("zeit"),
+                                                    reader.GetDateTime("timestamp"),
                                                     reader.GetString("message")
                                                     ));
                         }
@@ -115,17 +115,17 @@ namespace WpfControlNugget.ViewModel
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT idLogging, location, Hostname, severity, zeit, message FROM v_logentries  WHERE `Quitiert`=false ORDER BY zeit";
+                    cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries  WHERE `Quitiert`=false ORDER BY timestamp";
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         Logs.Add(new LogModel(
-                            reader.GetInt32("idLogging"),
-                            //reader.GetString("pod"),
+                            reader.GetInt32("id"),
+                            reader.GetString("pod"),
                             reader.GetString("location"),
                             reader.GetString("hostname"),
                             reader.GetString("severity"),
-                            reader.GetDateTime("zeit"),
+                            reader.GetDateTime("timestamp"),
                             reader.GetString("message")
                             ));
                     }
