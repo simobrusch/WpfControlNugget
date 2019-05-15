@@ -10,7 +10,7 @@
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="16,15,0,0" Name="TextBlockHeading"
 Text="Customers" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="310" VerticalAlignment="Top" Width="625">
-            <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="14,55,0,46" Name="DataGridCustomers" Width="575" ItemsSource="{Binding Path=Logs}"
+            <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="14,55,0,46" Name="DataGridCustomers" Width="575" ItemsSource="{Binding Path=Logs}"
 CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=id}" Header="id" Width="80" IsReadOnly="True" />

@@ -21,6 +21,7 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnLoadDataClick;
         private ICommand _btnConfirmdataClick;
         private ICommand _btnAdddataClick;
+        
 
         public LogViewModel()
         {
@@ -29,6 +30,7 @@ namespace WpfControlNugget.ViewModel
         }
 
         public ObservableCollection<LogModel> Logs { get; set; }
+        public LogModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string TxtConnectionString
@@ -115,7 +117,7 @@ namespace WpfControlNugget.ViewModel
                     conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries  WHERE `Quitiert`=false ORDER BY timestamp";
+                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries  WHERE `is_acknowledged`=false ORDER BY timestamp";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -144,13 +146,14 @@ namespace WpfControlNugget.ViewModel
             {
                 using (var conn = new MySqlConnection(TxtConnectionString))
                 {
-                    //conn.Open();
-                    //foreach (DataGridRow row in dataGridCustomers.SelectedItems)
+                    conn.Open();
+                    //foreach (DataGridRow row in MySelectedItem)
                     //{
                     //    using (var cmd = conn.CreateCommand())
                     //    {
                     //        cmd.CommandText = "LogClear";
                     //        cmd.CommandType = CommandType.StoredProcedure;
+                    //        //cmd.Parameters.AddWithValue("@Id", Convert.ToInt32(row.IsSelected[0].Text));
                     //        cmd.ExecuteNonQuery();
                     //    }
                     //}
