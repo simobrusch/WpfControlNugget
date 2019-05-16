@@ -18,18 +18,33 @@ namespace WpfControlNugget.ViewModel
     public class LogViewModel : INotifyPropertyChanged
     {
         private string _txtConnectionString;
+        private string _enterPod;
+        private string _enterHostname;
+        private string _enterSeverity;
+        private string _enterMessage;
+
         private ICommand _btnLoadDataClick;
         private ICommand _btnConfirmdataClick;
         private ICommand _btnAdddataClick;
 
+        public ObservableCollection<LogModel> Logs { get; set; }
+        public ObservableCollection<ComboBoxItems> SeverityComboBox { get; set; }
 
         public LogViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
-            Logs = new ObservableCollection<LogModel>();
-        }
+            EnterPod = "pod";
+            EnterHostname = "hostname";
+            EnterSeverity = "severity";
+            EnterMessage = "message";
 
-        public ObservableCollection<LogModel> Logs { get; set; }
+            Logs = new ObservableCollection<LogModel>();
+            SeverityComboBox = new ObservableCollection<ComboBoxItems>(){
+                new ComboBoxItems(){Id=1, Severity= 1},
+                new ComboBoxItems(){Id=2, Severity= 2},
+                new ComboBoxItems(){Id=3, Severity= 3}
+            };
+        }
         public LogModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -40,6 +55,42 @@ namespace WpfControlNugget.ViewModel
             {
                 _txtConnectionString = value;
                 OnPropertyChanged(nameof(TxtConnectionString));
+            }
+        }
+        public string EnterPod
+        {
+            get => _enterPod;
+            set
+            {
+                _enterPod = value;
+                OnPropertyChanged(nameof(EnterPod));
+            }
+        }
+        public string EnterHostname
+        {
+            get => _enterHostname;
+            set
+            {
+                _enterHostname = value;
+                OnPropertyChanged(nameof(EnterHostname));
+            }
+        }
+        public string EnterSeverity
+        {
+            get => _enterSeverity;
+            set
+            {
+                _enterSeverity = value;
+                OnPropertyChanged(nameof(EnterSeverity));
+            }
+        }
+        public string EnterMessage
+        {
+            get => _enterMessage;
+            set
+            {
+                _enterMessage = value;
+                OnPropertyChanged(nameof(EnterMessage));
             }
         }
 
@@ -79,31 +130,11 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                Logs.Clear();
-                using (var conn = new MySqlConnection(TxtConnectionString))
-                {
-                    conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries ORDER BY timestamp", conn))
-                    {
-                        var reader = cmd.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            Logs.Add(new LogModel(
-                                                    reader.GetInt32("id"),
-                                                    reader.GetString("pod"),
-                                                    reader.GetString("location"),
-                                                    reader.GetString("hostname"),
-                                                    reader.GetString("severity"),
-                                                    reader.GetDateTime("timestamp"),
-                                                    reader.GetString("message")
-                                                    ));
-                        }
-                    }
-                }
+                LoadData();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Check database login information");
+                MessageBox.Show("Error occurred: " + ex.Message);
             }
         }
         private void LoadData()
@@ -114,9 +145,8 @@ namespace WpfControlNugget.ViewModel
                 using (var conn = new MySqlConnection(TxtConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = conn.CreateCommand())
+                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries ORDER BY timestamp", conn))
                     {
-                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries ORDER BY timestamp";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -128,14 +158,14 @@ namespace WpfControlNugget.ViewModel
                                 reader.GetString("severity"),
                                 reader.GetDateTime("timestamp"),
                                 reader.GetString("message")
-                                ));
+                            ));
                         }
                     }
                 }
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Check database login information: " + ex.Message);
             }
 
         }
