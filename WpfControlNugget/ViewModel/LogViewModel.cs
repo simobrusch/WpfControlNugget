@@ -176,6 +176,7 @@ namespace WpfControlNugget.ViewModel
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.Add(new MySqlParameter("i_pod", conn));
+                        cmd.Parameters.Add(new MySqlParameter("i_location", conn));
                         cmd.Parameters.Add(new MySqlParameter("i_hostname", conn));
                         cmd.Parameters.Add(new MySqlParameter("i_severity", conn));
                         cmd.Parameters.Add(new MySqlParameter("i_message", conn));
