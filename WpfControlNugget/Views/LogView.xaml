@@ -6,11 +6,11 @@
              xmlns:local="clr-namespace:WpfControlNugget.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Height="auto" Width="625" Background="#FF89A9B2" >
-        <TextBlock Height="32" HorizontalAlignment="Left" Margin="16,15,0,0" Name="TextBlockHeading"
+    <Grid Height="auto" Width="625"  Background="#FF89A9B2" >
+        <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading"
 Text="LogReader" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="310" VerticalAlignment="Top" Width="625">
-            <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="14,55,0,46" Name="DataGridCustomers" Width="575" ItemsSource="{Binding Path=Logs}"
+            <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,46" Name="DataGridCustomers" Width="605" ItemsSource="{Binding Path=Logs}"
 CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=id}" Header="id" Width="80" IsReadOnly="True" />
@@ -22,11 +22,11 @@ CanUserResizeRows="False">
                     <DataGridTextColumn Binding="{Binding Path=message}" Header="message" Width="120" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="Database Connection" HorizontalAlignment="Left" Margin="150,18,0,0" VerticalAlignment="Top" Height="23" Width="124" Background="{x:Null}"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="279,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="TxtConnectionString"  VerticalAlignment="Top" Width="310" />
-            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="279,275,0,0" Name="Btnloaddata" VerticalAlignment="Top" Width="100" Command="{Binding BtnLoadDataClick}"/>
-            <Button Content="Confirm" Height="25" HorizontalAlignment="Left" Margin="489,275,0,0" Name="BtnConfirm" VerticalAlignment="Top" Width="100" Command="{Binding BtnConfirmDataClick}"/>
-            <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="384,275,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="100" Command="{Binding BtnAddDataClick}"/>
+            <Label Content="Database Connection" HorizontalAlignment="Left" Margin="118,22,0,0" VerticalAlignment="Top" Height="23" Width="125" Background="{x:Null}" RenderTransformOrigin="0.366,0.725"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="248,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="TxtConnectionString"  VerticalAlignment="Top" Width="367" />
+            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="305,275,0,0" Name="Btnloaddata" VerticalAlignment="Top" Width="100" Command="{Binding BtnLoadDataClick}"/>
+            <Button Content="Confirm" Height="25" HorizontalAlignment="Left" Margin="515,275,0,0" Name="BtnConfirm" VerticalAlignment="Top" Width="100" Command="{Binding BtnConfirmDataClick}"/>
+            <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="410,275,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="100" Command="{Binding BtnAddDataClick}"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -54,14 +54,13 @@ namespace WpfControlNugget.ViewModel
                            }));
             }
         }
-        public ICommand BtnAddDataClick
+        public ICommand BtnAddDataClick(string pod, string location, string hostname, int severity, string message)
         {
-            get
             {
                 return _btnAdddataClick ?? (_btnAdddataClick = new RelayCommand(
                            x =>
                            {
-                               BtnAdd_Click();
+                               BtnAdd_Click(pod, location, hostname, severity, message);
                            }));
             }
         }
@@ -102,9 +101,9 @@ namespace WpfControlNugget.ViewModel
                     }
                 }
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Check database login information");
             }
         }
         private void LoadData()
@@ -164,7 +163,7 @@ namespace WpfControlNugget.ViewModel
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void BtnAdd_Click()
+        private void BtnAdd_Click(string pod, string location, string hostname, int severity, string message)
         {
             try
             {
@@ -175,11 +174,30 @@ namespace WpfControlNugget.ViewModel
                         conn.Open();
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(new MySqlParameter("i_pod", conn));
-                        cmd.Parameters.Add(new MySqlParameter("i_location", conn));
-                        cmd.Parameters.Add(new MySqlParameter("i_hostname", conn));
-                        cmd.Parameters.Add(new MySqlParameter("i_severity", conn));
-                        cmd.Parameters.Add(new MySqlParameter("i_message", conn));
+                        MySqlParameter pramPod = new MySqlParameter("@i_pod", pod);
+                        pramPod.Direction = ParameterDirection.Input;
+                        cmd.Parameters.Add(pramPod);
+
+                        MySqlParameter pramLocation = new MySqlParameter("@i_location", location);
+                        pramLocation.Direction = ParameterDirection.Input;
+                        cmd.Parameters.Add(pramLocation);
+
+                        MySqlParameter pramHostname = new MySqlParameter("@i_hostname", hostname);
+                        pramHostname.Direction = ParameterDirection.Input;
+                        cmd.Parameters.Add(pramHostname);
+
+                        MySqlParameter pramSeverity = new MySqlParameter("@i_severity", severity);
+                        pramSeverity.Direction = ParameterDirection.Input;
+                        cmd.Parameters.Add(pramSeverity);
+                        MySqlParameter pramMessage = new MySqlParameter("@i_message", message);
+                        pramMessage.Direction = ParameterDirection.Input;
+                        cmd.Parameters.Add(pramMessage);
+
+                        //cmd.Parameters.Add("@i_pod");
+                        //cmd.Parameters.Add("@i_location");
+                        //cmd.Parameters.Add("@i_hostname");
+                        //cmd.Parameters.Add("@i_severity");
+                        //cmd.Parameters.Add("@i_message");
                         cmd.ExecuteNonQuery();
                     }
                     LoadData();
