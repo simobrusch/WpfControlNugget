@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Height="auto" Width="625" Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="16,15,0,0" Name="TextBlockHeading"
-Text="Customers" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
+Text="LogReader" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="310" VerticalAlignment="Top" Width="625">
             <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="14,55,0,46" Name="DataGridCustomers" Width="575" ItemsSource="{Binding Path=Logs}"
 CanUserResizeRows="False">

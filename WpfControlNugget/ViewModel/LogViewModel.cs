@@ -21,7 +21,7 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnLoadDataClick;
         private ICommand _btnConfirmdataClick;
         private ICommand _btnAdddataClick;
-        
+
 
         public LogViewModel()
         {
@@ -61,7 +61,7 @@ namespace WpfControlNugget.ViewModel
                 return _btnAdddataClick ?? (_btnAdddataClick = new RelayCommand(
                            x =>
                            {
-                               btnAdd_Click();
+                               BtnAdd_Click();
                            }));
             }
         }
@@ -117,7 +117,7 @@ namespace WpfControlNugget.ViewModel
                     conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries  WHERE `is_acknowledged`=false ORDER BY timestamp";
+                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries ORDER BY timestamp";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -134,7 +134,7 @@ namespace WpfControlNugget.ViewModel
                     }
                 }
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -142,21 +142,20 @@ namespace WpfControlNugget.ViewModel
         }
         private void BtnLogClear_Click()
         {
+            if (MySelectedItem == null) return;
             try
             {
                 using (var conn = new MySqlConnection(TxtConnectionString))
                 {
                     conn.Open();
-                    //foreach (DataGridRow row in MySelectedItem)
-                    //{
-                    //    using (var cmd = conn.CreateCommand())
-                    //    {
-                    //        cmd.CommandText = "LogClear";
-                    //        cmd.CommandType = CommandType.StoredProcedure;
-                    //        //cmd.Parameters.AddWithValue("@Id", Convert.ToInt32(row.IsSelected[0].Text));
-                    //        cmd.ExecuteNonQuery();
-                    //    }
-                    //}
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "LogClear";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_logentries_id", MySelectedItem.id);
+                        cmd.ExecuteNonQuery();
+                    }
+
                 }
                 LoadData();
             }
@@ -165,7 +164,7 @@ namespace WpfControlNugget.ViewModel
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void btnAdd_Click()
+        private void BtnAdd_Click()
         {
             try
             {
@@ -175,18 +174,14 @@ namespace WpfControlNugget.ViewModel
                     {
                         conn.Open();
                         cmd.CommandType = CommandType.StoredProcedure;
-                        using (MySqlDataAdapter adp = new MySqlDataAdapter(cmd))
-                        {
-                            DataSet ds = new DataSet();
-                            //dataGridCustomers.DataContext = ds;
-                            cmd.Parameters.Add(new MySqlParameter("i_pod", conn));
-                            cmd.Parameters.Add(new MySqlParameter("timestamp(now)", conn));
-                            cmd.Parameters.Add(new MySqlParameter("iSeverity", conn));
-                            cmd.Parameters.Add(new MySqlParameter("iMessage", conn));
-                            
-                            adp.Fill(ds, "LoadDataBinding");
-                        }
+
+                        cmd.Parameters.Add(new MySqlParameter("i_pod", conn));
+                        cmd.Parameters.Add(new MySqlParameter("i_hostname", conn));
+                        cmd.Parameters.Add(new MySqlParameter("i_severity", conn));
+                        cmd.Parameters.Add(new MySqlParameter("i_message", conn));
+                        cmd.ExecuteNonQuery();
                     }
+                    LoadData();
                 }
             }
             catch (MySqlException ex)
