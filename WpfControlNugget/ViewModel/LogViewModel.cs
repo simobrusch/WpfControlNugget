@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,7 +21,7 @@ namespace WpfControlNugget.ViewModel
         private string _txtConnectionString;
         private string _enterPod;
         private string _enterHostname;
-        private string _enterSeverity;
+        private int _enterSeverity;
         private string _enterMessage;
 
         private ICommand _btnLoadDataClick;
@@ -28,25 +29,29 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnAdddataClick;
 
         public ObservableCollection<LogModel> Logs { get; set; }
-        public ObservableCollection<ComboBoxItems> SeverityComboBox { get; set; }
+        public ObservableCollection<SeverityComboBoxItem> SeverityComboBox { get; set; }
 
         public LogViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             EnterPod = "pod";
             EnterHostname = "hostname";
-            EnterSeverity = "severity";
+            
             EnterMessage = "message";
+             
 
             Logs = new ObservableCollection<LogModel>();
-            SeverityComboBox = new ObservableCollection<ComboBoxItems>(){
-                new ComboBoxItems(){Id=1, Severity= 1},
-                new ComboBoxItems(){Id=2, Severity= 2},
-                new ComboBoxItems(){Id=3, Severity= 3}
+            SeverityComboBox = new ObservableCollection<SeverityComboBoxItem>(){
+                new SeverityComboBoxItem(){Id=1, Severity= 1},
+                new SeverityComboBoxItem(){Id=2, Severity= 2},
+                new SeverityComboBoxItem(){Id=3, Severity= 3}
             };
         }
         public LogModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public SeverityComboBoxItem SetSeverity { get; set; }
+    
 
         public string TxtConnectionString
         {
@@ -75,7 +80,7 @@ namespace WpfControlNugget.ViewModel
                 OnPropertyChanged(nameof(EnterHostname));
             }
         }
-        public string EnterSeverity
+        public int EnterSeverity
         {
             get => _enterSeverity;
             set
@@ -105,13 +110,14 @@ namespace WpfControlNugget.ViewModel
                            }));
             }
         }
-        public ICommand BtnAddDataClick(string pod, string location, string hostname, int severity, string message)
+        public ICommand BtnAddDataClick
         {
+            get
             {
                 return _btnAdddataClick ?? (_btnAdddataClick = new RelayCommand(
                            x =>
                            {
-                               BtnAdd_Click(pod, location, hostname, severity, message);
+                               BtnAdd_Click();
                            }));
             }
         }
@@ -165,7 +171,7 @@ namespace WpfControlNugget.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Check database login information: " + ex.Message);
+                MessageBox.Show("Error occurred: " + ex.Message);
             }
 
         }
@@ -193,7 +199,7 @@ namespace WpfControlNugget.ViewModel
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void BtnAdd_Click(string pod, string location, string hostname, int severity, string message)
+        private void BtnAdd_Click()
         {
             try
             {
@@ -204,30 +210,11 @@ namespace WpfControlNugget.ViewModel
                         conn.Open();
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        MySqlParameter pramPod = new MySqlParameter("@i_pod", pod);
-                        pramPod.Direction = ParameterDirection.Input;
-                        cmd.Parameters.Add(pramPod);
+                        cmd.Parameters.Add("@i_pod", MySqlDbType.String).Value = EnterPod;
+                        cmd.Parameters.Add("@i_hostname", MySqlDbType.String).Value = EnterHostname;
+                        cmd.Parameters.Add("@i_severity", MySqlDbType.Int32).Value = EnterSeverity;
+                        cmd.Parameters.Add("@i_message", MySqlDbType.String).Value = EnterMessage;
 
-                        MySqlParameter pramLocation = new MySqlParameter("@i_location", location);
-                        pramLocation.Direction = ParameterDirection.Input;
-                        cmd.Parameters.Add(pramLocation);
-
-                        MySqlParameter pramHostname = new MySqlParameter("@i_hostname", hostname);
-                        pramHostname.Direction = ParameterDirection.Input;
-                        cmd.Parameters.Add(pramHostname);
-
-                        MySqlParameter pramSeverity = new MySqlParameter("@i_severity", severity);
-                        pramSeverity.Direction = ParameterDirection.Input;
-                        cmd.Parameters.Add(pramSeverity);
-                        MySqlParameter pramMessage = new MySqlParameter("@i_message", message);
-                        pramMessage.Direction = ParameterDirection.Input;
-                        cmd.Parameters.Add(pramMessage);
-
-                        //cmd.Parameters.Add("@i_pod");
-                        //cmd.Parameters.Add("@i_location");
-                        //cmd.Parameters.Add("@i_hostname");
-                        //cmd.Parameters.Add("@i_severity");
-                        //cmd.Parameters.Add("@i_message");
                         cmd.ExecuteNonQuery();
                     }
                     LoadData();

@@ -72,7 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\ComboBoxItems.cs" />
+    <Compile Include="Model\SeverityComboBoxItem.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
     <Compile Include="Views\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
