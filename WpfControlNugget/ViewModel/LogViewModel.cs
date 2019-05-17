@@ -36,9 +36,7 @@ namespace WpfControlNugget.ViewModel
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             EnterPod = "pod";
             EnterHostname = "hostname";
-            
             EnterMessage = "message";
-             
 
             Logs = new ObservableCollection<LogModel>();
             SeverityComboBox = new ObservableCollection<SeverityComboBoxItem>(){
@@ -49,9 +47,7 @@ namespace WpfControlNugget.ViewModel
         }
         public LogModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
-
         public SeverityComboBoxItem SetSeverity { get; set; }
-    
 
         public string TxtConnectionString
         {
@@ -220,9 +216,9 @@ namespace WpfControlNugget.ViewModel
                     LoadData();
                 }
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Error occurred: " + ex.Message);
             }
         }
         private void OnPropertyChanged(string propertyName)
