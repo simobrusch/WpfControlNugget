@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfControlNugget.Views"
+             xmlns:validators="clr-namespace:WpfControlNugget.Validators"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
     <Grid Height="auto"  Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading"
 Text="LogReader" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
@@ -24,19 +27,60 @@ CanUserResizeRows="False">
             </DataGrid>
             <Label Content="Database Connection" HorizontalAlignment="Left" Margin="118,22,0,0" VerticalAlignment="Top" Height="23" Width="125" Background="{x:Null}" RenderTransformOrigin="0.366,0.725"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="248,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="TxtConnectionString"  VerticalAlignment="Top" Width="542" />
-            <Button Content="Load Data" Height="70" HorizontalAlignment="Left" Margin="645,370,0,0" Name="Btnloaddata" VerticalAlignment="Top" Width="70" Command="{Binding BtnLoadDataClick}"/>
+            <Button Content="Load Data" Height="70" HorizontalAlignment="Left" Margin="645,370,0,0" Name="Btnloaddata" VerticalAlignment="Top" Width="70" Command="{Binding BtnLoadDataClick}" />
             <Button Content="Confirm" Height="70" HorizontalAlignment="Left" Margin="720,370,0,0" Name="BtnConfirm" VerticalAlignment="Top" Width="70" Command="{Binding BtnConfirmDataClick}"/>
             <Button Content="Add" Height="70" HorizontalAlignment="Left" Margin="570,370,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="70" Command="{Binding BtnAddDataClick}"/>
 
-            <TextBox HorizontalAlignment="Left" Height="70" Margin="10,370,0,0" TextWrapping="Wrap" Text="{Binding EnterPod}" Name="EnterPod" VerticalAlignment="Top" Width="110"/>
-            <TextBox HorizontalAlignment="Left" Height="70" Margin="125,370,0,0" TextWrapping="Wrap" Text="{Binding EnterHostname}" Name="EnterHostname" VerticalAlignment="Top" Width="110"/>
-            <TextBox HorizontalAlignment="Left" Height="70" Margin="240,370,0,0" TextWrapping="Wrap" Text="{Binding EnterSeverity}" Name="EnterSeverity" VerticalAlignment="Top" Width="110"/>
+            <TextBox HorizontalAlignment="Left" Height="70" Margin="10,370,0,0" TextWrapping="Wrap" Name="EnterPod" VerticalAlignment="Top" Width="110">
+                <TextBox.Text>
+                    <Binding Path="EnterPod" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validators:StringRangeValidationRule
+                                ErrorMessage="Pod must contain atleast atleast 3 characters up to 255" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBox HorizontalAlignment="Left" Height="70" Margin="125,370,0,0" TextWrapping="Wrap" Name="EnterHostname" VerticalAlignment="Top" Width="110">
+                <TextBox.Text>
+                    <Binding Path="EnterHostname" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validators:StringRangeValidationRule
+                                ErrorMessage="Hostname must contain atleast atleast 3 characters up to 255" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBox HorizontalAlignment="Left" Height="70" Margin="240,370,0,0" TextWrapping="Wrap" Name="EnterSeverity" VerticalAlignment="Top" Width="110" >
+                <TextBox.Text>
+                    <Binding Path="EnterSeverity" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validators:IntRangeValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
             <!--<ComboBox x:Name="SeverityCombobox" DisplayMemberPath="Severity" SelectedValuePath="id" ItemsSource="{Binding SeverityComboBox}" SelectedValue="{Binding Path=Severity , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="240,359,470,66" Width="90" Height="25"/>-->
-            <TextBox HorizontalAlignment="Left" Height="70" Margin="355,370,0,0" TextWrapping="Wrap" Text="{Binding EnterMessage}" Name="EnterMessage" VerticalAlignment="Top" Width="110"/>
+
+            <TextBox HorizontalAlignment="Left" Height="70" Margin="355,370,0,0" TextWrapping="Wrap" Name="EnterMessage" VerticalAlignment="Top" Width="110">
+                <TextBox.Text>
+                    <Binding Path="EnterMessage" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validators:StringRangeValidationRule
+                                ErrorMessage="Message must contain atleast 3 characters up to 255" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
             <Label Content="Enter Pod" HorizontalAlignment="Left" Margin="10,339,0,0" VerticalAlignment="Top" Width="110"/>
-            <Label Content="Enter Hostname" HorizontalAlignment="Left" Margin="355,339,0,0" VerticalAlignment="Top" Width="110"/>
+            <Label Content="Enter Hostname" HorizontalAlignment="Left" Margin="125,339,0,0" VerticalAlignment="Top" Width="110"/>
             <Label Content="Enter Severity" HorizontalAlignment="Left" Margin="240,339,0,0" VerticalAlignment="Top" Width="110"/>
-            <Label Content="Enter Message" HorizontalAlignment="Left" Margin="125,339,0,0" VerticalAlignment="Top" Width="110"/>
+            <Label Content="Enter Message" HorizontalAlignment="Left" Margin="355,339,0,0" VerticalAlignment="Top" Width="110"/>
+
         </Grid>
     </Grid>
 </UserControl>

@@ -34,9 +34,7 @@ namespace WpfControlNugget.ViewModel
         public LogViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
-            EnterPod = "pod";
-            EnterHostname = "hostname";
-            EnterMessage = "message";
+            _enterSeverity = 1;
 
             Logs = new ObservableCollection<LogModel>();
             SeverityComboBox = new ObservableCollection<SeverityComboBoxItem>(){
