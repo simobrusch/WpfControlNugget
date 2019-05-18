@@ -58,11 +58,7 @@ namespace WpfControlNugget.ViewModel
         }
         public string EnterPod
         {
-            get
-            {
-                
-                return _enterPod;
-            }
+            get => _enterPod;
             set
             {
                 _enterPod = value;
@@ -189,7 +185,6 @@ namespace WpfControlNugget.ViewModel
                         cmd.Parameters.AddWithValue("_logentries_id", MySelectedItem.id);
                         cmd.ExecuteNonQuery();
                     }
-
                 }
                 LoadData();
             }

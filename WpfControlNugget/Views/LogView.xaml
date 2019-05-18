@@ -55,7 +55,7 @@ CanUserResizeRows="False">
                     <Binding Path="EnterPod" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:StringRangeValidationRule
-                                ErrorMessage="Pod must contain atleast atleast 3 characters up to 255" />
+                                ErrorMessage="Pod must contain atleast 3 characters up to 255" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -65,7 +65,7 @@ CanUserResizeRows="False">
                     <Binding Path="EnterHostname" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:StringRangeValidationRule
-                                ErrorMessage="Hostname must contain atleast atleast 3 characters up to 255" />
+                                ErrorMessage="Hostname must contain atleast 3 characters up to 255" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
