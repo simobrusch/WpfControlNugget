@@ -58,13 +58,18 @@ namespace WpfControlNugget.ViewModel
         }
         public string EnterPod
         {
-            get => _enterPod;
+            get
+            {
+                
+                return _enterPod;
+            }
             set
             {
                 _enterPod = value;
                 OnPropertyChanged(nameof(EnterPod));
             }
         }
+
         public string EnterHostname
         {
             get => _enterHostname;
