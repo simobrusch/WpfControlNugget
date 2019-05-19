@@ -27,6 +27,7 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnLoadDataClick;
         private ICommand _btnConfirmdataClick;
         private ICommand _btnAdddataClick;
+        private ICommand _btnFindDuplicatesClick;
 
         public ObservableCollection<LogModel> Logs { get; set; }
         public ObservableCollection<SeverityComboBoxItem> SeverityComboBox { get; set; }
@@ -93,7 +94,17 @@ namespace WpfControlNugget.ViewModel
                 OnPropertyChanged(nameof(EnterMessage));
             }
         }
-
+        public ICommand BtnFindDuplicatesClick
+        {
+            get
+            {
+                return _btnFindDuplicatesClick ?? (_btnFindDuplicatesClick = new RelayCommand(
+                           x =>
+                           {
+                               BtnAdd_Click();
+                           }));
+            }
+        }
         public ICommand BtnLoadDataClick
         {
             get

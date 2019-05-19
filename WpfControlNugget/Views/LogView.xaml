@@ -29,9 +29,10 @@ CanUserResizeRows="False">
             <Label Content="Database Connection" HorizontalAlignment="Left" Margin="118,22,0,0" VerticalAlignment="Top" Height="23" Width="125" Background="{x:Null}" RenderTransformOrigin="0.366,0.725"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="248,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="TxtConnectionString"  VerticalAlignment="Top" Width="525" />
 
-            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="628,355,0,0" Name="Btnloaddata" VerticalAlignment="Top" Width="70" Command="{Binding BtnLoadDataClick}" />
-            <Button Content="Confirm" Height="25" HorizontalAlignment="Left" Margin="703,355,0,0" Name="BtnConfirm" VerticalAlignment="Top" Width="70" Command="{Binding BtnConfirmDataClick}"/>
-            <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="553,355,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="70" Command="{Binding BtnAddDataClick}">
+            <Button Content="Find Duplicates" Height="25" HorizontalAlignment="Left" Margin="418,355,0,0" Name="BtnFindDuplicates" VerticalAlignment="Top" Width="85" Command="{Binding BtnFindDuplicatesClick}" />
+            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="598,355,0,0" Name="Btnloaddata" VerticalAlignment="Top" Width="85" Command="{Binding BtnLoadDataClick}" />
+            <Button Content="Confirm" Height="25" HorizontalAlignment="Left" Margin="688,355,0,0" Name="BtnConfirm" VerticalAlignment="Top" Width="85" Command="{Binding BtnConfirmDataClick}"/>
+            <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="508,355,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="85" Command="{Binding BtnAddDataClick}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Triggers>
@@ -51,7 +52,7 @@ CanUserResizeRows="False">
                     </Style>
                 </Button.Style>
             </Button>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,355,0,0" TextWrapping="Wrap" Name="EnterPod" VerticalAlignment="Top" Width="110">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,355,0,0" TextWrapping="Wrap" Name="EnterPod" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
                     <Binding Path="EnterPod" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -61,7 +62,7 @@ CanUserResizeRows="False">
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="125,355,0,0" TextWrapping="Wrap" Name="EnterHostname" VerticalAlignment="Top" Width="110">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="110,355,0,0" TextWrapping="Wrap" Name="EnterHostname" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
                     <Binding Path="EnterHostname" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -71,7 +72,7 @@ CanUserResizeRows="False">
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="240,355,0,0" TextWrapping="Wrap" Name="EnterSeverity" VerticalAlignment="Top" Width="110" >
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="210,355,0,0" TextWrapping="Wrap" Name="EnterSeverity" VerticalAlignment="Top" Width="95" >
                 <TextBox.Text>
                     <Binding Path="EnterSeverity" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -81,7 +82,7 @@ CanUserResizeRows="False">
                 </TextBox.Text>
             </TextBox>
             <!--<ComboBox x:Name="SeverityCombobox" DisplayMemberPath="Severity" SelectedValuePath="id" ItemsSource="{Binding SeverityComboBox}" SelectedValue="{Binding Path=Severity , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="240,359,470,66" Width="90" Height="25"/>-->
-            <TextBox HorizontalAlignment="Left" Height="50" Margin="355,355,0,0" TextWrapping="Wrap" Name="EnterMessage" VerticalAlignment="Top" Width="110">
+            <TextBox HorizontalAlignment="Left" Height="50" Margin="310,355,0,0" TextWrapping="Wrap" Name="EnterMessage" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
                     <Binding Path="EnterMessage" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -92,9 +93,9 @@ CanUserResizeRows="False">
                 </TextBox.Text>
             </TextBox>
             <Label Content="Enter Pod" HorizontalAlignment="Left" Margin="10,324,0,0" VerticalAlignment="Top" Width="110"/>
-            <Label Content="Enter Hostname" HorizontalAlignment="Left" Margin="125,324,0,0" VerticalAlignment="Top" Width="110"/>
-            <Label Content="Enter Severity" HorizontalAlignment="Left" Margin="240,324,0,0" VerticalAlignment="Top" Width="110"/>
-            <Label Content="Enter Message" HorizontalAlignment="Left" Margin="355,324,0,0" VerticalAlignment="Top" Width="110"/>
+            <Label Content="Enter Hostname" HorizontalAlignment="Left" Margin="110,324,0,0" VerticalAlignment="Top" Width="110"/>
+            <Label Content="Enter Severity" HorizontalAlignment="Left" Margin="210,324,0,0" VerticalAlignment="Top" Width="110"/>
+            <Label Content="Enter Message" HorizontalAlignment="Left" Margin="310,324,0,0" VerticalAlignment="Top" Width="110"/>
         </Grid>
     </Grid>
 
