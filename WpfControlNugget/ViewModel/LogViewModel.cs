@@ -33,7 +33,7 @@ namespace WpfControlNugget.ViewModel
 
         public ObservableCollection<LogModel> Logs
         {
-            get { return _logs; }
+            get => _logs;
             set
             {
                 _logs = value;
@@ -155,7 +155,7 @@ namespace WpfControlNugget.ViewModel
 
         public ObservableCollection<LogModel> BtnFindDuplicates_Click()
         {
-            //LoadData();
+            LoadData();
 
             var dupList = _dupChecker.FindDuplicates(Logs);
             Logs = new ObservableCollection<LogModel>(dupList.Cast<LogModel>());
@@ -187,13 +187,14 @@ namespace WpfControlNugget.ViewModel
                         while (reader.Read())
                         {
                             Logs.Add(new LogModel(
+
                                 reader.GetInt32("id"),
-                                reader.GetString("pod"),
-                                reader.GetString("location"),
-                                reader.GetString("hostname"),
-                                reader.GetString("severity"),
+                                reader.GetValue(reader.GetOrdinal("pod")) as string,
+                                reader.GetValue(reader.GetOrdinal("location")) as string,
+                                reader.GetValue(reader.GetOrdinal("hostname")) as string,
+                                reader.GetValue(reader.GetOrdinal("severity")) as string,
                                 reader.GetDateTime("timestamp"),
-                                reader.GetString("message")
+                                reader.GetValue(reader.GetOrdinal("message")) as string
                             ));
                         }
                     }
