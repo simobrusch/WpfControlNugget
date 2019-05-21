@@ -24,7 +24,7 @@ namespace WpfControlNugget.ViewModel
         private string _enterHostname;
         private int _enterSeverity;
         private string _enterMessage;
-        private DuplicateChecker _dupChecker;
+        private readonly DuplicateChecker _dupChecker;
 
         private ICommand _btnLoadDataClick;
         private ICommand _btnConfirmdataClick;
@@ -40,13 +40,11 @@ namespace WpfControlNugget.ViewModel
                 OnPropertyChanged("Logs");
             }
         }
-
         private ObservableCollection<LogModel> _logs;
         public ObservableCollection<SeverityComboBoxItem> SeverityComboBox { get; set; }
 
         public LogViewModel()
         {
-
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             _enterSeverity = 1;
 
@@ -80,7 +78,6 @@ namespace WpfControlNugget.ViewModel
                 OnPropertyChanged(nameof(EnterPod));
             }
         }
-
         public string EnterHostname
         {
             get => _enterHostname;
