@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DuplicateCheckerLib;
 using MySql.Data.MySqlClient;
 using WpfControlNugget.Model;
 using WpfControlNugget.ViewModel.Commands;
@@ -23,6 +24,7 @@ namespace WpfControlNugget.ViewModel
         private string _enterHostname;
         private int _enterSeverity;
         private string _enterMessage;
+        private DuplicateChecker _dupChecker;
 
         private ICommand _btnLoadDataClick;
         private ICommand _btnConfirmdataClick;
@@ -34,6 +36,7 @@ namespace WpfControlNugget.ViewModel
 
         public LogViewModel()
         {
+            
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             _enterSeverity = 1;
 
@@ -43,6 +46,7 @@ namespace WpfControlNugget.ViewModel
                 new SeverityComboBoxItem(){Id=2, Severity= 2},
                 new SeverityComboBoxItem(){Id=3, Severity= 3}
             };
+            _dupChecker = new DuplicateChecker();
         }
         public LogModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -141,11 +145,12 @@ namespace WpfControlNugget.ViewModel
 
         public void BtnFindDuplicates()
         {
+
             //var list = new List<IEntity> {
-                
+
             //};
-            //var dupChecker = new DuplicateChecker.DuplicateChecker();
-            //var dupList = dupChecker.FindDuplicates(list);
+            
+            var dupList = _dupChecker.FindDuplicates(list);
         }
         public void BtnLoadData_Click()
         {

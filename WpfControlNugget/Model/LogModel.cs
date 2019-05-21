@@ -28,5 +28,12 @@ namespace WpfControlNugget.Model
             this.timestamp = timestamp;
             this.message = message;
         }
+        public bool Equals(LogModel secondLogModel)
+        {
+            if (Object.ReferenceEquals(null, secondLogModel)) return false;
+            if (Object.ReferenceEquals(this, secondLogModel)) return true;
+
+            return String.Equals(severity, secondLogModel.severity) && String.Equals(message, secondLogModel.message);
+        }
     }
 }
