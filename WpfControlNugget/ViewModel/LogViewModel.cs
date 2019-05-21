@@ -13,7 +13,6 @@ using System.Windows.Input;
 using MySql.Data.MySqlClient;
 using WpfControlNugget.Model;
 using WpfControlNugget.ViewModel.Commands;
-using WpfControlNugget.ViewModel.DuplicateChecker;
 
 namespace WpfControlNugget.ViewModel
 {
@@ -142,11 +141,11 @@ namespace WpfControlNugget.ViewModel
 
         public void BtnFindDuplicates()
         {
-            var list = new List<IEntity> {
+            //var list = new List<IEntity> {
                 
-            };
-            var dupChecker = new DuplicateChecker.DuplicateChecker();
-            var dupList = dupChecker.FindDuplicates(list);
+            //};
+            //var dupChecker = new DuplicateChecker.DuplicateChecker();
+            //var dupList = dupChecker.FindDuplicates(list);
         }
         public void BtnLoadData_Click()
         {
