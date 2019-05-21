@@ -31,12 +31,22 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnAdddataClick;
         private ICommand _btnFindDuplicatesClick;
 
-        public ObservableCollection<LogModel> Logs { get; set; }
+        public ObservableCollection<LogModel> Logs
+        {
+            get { return _logs; }
+            set
+            {
+                _logs = value;
+                OnPropertyChanged("Logs");
+            }
+        }
+
+        private ObservableCollection<LogModel> _logs;
         public ObservableCollection<SeverityComboBoxItem> SeverityComboBox { get; set; }
 
         public LogViewModel()
         {
-            
+
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             _enterSeverity = 1;
 
@@ -105,7 +115,7 @@ namespace WpfControlNugget.ViewModel
                 return _btnFindDuplicatesClick ?? (_btnFindDuplicatesClick = new RelayCommand(
                            x =>
                            {
-                               BtnAdd_Click();
+                               BtnFindDuplicates_Click();
                            }));
             }
         }
@@ -143,14 +153,14 @@ namespace WpfControlNugget.ViewModel
             }
         }
 
-        public void BtnFindDuplicates()
+        public ObservableCollection<LogModel> BtnFindDuplicates_Click()
         {
+            //LoadData();
 
-            //var list = new List<IEntity> {
+            var dupList = _dupChecker.FindDuplicates(Logs);
+            Logs = new ObservableCollection<LogModel>(dupList.Cast<LogModel>());
 
-            //};
-            
-            var dupList = _dupChecker.FindDuplicates(list);
+            return Logs;
         }
         public void BtnLoadData_Click()
         {
