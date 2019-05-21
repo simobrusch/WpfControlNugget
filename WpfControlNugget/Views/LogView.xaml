@@ -13,13 +13,13 @@
         <Grid HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="773">
             <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,97" Name="DataGridCustomers" Width="780" ItemsSource="{Binding Path=Logs}" CanUserResizeRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=id}" Header="id" Width="70" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=pod}" Header="pod" Width="70" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=location}" Header="location" Width="111" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=hostname}" Header="hostname" Width="111" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=severity}" Header="severity" Width="70" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=timestamp}" Header="timestamp" Width="130" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=message}" Header="message" Width="215" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="70" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Pod}" Header="pod" Width="70" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Location}" Header="location" Width="111" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Hostname}" Header="hostname" Width="111" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Severity}" Header="severity" Width="70" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Timestamp}" Header="timestamp" Width="130" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Message}" Header="message" Width="215" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
 

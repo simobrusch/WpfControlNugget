@@ -11,30 +11,30 @@ namespace WpfControlNugget.Model
 {
     public class LogModel :IEntity
     {
-        public int id { get; set; }
-        public string pod { get; set; }
-        public string location { get; set; }
-        public string hostname { get; set; }
-        public string severity { get; set; }
-        public DateTime timestamp { get; set; }
-        public string message { get; set; }
+        public int Id { get; set; }
+        public string Pod { get; set; }
+        public string Location { get; set; }
+        public string Hostname { get; set; }
+        public string Severity { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string Message { get; set; }
 
         public LogModel(int id, string pod, string location, string hostname, string severity, DateTime timestamp, string message)
         {
-            this.id = id;
-            this.pod = pod;
-            this.location = location;
-            this.hostname = hostname;
-            this.severity = severity;
-            this.timestamp = timestamp;
-            this.message = message;
+            this.Id = id;
+            this.Pod = pod;
+            this.Location = location;
+            this.Hostname = hostname;
+            this.Severity = severity;
+            this.Timestamp = timestamp;
+            this.Message = message;
         }
         public bool Equals(LogModel secondLogModel)
         {
             if (Object.ReferenceEquals(null, secondLogModel)) return false;
             if (Object.ReferenceEquals(this, secondLogModel)) return true;
 
-            return String.Equals(severity, secondLogModel.severity) && String.Equals(message, secondLogModel.message);
+            return String.Equals(Severity, secondLogModel.Severity) && String.Equals(Message, secondLogModel.Message);
         }
         public override bool Equals(object value)
         {
@@ -49,8 +49,8 @@ namespace WpfControlNugget.Model
                 const int HashingMultiplier = 16777619;
 
                 int hash = HashingBase;
-                hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, message) ? message.GetHashCode() : 0);
-                hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, severity) ? severity.GetHashCode() : 0);
+                hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Message) ? Message.GetHashCode() : 0);
+                hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Severity) ? Severity.GetHashCode() : 0);
                 return hash;
             }
         }

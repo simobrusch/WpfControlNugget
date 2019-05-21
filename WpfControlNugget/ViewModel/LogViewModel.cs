@@ -192,7 +192,7 @@ namespace WpfControlNugget.ViewModel
                                 reader.GetValue(reader.GetOrdinal("pod")) as string,
                                 reader.GetValue(reader.GetOrdinal("location")) as string,
                                 reader.GetValue(reader.GetOrdinal("hostname")) as string,
-                                reader.GetValue(reader.GetOrdinal("severity")) as string,
+                                reader.GetString("severity"),
                                 reader.GetDateTime("timestamp"),
                                 reader.GetValue(reader.GetOrdinal("message")) as string
                             ));
@@ -218,7 +218,7 @@ namespace WpfControlNugget.ViewModel
                     {
                         cmd.CommandText = "LogClear";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_logentries_id", MySelectedItem.id);
+                        cmd.Parameters.AddWithValue("_logentries_id", MySelectedItem.Id);
                         cmd.ExecuteNonQuery();
                     }
                 }
