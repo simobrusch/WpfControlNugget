@@ -9,7 +9,7 @@ using DuplicateCheckerLib;
 
 namespace WpfControlNugget.Model
 {
-    public class LogModel :IEntity
+    public /*abstract*/ class LogModel :IEntity
     {
         public int Id { get; set; }
         public string Pod { get; set; }
@@ -45,12 +45,12 @@ namespace WpfControlNugget.Model
             unchecked
             {
                 // Choose large primes to avoid hashing collisions
-                const int HashingBase = (int)2166136261;
-                const int HashingMultiplier = 16777619;
+                const int hashingBase = (int)2166136261;
+                const int hashingMultiplier = 16777619;
 
-                int hash = HashingBase;
-                hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Message) ? Message.GetHashCode() : 0);
-                hash = (hash * HashingMultiplier) ^ (!Object.ReferenceEquals(null, Severity) ? Severity.GetHashCode() : 0);
+                int hash = hashingBase;
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, Message) ? Message.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, Severity) ? Severity.GetHashCode() : 0);
                 return hash;
             }
         }
