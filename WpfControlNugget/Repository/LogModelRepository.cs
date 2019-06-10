@@ -7,40 +7,42 @@ using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    public class LocationRepository : RepositoryBase<Location>
+    class LogModelRepository : RepositoryBase<LogModel>
     {
-        public override string TableName => "Location";
-        public LocationRepository(string connectionString) : base(connectionString)
+        public LogModelRepository(string connectionString) : base(connectionString)
         {
         }
-        public override void Add(Location entity)
+
+        public override LogModel GetSingle<P>(P pkValue)
         {
             throw new NotImplementedException();
         }
 
-        public override void Delete(Location entity)
+        public override void Add(LogModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public override List<Location> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
+        public override void Delete(LogModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public override List<Location> GetAll()
+        public override void Update(LogModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public override Location GetSingle<P>(P pkValue)
+        public override List<LogModel> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(Location entity)
+        public override List<LogModel> GetAll()
         {
             throw new NotImplementedException();
         }
+
+        public override string TableName { get; }
     }
 }

@@ -80,6 +80,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\Location.cs" />
     <Compile Include="Model\Logging.cs" />
+    <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Model\SeverityComboBoxItem.cs" />
     <Compile Include="Repository\IRepositoryBase.cs" />
     <Compile Include="Repository\LocationRepository.cs" />

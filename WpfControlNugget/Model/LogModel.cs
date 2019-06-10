@@ -9,7 +9,7 @@ using DuplicateCheckerLib;
 
 namespace WpfControlNugget.Model
 {
-    public /*abstract*/ class LogModel :IEntity
+    public class LogModel :IEntity
     {
         public int Id { get; set; }
         public string Pod { get; set; }
