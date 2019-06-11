@@ -52,21 +52,21 @@ namespace WpfControlNugget.Repository
             }
             return _Logs;
         }
-        
+
 
         public override void Add(LogModel entity)
         {
-            throw new NotImplementedException();
+            throw new System.NotSupportedException();
         }
 
         public override void Delete(LogModel entity)
         {
-            throw new NotImplementedException();
+            throw new System.NotSupportedException();
         }
 
         public override void Update(LogModel entity)
         {
-            throw new NotImplementedException();
+            throw new System.NotSupportedException();
         }
 
         public override List<LogModel> GetAll(string whereCondition, Dictionary<string, object> parameterValues)

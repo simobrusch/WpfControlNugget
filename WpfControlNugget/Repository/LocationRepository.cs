@@ -18,14 +18,42 @@ namespace WpfControlNugget.Repository
         public LocationRepository(string connectionString) : base(connectionString)
         {
         }
-        public override void Add(Location entity)
+        public override void Add(Location location)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand("DELETE FROM " + TableName + "WHERE location_id =" + location.Id, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
+            }
         }
 
-        public override void Delete(Location entity)
+        public override void Delete(Location location)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand("INSERT INTO " + TableName + "(parent_location , address_fk , designation , building , room) VALUES" + "("+ location.ParentId + "," + location.AddressId + "," + location.Designation + "," + location.BuildingNr + "," + location.RoomNr + ")", conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
+            }
         }
 
         public override List<Location> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
@@ -132,9 +160,23 @@ namespace WpfControlNugget.Repository
             return _Locations;
         }
 
-        public override void Update(Location entity)
+        public override void Update(Location location)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand("UPDATE " + TableName + "SET parent_location = " + location.ParentId + ", adress_fk = " + location.AddressId + ", designation = " + location.Designation + ", building = " + location.BuildingNr + ", room = " + location.RoomNr + "WHERE location_id = " + location.Id , conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
+            }
         }
     }
 }
