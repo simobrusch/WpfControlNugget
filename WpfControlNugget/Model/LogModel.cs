@@ -19,6 +19,10 @@ namespace WpfControlNugget.Model
         public DateTime Timestamp { get; set; }
         public string Message { get; set; }
 
+        public LogModel()
+        {
+
+        }
         public LogModel(int id, string pod, string location, string hostname, string severity, DateTime timestamp, string message)
         {
             this.Id = id;
