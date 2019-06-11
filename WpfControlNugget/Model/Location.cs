@@ -15,6 +15,10 @@ namespace WpfControlNugget.Model
         public int BuildingNr { get; set; }
         public int RoomNr { get; set; }
 
+        public Location()
+        {
+
+        }
         public Location(int id, int parentId, int addressId, string designation, int buildingNr, int roomNr)
         {
             this.Id = id;
