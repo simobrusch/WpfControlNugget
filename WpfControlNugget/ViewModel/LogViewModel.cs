@@ -13,6 +13,7 @@ using System.Windows.Input;
 using DuplicateCheckerLib;
 using MySql.Data.MySqlClient;
 using WpfControlNugget.Model;
+using WpfControlNugget.Repository;
 using WpfControlNugget.ViewModel.Commands;
 
 namespace WpfControlNugget.ViewModel
@@ -31,7 +32,7 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnAdddataClick;
         private ICommand _btnFindDuplicatesClick;
 
-        public ObservableCollection<LogModel> Logs
+        public List<LogModel> Logs
         {
             get => _logs;
             set
@@ -40,7 +41,8 @@ namespace WpfControlNugget.ViewModel
                 OnPropertyChanged("Logs");
             }
         }
-        private ObservableCollection<LogModel> _logs;
+        private List<LogModel> _logs;
+        public LogModel NewLogModelEntry { get; set; }
         public ObservableCollection<SeverityComboBoxItem> SeverityComboBox { get; set; }
 
         public LogViewModel()
@@ -48,7 +50,7 @@ namespace WpfControlNugget.ViewModel
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             _enterSeverity = 1;
 
-            Logs = new ObservableCollection<LogModel>();
+            Logs = new List<LogModel>();
             SeverityComboBox = new ObservableCollection<SeverityComboBoxItem>(){
                 new SeverityComboBoxItem(){Id=1, Severity= 1},
                 new SeverityComboBoxItem(){Id=2, Severity= 2},
@@ -150,12 +152,12 @@ namespace WpfControlNugget.ViewModel
             }
         }
 
-        public ObservableCollection<LogModel> BtnFindDuplicates_Click()
+        public List<LogModel> BtnFindDuplicates_Click()
         {
-            LoadData();
-
+            var logModelRepository = new LogModelRepository(TxtConnectionString);
+            this.Logs = logModelRepository.GetAll();
             var dupList = _dupChecker.FindDuplicates(Logs);
-            Logs = new ObservableCollection<LogModel>(dupList.Cast<LogModel>());
+            Logs = new List<LogModel>(dupList.Cast<LogModel>());
 
             return Logs;
         }
@@ -174,28 +176,8 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                Logs.Clear();
-                using (var conn = new MySqlConnection(TxtConnectionString))
-                {
-                    conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries ORDER BY timestamp", conn))
-                    {
-                        var reader = cmd.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            Logs.Add(new LogModel(
-
-                                reader.GetInt32("id"),
-                                reader.GetValue(reader.GetOrdinal("pod")) as string,
-                                reader.GetValue(reader.GetOrdinal("location")) as string,
-                                reader.GetValue(reader.GetOrdinal("hostname")) as string,
-                                reader.GetString("severity"),
-                                reader.GetDateTime("timestamp"),
-                                reader.GetValue(reader.GetOrdinal("message")) as string
-                            ));
-                        }
-                    }
-                }
+                var logModelRepository = new LogModelRepository(TxtConnectionString);
+                this.Logs = logModelRepository.GetAll();
             }
             catch (Exception ex)
             {
@@ -208,18 +190,9 @@ namespace WpfControlNugget.ViewModel
             if (MySelectedItem == null) return;
             try
             {
-                using (var conn = new MySqlConnection(TxtConnectionString))
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = "LogClear";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("_logentries_id", MySelectedItem.Id);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                LoadData();
+                var logModelRepository = new LogModelRepository(TxtConnectionString);
+                logModelRepository.BtnLogClear_Click(MySelectedItem);
+                this.Logs = logModelRepository.GetAll();
             }
             catch (MySqlException ex)
             {
@@ -230,22 +203,9 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                using (var conn = new MySqlConnection(TxtConnectionString))
-                {
-                    using (MySqlCommand cmd = new MySqlCommand("LogMessageAdd", conn))
-                    {
-                        conn.Open();
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.Add("@i_pod", MySqlDbType.String).Value = EnterPod;
-                        cmd.Parameters.Add("@i_hostname", MySqlDbType.String).Value = EnterHostname;
-                        cmd.Parameters.Add("@i_severity", MySqlDbType.Int32).Value = EnterSeverity;
-                        cmd.Parameters.Add("@i_message", MySqlDbType.String).Value = EnterMessage;
-
-                        cmd.ExecuteNonQuery();
-                    }
-                    LoadData();
-                }
+                var logModelRepository = new LogModelRepository(TxtConnectionString);
+                logModelRepository.BtnAdd_Click(this.NewLogModelEntry);
+                this.Logs = logModelRepository.GetAll();
             }
             catch (Exception ex)
             {

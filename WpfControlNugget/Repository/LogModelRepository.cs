@@ -15,6 +15,7 @@ namespace WpfControlNugget.Repository
     {
         public List<LogModel> Logs { get; set; }
         public LogModel _Logs { get; set; }
+        
 
         public LogModelRepository(string connectionString) : base(connectionString)
         {
@@ -117,7 +118,7 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM" + TableName + "ORDER BY timestamp", conn))
+                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries", conn))
                     {
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
@@ -143,5 +144,52 @@ namespace WpfControlNugget.Repository
             return Logs;
         }
         public override string TableName => "v_logentries";
+
+        public void BtnLogClear_Click(LogModel logModelEntry)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                {
+                    conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "LogClear";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("_logentries_id", logModelEntry.Id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        public void BtnAdd_Click(LogModel newLogModelEntry)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("LogMessageAdd", conn))
+                    {
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@i_pod", MySqlDbType.String).Value = newLogModelEntry.Pod;
+                        cmd.Parameters.Add("@i_hostname", MySqlDbType.String).Value = newLogModelEntry.Hostname;
+                        cmd.Parameters.Add("@i_severity", MySqlDbType.Int32).Value = newLogModelEntry.Severity;
+                        cmd.Parameters.Add("@i_message", MySqlDbType.String).Value = newLogModelEntry.Message;
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
+            }
+        }
     }
 }

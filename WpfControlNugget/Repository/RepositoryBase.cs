@@ -12,7 +12,7 @@ namespace WpfControlNugget.Repository
         protected RepositoryBase(string connectionString)
         {
             // TODO: Load ConnectionString
-            this.ConnectionString = "<ConnString>";
+            this.ConnectionString = connectionString;
         }
         protected string ConnectionString { get; }
         public abstract M GetSingle<P>(P pkValue);
