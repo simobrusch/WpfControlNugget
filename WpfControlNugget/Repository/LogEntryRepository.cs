@@ -11,12 +11,12 @@ using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    class LogEntryModelRepository : RepositoryBase<LogEntryModel>
+    class LogEntryRepository : RepositoryBase<LogEntryModel>
     {
         public List<LogEntryModel> Logs { get; set; }
         public LogEntryModel _Logs { get; set; }
 
-        public LogEntryModelRepository(string connectionString) : base(connectionString)
+        public LogEntryRepository(string connectionString) : base(connectionString)
         {
             Logs = new List<LogEntryModel>();
         }

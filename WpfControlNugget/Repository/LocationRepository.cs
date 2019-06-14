@@ -9,16 +9,16 @@ using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    public class LocationRepository : RepositoryBase<Location>
+    public class LocationRepository : RepositoryBase<LocationModel>
     {
         public override string TableName => "Location";
 
-        public List<Location> Locations { get; set; }
-        public Location _Locations { get; set; }
+        public List<LocationModel> Locations { get; set; }
+        public LocationModel _Locations { get; set; }
         public LocationRepository(string connectionString) : base(connectionString)
         {
         }
-        public override void Add(Location location)
+        public override void Add(LocationModel location)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace WpfControlNugget.Repository
             }
         }
 
-        public override void Delete(Location location)
+        public override void Delete(LocationModel location)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace WpfControlNugget.Repository
             }
         }
 
-        public override List<Location> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
+        public override List<LocationModel> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
         {
             var whereCon = whereCondition;
             if (parameterValues.Count > 0 && whereCondition != null)
@@ -76,7 +76,7 @@ namespace WpfControlNugget.Repository
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            Locations.Add(new Location(
+                            Locations.Add(new LocationModel(
 
                                 reader.GetInt32("id"),
                                 reader.GetInt32("parentId"),
@@ -96,7 +96,7 @@ namespace WpfControlNugget.Repository
             return Locations;
         }
 
-        public override List<Location> GetAll()
+        public override List<LocationModel> GetAll()
         {
             try
             {
@@ -108,7 +108,7 @@ namespace WpfControlNugget.Repository
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            Locations.Add(new Location(
+                            Locations.Add(new LocationModel(
 
                                 reader.GetInt32("id"),
                                 reader.GetInt32("parentId"),
@@ -128,12 +128,12 @@ namespace WpfControlNugget.Repository
             return Locations;
         }
 
-        public override void CallStoredProcedure(Location entity)
+        public override void CallStoredProcedure(LocationModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public override Location GetSingle<P>(P pkValue)
+        public override LocationModel GetSingle<P>(P pkValue)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace WpfControlNugget.Repository
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            _Locations = (new Location(
+                            _Locations = (new LocationModel(
 
                                 reader.GetInt32("id"),
                                 reader.GetInt32("parentId"),
@@ -165,7 +165,7 @@ namespace WpfControlNugget.Repository
             return _Locations;
         }
 
-        public override void Update(Location location)
+        public override void Update(LocationModel location)
         {
             try
             {

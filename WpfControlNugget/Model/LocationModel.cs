@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfControlNugget.Model
 {
-    public class Location : ModelBase<Location>
+    public class LocationModel : ModelBase<LocationModel>
     {
         public new int Id { get; set; }
         public int ParentId { get; set; }
@@ -15,11 +15,11 @@ namespace WpfControlNugget.Model
         public int BuildingNr { get; set; }
         public int RoomNr { get; set; }
 
-        public Location()
+        public LocationModel()
         {
 
         }
-        public Location(int id, int parentId, int addressId, string designation, int buildingNr, int roomNr)
+        public LocationModel(int id, int parentId, int addressId, string designation, int buildingNr, int roomNr)
         {
             this.Id = id;
             this.ParentId = parentId;
@@ -28,7 +28,7 @@ namespace WpfControlNugget.Model
             this.BuildingNr = buildingNr;
             this.RoomNr = roomNr;
         }
-        public bool Equals(Location location)
+        public bool Equals(LocationModel location)
         {
             if (Object.ReferenceEquals(null, location)) return false;
             if (Object.ReferenceEquals(this, location)) return true;
@@ -37,7 +37,7 @@ namespace WpfControlNugget.Model
         }
         public override bool Equals(object value)
         {
-            return Equals(value as Location);
+            return Equals(value as LocationModel);
         }
         public override int GetHashCode()
         {

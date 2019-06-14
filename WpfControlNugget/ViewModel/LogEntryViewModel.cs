@@ -113,7 +113,7 @@ namespace WpfControlNugget.ViewModel
         }
         public List<LogEntryModel> BtnFindDuplicates_Click()
         {
-            var logModelRepository = new LogModelRepository(TxtConnectionString);
+            var logModelRepository = new LogEntryRepository(TxtConnectionString);
             this.Logs = logModelRepository.GetAll();
             var dupList = _dupChecker.FindDuplicates(Logs);
             Logs = new List<LogEntryModel>(dupList.Cast<LogEntryModel>());
@@ -135,7 +135,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var logModelRepository = new LogModelRepository(TxtConnectionString);
+                var logModelRepository = new LogEntryRepository(TxtConnectionString);
                 this.Logs = logModelRepository.GetAll();
             }
             catch (Exception ex)
@@ -149,7 +149,7 @@ namespace WpfControlNugget.ViewModel
             if (MySelectedItem == null) return;
             try
             {
-                var logModelRepository = new LogModelRepository(TxtConnectionString);
+                var logModelRepository = new LogEntryRepository(TxtConnectionString);
                 logModelRepository.CallStoredProcedure(MySelectedItem);
                 this.Logs = logModelRepository.GetAll();
             }
@@ -162,7 +162,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var logModelRepository = new LogModelRepository(TxtConnectionString);
+                var logModelRepository = new LogEntryRepository(TxtConnectionString);
                 logModelRepository.Add(this.NewLogModelEntry);
                 this.Logs = logModelRepository.GetAll();
             }

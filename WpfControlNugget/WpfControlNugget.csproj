@@ -78,12 +78,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\LocationModel.cs" />
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Model\SeverityComboBoxItem.cs" />
     <Compile Include="Repository\IRepositoryBase.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
-    <Compile Include="Repository\LogModelRepository.cs" />
+    <Compile Include="Repository\LogEntryRepository.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="Validators\IntRangeValidationRule.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
