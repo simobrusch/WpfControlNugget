@@ -54,27 +54,6 @@ namespace WpfControlNugget.Model
                 return hash;
             }
         }
-
-        //public static bool operator ==(Location locA, Location locB)
-        //{
-        //    if (Object.ReferenceEquals(locA, locB))
-        //    {
-        //        return true;
-        //    }
-
-        //    //Ensure that A isnt Null
-        //    if (Object.ReferenceEquals(null, locA))
-        //    {
-        //        return false;
-        //    }
-
-        //    return (locA.Equals(locB));
-        //}
-
-        //public static bool operator !=(Location locA, Location locB)
-        //{
-        //    return !(locA == locB);
-        //}
     }
 }
 

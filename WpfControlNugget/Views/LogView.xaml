@@ -11,7 +11,7 @@
     <Grid Height="450" Width="800"  Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading" Text="LogReader" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="773">
-            <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,97" Name="DataGridCustomers" Width="780" ItemsSource="{Binding Path=Logs}" CanUserResizeRows="False">
+            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,97" Name="DataGridCustomers" Width="780" ItemsSource="{Binding Path=Logs}" CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="70" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=Pod}" Header="pod" Width="70" IsReadOnly="True" />
@@ -50,7 +50,7 @@
             <TextBox HorizontalAlignment="Left" Height="23" Margin="248,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="TxtConnectionString"  VerticalAlignment="Top" Width="525" />
             <TextBox HorizontalAlignment="Left" Height="25" Margin="10,355,0,0" TextWrapping="Wrap" Name="EnterPod" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
-                    <Binding Path="EnterPod" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewLogModelEntry.Pod" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:StringRangeValidationRule
                                 ErrorMessage="Pod must contain atleast 3 characters up to 255" />
@@ -60,7 +60,7 @@
             </TextBox>
             <TextBox HorizontalAlignment="Left" Height="25" Margin="110,355,0,0" TextWrapping="Wrap" Name="EnterHostname" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
-                    <Binding Path="EnterHostname" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewLogModelEntry.Hostname" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:StringRangeValidationRule
                                 ErrorMessage="Hostname must contain atleast 3 characters up to 255" />
@@ -70,7 +70,7 @@
             </TextBox>
             <TextBox HorizontalAlignment="Left" Height="25" Margin="210,355,0,0" TextWrapping="Wrap" Name="EnterSeverity" VerticalAlignment="Top" Width="95" >
                 <TextBox.Text>
-                    <Binding Path="EnterSeverity" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewLogModelEntry.Severity" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:IntRangeValidationRule/>
                         </Binding.ValidationRules>
@@ -79,7 +79,7 @@
             </TextBox>
             <TextBox HorizontalAlignment="Left" Height="50" Margin="310,355,0,0" TextWrapping="Wrap" Name="EnterMessage" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
-                    <Binding Path="EnterMessage" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewLogModelEntry.Message" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:StringRangeValidationRule
                                 ErrorMessage="Message must contain atleast 3 characters up to 255" />

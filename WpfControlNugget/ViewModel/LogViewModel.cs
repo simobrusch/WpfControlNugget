@@ -21,10 +21,6 @@ namespace WpfControlNugget.ViewModel
     public class LogViewModel : INotifyPropertyChanged
     {
         private string _txtConnectionString;
-        private string _enterPod;
-        private string _enterHostname;
-        private int _enterSeverity;
-        private string _enterMessage;
         private readonly DuplicateChecker _dupChecker;
 
         private ICommand _btnLoadDataClick;
@@ -48,9 +44,9 @@ namespace WpfControlNugget.ViewModel
         public LogViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
-            _enterSeverity = 1;
 
             Logs = new List<LogModel>();
+            NewLogModelEntry = new LogModel();
             SeverityComboBox = new ObservableCollection<SeverityComboBoxItem>(){
                 new SeverityComboBoxItem(){Id=1, Severity= 1},
                 new SeverityComboBoxItem(){Id=2, Severity= 2},
@@ -69,42 +65,6 @@ namespace WpfControlNugget.ViewModel
             {
                 _txtConnectionString = value;
                 OnPropertyChanged(nameof(TxtConnectionString));
-            }
-        }
-        public string EnterPod
-        {
-            get => _enterPod;
-            set
-            {
-                _enterPod = value;
-                OnPropertyChanged(nameof(EnterPod));
-            }
-        }
-        public string EnterHostname
-        {
-            get => _enterHostname;
-            set
-            {
-                _enterHostname = value;
-                OnPropertyChanged(nameof(EnterHostname));
-            }
-        }
-        public int EnterSeverity
-        {
-            get => _enterSeverity;
-            set
-            {
-                _enterSeverity = value;
-                OnPropertyChanged(nameof(EnterSeverity));
-            }
-        }
-        public string EnterMessage
-        {
-            get => _enterMessage;
-            set
-            {
-                _enterMessage = value;
-                OnPropertyChanged(nameof(EnterMessage));
             }
         }
         public ICommand BtnFindDuplicatesClick
@@ -151,7 +111,6 @@ namespace WpfControlNugget.ViewModel
                            }));
             }
         }
-
         public List<LogModel> BtnFindDuplicates_Click()
         {
             var logModelRepository = new LogModelRepository(TxtConnectionString);
@@ -191,7 +150,7 @@ namespace WpfControlNugget.ViewModel
             try
             {
                 var logModelRepository = new LogModelRepository(TxtConnectionString);
-                logModelRepository.BtnLogClear_Click(MySelectedItem);
+                logModelRepository.CallStoredProcedure(MySelectedItem);
                 this.Logs = logModelRepository.GetAll();
             }
             catch (MySqlException ex)
@@ -204,7 +163,7 @@ namespace WpfControlNugget.ViewModel
             try
             {
                 var logModelRepository = new LogModelRepository(TxtConnectionString);
-                logModelRepository.BtnAdd_Click(this.NewLogModelEntry);
+                logModelRepository.Add(this.NewLogModelEntry);
                 this.Logs = logModelRepository.GetAll();
             }
             catch (Exception ex)

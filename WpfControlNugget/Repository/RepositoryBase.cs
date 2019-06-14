@@ -11,7 +11,6 @@ namespace WpfControlNugget.Repository
     {
         protected RepositoryBase(string connectionString)
         {
-            // TODO: Load ConnectionString
             this.ConnectionString = connectionString;
         }
         protected string ConnectionString { get; }
@@ -26,9 +25,11 @@ namespace WpfControlNugget.Repository
 
         public abstract List<M> GetAll();
 
+        public abstract void CallStoredProcedure(M entity);
+
         public IQueryable<M> Query(string whereCondition, Dictionary<string, object> parameterValues)
         {
-            throw new NotImplementedException();
+            throw new System.NotSupportedException();
         }
         public long Count(string whereCondition, Dictionary<string, object> parameterValues)
         {

@@ -25,7 +25,7 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("DELETE FROM " + TableName + "WHERE location_id =" + location.Id, conn))
+                    using (var cmd = new MySqlCommand("INSERT INTO " + TableName + "(parent_location , address_fk , designation , building , room) VALUES" + "(" + location.ParentId + "," + location.AddressId + "," + location.Designation + "," + location.BuildingNr + "," + location.RoomNr + ")", conn))
                     {
                         cmd.ExecuteNonQuery();
                     }
@@ -43,8 +43,8 @@ namespace WpfControlNugget.Repository
             {
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
-                    conn.Open();
-                    using (var cmd = new MySqlCommand("INSERT INTO " + TableName + "(parent_location , address_fk , designation , building , room) VALUES" + "("+ location.ParentId + "," + location.AddressId + "," + location.Designation + "," + location.BuildingNr + "," + location.RoomNr + ")", conn))
+                    conn.Open(); 
+                    using (var cmd = new MySqlCommand("DELETE FROM " + TableName + "WHERE location_id =" + location.Id, conn))
                     {
                         cmd.ExecuteNonQuery();
                     }
@@ -126,6 +126,11 @@ namespace WpfControlNugget.Repository
                 MessageBox.Show("Error occurred: " + ex.Message);
             }
             return Locations;
+        }
+
+        public override void CallStoredProcedure(Location entity)
+        {
+            throw new NotImplementedException();
         }
 
         public override Location GetSingle<P>(P pkValue)

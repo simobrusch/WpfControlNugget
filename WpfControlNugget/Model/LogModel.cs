@@ -21,7 +21,7 @@ namespace WpfControlNugget.Model
 
         public LogModel()
         {
-
+            this.Severity = "1";
         }
         public LogModel(int id, string pod, string location, string hostname, string severity, DateTime timestamp, string message)
         {

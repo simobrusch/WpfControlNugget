@@ -15,10 +15,10 @@ namespace WpfControlNugget.Repository
     {
         public List<LogModel> Logs { get; set; }
         public LogModel _Logs { get; set; }
-        
 
         public LogModelRepository(string connectionString) : base(connectionString)
         {
+            Logs = new List<LogModel>();
         }
 
         public override LogModel GetSingle<P>(P pkValue)
@@ -53,23 +53,39 @@ namespace WpfControlNugget.Repository
             }
             return _Logs;
         }
-
-
-        public override void Add(LogModel entity)
+        public override void Add(LogModel newLogModelEntry)
         {
-            throw new System.NotSupportedException();
-        }
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("LogMessageAdd", conn))
+                    {
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
 
+                        cmd.Parameters.Add("@i_pod", MySqlDbType.String).Value = newLogModelEntry.Pod;
+                        cmd.Parameters.Add("@i_hostname", MySqlDbType.String).Value = newLogModelEntry.Hostname;
+                        cmd.Parameters.Add("@i_severity", MySqlDbType.Int32).Value = newLogModelEntry.Severity;
+                        cmd.Parameters.Add("@i_message", MySqlDbType.String).Value = newLogModelEntry.Message;
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
+            }
+        }
         public override void Delete(LogModel entity)
         {
             throw new System.NotSupportedException();
         }
-
         public override void Update(LogModel entity)
         {
             throw new System.NotSupportedException();
         }
-
         public override List<LogModel> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
         {
             var whereCon = whereCondition;
@@ -110,7 +126,6 @@ namespace WpfControlNugget.Repository
             }
             return Logs;
         }
-
         public override List<LogModel> GetAll()
         {
             try
@@ -143,9 +158,7 @@ namespace WpfControlNugget.Repository
             }
             return Logs;
         }
-        public override string TableName => "v_logentries";
-
-        public void BtnLogClear_Click(LogModel logModelEntry)
+        public override void CallStoredProcedure(LogModel logModelEntry)
         {
             try
             {
@@ -166,30 +179,6 @@ namespace WpfControlNugget.Repository
                 MessageBox.Show(ex.ToString());
             }
         }
-        public void BtnAdd_Click(LogModel newLogModelEntry)
-        {
-            try
-            {
-                using (var conn = new MySqlConnection(ConnectionString))
-                {
-                    using (MySqlCommand cmd = new MySqlCommand("LogMessageAdd", conn))
-                    {
-                        conn.Open();
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.Add("@i_pod", MySqlDbType.String).Value = newLogModelEntry.Pod;
-                        cmd.Parameters.Add("@i_hostname", MySqlDbType.String).Value = newLogModelEntry.Hostname;
-                        cmd.Parameters.Add("@i_severity", MySqlDbType.Int32).Value = newLogModelEntry.Severity;
-                        cmd.Parameters.Add("@i_message", MySqlDbType.String).Value = newLogModelEntry.Message;
-
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred: " + ex.Message);
-            }
-        }
+        public override string TableName => "v_logentries";
     }
 }
