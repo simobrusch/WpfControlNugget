@@ -18,7 +18,7 @@ using WpfControlNugget.ViewModel.Commands;
 
 namespace WpfControlNugget.ViewModel
 {
-    public class LogViewModel : INotifyPropertyChanged
+    public class LogEntryViewModel : INotifyPropertyChanged
     {
         private string _txtConnectionString;
         private readonly DuplicateChecker _dupChecker;
@@ -28,7 +28,7 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnAdddataClick;
         private ICommand _btnFindDuplicatesClick;
 
-        public List<LogModel> Logs
+        public List<LogEntryModel> Logs
         {
             get => _logs;
             set
@@ -37,16 +37,16 @@ namespace WpfControlNugget.ViewModel
                 OnPropertyChanged("Logs");
             }
         }
-        private List<LogModel> _logs;
-        public LogModel NewLogModelEntry { get; set; }
+        private List<LogEntryModel> _logs;
+        public LogEntryModel NewLogModelEntry { get; set; }
         public ObservableCollection<SeverityComboBoxItem> SeverityComboBox { get; set; }
 
-        public LogViewModel()
+        public LogEntryViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
 
-            Logs = new List<LogModel>();
-            NewLogModelEntry = new LogModel();
+            Logs = new List<LogEntryModel>();
+            NewLogModelEntry = new LogEntryModel();
             SeverityComboBox = new ObservableCollection<SeverityComboBoxItem>(){
                 new SeverityComboBoxItem(){Id=1, Severity= 1},
                 new SeverityComboBoxItem(){Id=2, Severity= 2},
@@ -54,7 +54,7 @@ namespace WpfControlNugget.ViewModel
             };
             _dupChecker = new DuplicateChecker();
         }
-        public LogModel MySelectedItem { get; set; }
+        public LogEntryModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public SeverityComboBoxItem SetSeverity { get; set; }
 
@@ -111,12 +111,12 @@ namespace WpfControlNugget.ViewModel
                            }));
             }
         }
-        public List<LogModel> BtnFindDuplicates_Click()
+        public List<LogEntryModel> BtnFindDuplicates_Click()
         {
             var logModelRepository = new LogModelRepository(TxtConnectionString);
             this.Logs = logModelRepository.GetAll();
             var dupList = _dupChecker.FindDuplicates(Logs);
-            Logs = new List<LogModel>(dupList.Cast<LogModel>());
+            Logs = new List<LogEntryModel>(dupList.Cast<LogEntryModel>());
 
             return Logs;
         }

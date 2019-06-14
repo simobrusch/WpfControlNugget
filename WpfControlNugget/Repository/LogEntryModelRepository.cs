@@ -11,17 +11,17 @@ using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    class LogModelRepository : RepositoryBase<LogModel>
+    class LogEntryModelRepository : RepositoryBase<LogEntryModel>
     {
-        public List<LogModel> Logs { get; set; }
-        public LogModel _Logs { get; set; }
+        public List<LogEntryModel> Logs { get; set; }
+        public LogEntryModel _Logs { get; set; }
 
-        public LogModelRepository(string connectionString) : base(connectionString)
+        public LogEntryModelRepository(string connectionString) : base(connectionString)
         {
-            Logs = new List<LogModel>();
+            Logs = new List<LogEntryModel>();
         }
 
-        public override LogModel GetSingle<P>(P pkValue)
+        public override LogEntryModel GetSingle<P>(P pkValue)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace WpfControlNugget.Repository
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            _Logs = (new LogModel(
+                            _Logs = (new LogEntryModel(
 
                                 reader.GetInt32("id"),
                                 reader.GetValue(reader.GetOrdinal("pod")) as string,
@@ -53,7 +53,7 @@ namespace WpfControlNugget.Repository
             }
             return _Logs;
         }
-        public override void Add(LogModel newLogModelEntry)
+        public override void Add(LogEntryModel newLogModelEntry)
         {
             try
             {
@@ -78,15 +78,15 @@ namespace WpfControlNugget.Repository
                 MessageBox.Show("Error occurred: " + ex.Message);
             }
         }
-        public override void Delete(LogModel entity)
+        public override void Delete(LogEntryModel entity)
         {
             throw new System.NotSupportedException();
         }
-        public override void Update(LogModel entity)
+        public override void Update(LogEntryModel entity)
         {
             throw new System.NotSupportedException();
         }
-        public override List<LogModel> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
+        public override List<LogEntryModel> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
         {
             var whereCon = whereCondition;
             if (parameterValues.Count > 0 && whereCondition != null)
@@ -106,7 +106,7 @@ namespace WpfControlNugget.Repository
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            Logs.Add(new LogModel(
+                            Logs.Add(new LogEntryModel(
 
                                 reader.GetInt32("id"),
                                 reader.GetValue(reader.GetOrdinal("pod")) as string,
@@ -126,7 +126,7 @@ namespace WpfControlNugget.Repository
             }
             return Logs;
         }
-        public override List<LogModel> GetAll()
+        public override List<LogEntryModel> GetAll()
         {
             try
             {
@@ -138,7 +138,7 @@ namespace WpfControlNugget.Repository
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            Logs.Add(new LogModel(
+                            Logs.Add(new LogEntryModel(
 
                                 reader.GetInt32("id"),
                                 reader.GetValue(reader.GetOrdinal("pod")) as string,
@@ -158,7 +158,7 @@ namespace WpfControlNugget.Repository
             }
             return Logs;
         }
-        public override void CallStoredProcedure(LogModel logModelEntry)
+        public override void CallStoredProcedure(LogEntryModel logModelEntry)
         {
             try
             {

@@ -99,8 +99,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\LogModel.cs" />
-    <Compile Include="ViewModel\LogViewModel.cs" />
+    <Compile Include="Model\LogEntryModel.cs" />
+    <Compile Include="ViewModel\LogEntryViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

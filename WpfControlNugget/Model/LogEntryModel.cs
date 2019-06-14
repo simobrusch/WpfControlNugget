@@ -9,7 +9,7 @@ using DuplicateCheckerLib;
 
 namespace WpfControlNugget.Model
 {
-    public class LogModel :IEntity
+    public class LogEntryModel :IEntity
     {
         public int Id { get; set; }
         public string Pod { get; set; }
@@ -19,11 +19,11 @@ namespace WpfControlNugget.Model
         public DateTime Timestamp { get; set; }
         public string Message { get; set; }
 
-        public LogModel()
+        public LogEntryModel()
         {
             this.Severity = "1";
         }
-        public LogModel(int id, string pod, string location, string hostname, string severity, DateTime timestamp, string message)
+        public LogEntryModel(int id, string pod, string location, string hostname, string severity, DateTime timestamp, string message)
         {
             this.Id = id;
             this.Pod = pod;
@@ -33,7 +33,7 @@ namespace WpfControlNugget.Model
             this.Timestamp = timestamp;
             this.Message = message;
         }
-        public bool Equals(LogModel secondLogModel)
+        public bool Equals(LogEntryModel secondLogModel)
         {
             if (Object.ReferenceEquals(null, secondLogModel)) return false;
             if (Object.ReferenceEquals(this, secondLogModel)) return true;
@@ -42,7 +42,7 @@ namespace WpfControlNugget.Model
         }
         public override bool Equals(object value)
         {
-            return Equals(value as LogModel);
+            return Equals(value as LogEntryModel);
         }
         public override int GetHashCode()
         {
