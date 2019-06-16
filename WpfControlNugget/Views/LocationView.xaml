@@ -32,16 +32,13 @@
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text.Length, ElementName=EnterPod, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=EnterDesignation, UpdateSourceTrigger=PropertyChanged}" Value="0">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Text.Length, ElementName=EnterHostname, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=EnterBuildingNr, UpdateSourceTrigger=PropertyChanged}" Value="0">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Text.Length, ElementName=EnterSeverity, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                                <Setter Property="IsEnabled" Value="False"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Text.Length, ElementName=EnterMessage, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=EnterRoomNr, UpdateSourceTrigger=PropertyChanged}" Value="0">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
                         </Style.Triggers>
