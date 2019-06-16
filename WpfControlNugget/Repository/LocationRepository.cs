@@ -28,11 +28,8 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "INSERT INTO " + TableName +
-                                          "(parent_location , address_fk , designation , building , room) VALUES" +
-                                          "(" + location.ParentId + "," + location.AdressId + "," +
-                                          location.Designation + "," + location.BuildingNr + "," + location.RoomNr +
-                                          ")";
+                        cmd.CommandText =
+                            $"INSERT INTO {TableName} (address_fk , designation , building , room) VALUES (address_fk = {location.Id} , designation = '{location.Designation}', building = {location.BuildingNr} , room = {location.RoomNr} WHERE location_id = {location.Id})";
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -52,7 +49,7 @@ namespace WpfControlNugget.Repository
                     conn.Open(); 
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "DELETE FROM " + TableName + "WHERE location_id =" + location.Id;
+                        cmd.CommandText = $"DELETE FROM {TableName} WHERE location_id = {location.Id}";
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -80,7 +77,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "SELECT location_id, address_fk, designation, building, room FROM " + TableName + "WHERE " + whereCon;
+                        cmd.CommandText = $"SELECT location_id, address_fk, designation, building, room FROM {TableName} WHERE {whereCon}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -113,7 +110,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "SELECT location_id, address_fk, designation, building, room FROM Location";
+                        cmd.CommandText = $"SELECT location_id, address_fk, designation, building, room FROM {TableName}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -151,7 +148,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "SELECT location_id, address_fk, designation, building, room FROM " + TableName + "WHERE id =" + pkValue;
+                        cmd.CommandText = $"SELECT location_id, address_fk, designation, building, room FROM {TableName} WHERE location_id = {pkValue}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -184,10 +181,8 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "UPDATE " + TableName + "SET parent_location = " + location.ParentId +
-                                          ", adress_fk = " + location.AdressId + ", designation = " +
-                                          location.Designation + ", building = " + location.BuildingNr + ", room = " +
-                                          location.RoomNr + "WHERE location_id = " + location.Id;
+                        cmd.CommandText =
+                            $"UPDATE {TableName} SET address_fk = {location.Id} , designation = '{location.Designation}', building = {location.BuildingNr} , room = {location.RoomNr} WHERE location_id = {location.Id}";
                         cmd.ExecuteNonQuery();
                     }
                 }

@@ -30,8 +30,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM " +
-                                          TableName + "WHERE id =" + pkValue;
+                        cmd.CommandText = $"SELECT id, pod, location, hostname, severity, timestamp, message FROM {TableName} WHERE id = {pkValue}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -106,8 +105,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM " +
-                                          TableName + "WHERE " + whereCon;
+                        cmd.CommandText = $"SELECT id, pod, location, hostname, severity, timestamp, message FROM {TableName} WHERE {whereCon}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -140,7 +138,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries";
+                        cmd.CommandText = $"SELECT id, pod, location, hostname, severity, timestamp, message FROM {TableName}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
