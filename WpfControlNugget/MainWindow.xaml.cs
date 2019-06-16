@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Data;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using WpfControlNugget.ViewModel;
 
 namespace WpfControlNugget
 {
@@ -26,6 +27,7 @@ namespace WpfControlNugget
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new NavigationViewModel();
         }
     }
 }

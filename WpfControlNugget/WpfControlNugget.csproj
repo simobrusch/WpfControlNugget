@@ -81,6 +81,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\LocationModel.cs" />
+    <Compile Include="ViewModel\Commands\BaseCommand.cs" />
     <Compile Include="ViewModel\LocationTreeBuilder.cs" />
     <Compile Include="Model\ModelBase.cs" />
     <Compile Include="Model\Node.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
     <Compile Include="Validators\StringRangeValidationRule.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
+    <Compile Include="ViewModel\NavigationViewModel.cs" />
     <Compile Include="Views\LocationView.xaml.cs">
       <DependentUpon>LocationView.xaml</DependentUpon>
     </Compile>

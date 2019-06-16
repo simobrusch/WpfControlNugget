@@ -2,8 +2,35 @@
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:WpfControlNugget.Views"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
-    <Grid>
-        <views:LocationView x:Name = "LocationView"/>
-    </Grid>
+        xmlns:local="clr-namespace:WpfControlNugget.ViewModel"
+        Title="MainWindow" Height="490" Width="800" ResizeMode="NoResize">
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type local:LogEntryViewModel}">
+
+            <views:LogView/>
+
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:LocationViewModel}">
+
+            <views:LocationView/>
+
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+
+        <StackPanel x:Name="Navigation" DockPanel.Dock="Top">
+
+            <Button Content="Locations" Command="{Binding LocationsCommand}"/>
+
+            <Button Content="LogEntries" Command="{Binding LogsCommand}"/>
+
+        </StackPanel>
+
+        <ContentControl x:Name="Pages" DockPanel.Dock="Right" Content="{Binding SelectedViewModel}"/>
+
+    </DockPanel>
 </Window>
