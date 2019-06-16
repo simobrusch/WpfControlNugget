@@ -17,6 +17,7 @@ namespace WpfControlNugget.Repository
         public LocationModel _Locations { get; set; }
         public LocationRepository(string connectionString) : base(connectionString)
         {
+            Locations = new List<LocationModel>();
         }
         public override void Add(LocationModel location)
         {
@@ -25,8 +26,13 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("INSERT INTO " + TableName + "(parent_location , address_fk , designation , building , room) VALUES" + "(" + location.ParentId + "," + location.AddressId + "," + location.Designation + "," + location.BuildingNr + "," + location.RoomNr + ")", conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "INSERT INTO " + TableName +
+                                          "(parent_location , address_fk , designation , building , room) VALUES" +
+                                          "(" + location.ParentId + "," + location.AdressId + "," +
+                                          location.Designation + "," + location.BuildingNr + "," + location.RoomNr +
+                                          ")";
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -44,8 +50,9 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open(); 
-                    using (var cmd = new MySqlCommand("DELETE FROM " + TableName + "WHERE location_id =" + location.Id, conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "DELETE FROM " + TableName + "WHERE location_id =" + location.Id;
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -71,19 +78,20 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT location_id, parent_id, address_fk, designation, building, room FROM " + TableName + "WHERE " + whereCon, conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "SELECT location_id, address_fk, designation, building, room FROM " + TableName + "WHERE " + whereCon;
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             Locations.Add(new LocationModel(
 
-                                reader.GetInt32("id"),
-                                reader.GetInt32("parentId"),
-                                reader.GetInt32("addressId"),
+                                reader.GetInt32("location_id"),
+                                //reader.GetInt32("parentId"),
+                                reader.GetInt32("address_fk"),
                                 reader.GetValue(reader.GetOrdinal("designation")) as string,
-                                reader.GetInt32("buildingNr"),
-                                reader.GetInt32("roomNr")
+                                reader.GetInt32("building"),
+                                reader.GetInt32("room")
                             ));
                         }
                     }
@@ -103,19 +111,20 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT location_id, parent_id, address_fk, designation, building, room FROM " + TableName, conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "SELECT location_id, address_fk, designation, building, room FROM Location";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             Locations.Add(new LocationModel(
 
-                                reader.GetInt32("id"),
-                                reader.GetInt32("parentId"),
-                                reader.GetInt32("addressId"),
+                                reader.GetInt32("location_id"),
+                                //reader.GetInt32("parentId"),
+                                reader.GetInt32("address_fk"),
                                 reader.GetValue(reader.GetOrdinal("designation")) as string,
-                                reader.GetInt32("buildingNr"),
-                                reader.GetInt32("roomNr")
+                                reader.GetInt32("building"),
+                                reader.GetInt32("room")
                             ));
                         }
                     }
@@ -140,19 +149,20 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT location_id, parent_id, address_fk, designation, building, room FROM " + TableName + "WHERE id =" + pkValue, conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "SELECT location_id, address_fk, designation, building, room FROM " + TableName + "WHERE id =" + pkValue;
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             _Locations = (new LocationModel(
 
-                                reader.GetInt32("id"),
-                                reader.GetInt32("parentId"),
-                                reader.GetInt32("addressId"),
+                                reader.GetInt32("location_id"),
+                                //reader.GetInt32("parentId"),
+                                reader.GetInt32("address_fk"),
                                 reader.GetValue(reader.GetOrdinal("designation")) as string,
-                                reader.GetInt32("buildingNr"),
-                                reader.GetInt32("roomNr")
+                                reader.GetInt32("building"),
+                                reader.GetInt32("room")
                             ));
                         }
                     }
@@ -172,8 +182,12 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("UPDATE " + TableName + "SET parent_location = " + location.ParentId + ", adress_fk = " + location.AddressId + ", designation = " + location.Designation + ", building = " + location.BuildingNr + ", room = " + location.RoomNr + "WHERE location_id = " + location.Id , conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "UPDATE " + TableName + "SET parent_location = " + location.ParentId +
+                                          ", adress_fk = " + location.AdressId + ", designation = " +
+                                          location.Designation + ", building = " + location.BuildingNr + ", room = " +
+                                          location.RoomNr + "WHERE location_id = " + location.Id;
                         cmd.ExecuteNonQuery();
                     }
                 }

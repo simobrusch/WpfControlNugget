@@ -10,8 +10,8 @@ namespace WpfControlNugget.Validators
 {
     public class StringRangeValidationRule : ValidationRule
     {
-        public int MinimumLength { get; set; } = 3;
-        public int MaximumLength { get; set; } = 255;
+        public int MinimumLength { get; set; }
+        public int MaximumLength { get; set; }
 
         public string ErrorMessage { get; set; }
 

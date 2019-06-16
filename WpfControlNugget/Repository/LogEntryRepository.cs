@@ -28,8 +28,10 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM " + TableName + "WHERE id =" + pkValue, conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM " +
+                                          TableName + "WHERE id =" + pkValue;
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -59,9 +61,10 @@ namespace WpfControlNugget.Repository
             {
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
-                    using (MySqlCommand cmd = new MySqlCommand("LogMessageAdd", conn))
+                    conn.Open();
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        conn.Open();
+                        cmd.CommandText = "LogMessageAdd";
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.Add("@i_pod", MySqlDbType.String).Value = newLogModelEntry.Pod;
@@ -101,8 +104,10 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM " + TableName + "WHERE " + whereCon, conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM " +
+                                          TableName + "WHERE " + whereCon;
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -133,8 +138,9 @@ namespace WpfControlNugget.Repository
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
                     conn.Open();
-                    using (var cmd = new MySqlCommand("SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries", conn))
+                    using (MySqlCommand cmd = conn.CreateCommand())
                     {
+                        cmd.CommandText = "SELECT id, pod, location, hostname, severity, timestamp, message FROM v_logentries";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {

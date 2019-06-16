@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -79,7 +81,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\LocationModel.cs" />
+    <Compile Include="ViewModel\LocationTreeBuilder.cs" />
     <Compile Include="Model\ModelBase.cs" />
+    <Compile Include="Model\Node.cs" />
     <Compile Include="Model\SeverityComboBoxItem.cs" />
     <Compile Include="Repository\IRepositoryBase.cs" />
     <Compile Include="Repository\LocationRepository.cs" />
@@ -88,6 +92,10 @@
     <Compile Include="Validators\IntRangeValidationRule.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
     <Compile Include="Validators\StringRangeValidationRule.cs" />
+    <Compile Include="ViewModel\LocationViewModel.cs" />
+    <Compile Include="Views\LocationView.xaml.cs">
+      <DependentUpon>LocationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
@@ -105,6 +113,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\LocationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

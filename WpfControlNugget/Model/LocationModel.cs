@@ -8,22 +8,23 @@ namespace WpfControlNugget.Model
 {
     public class LocationModel : ModelBase<LocationModel>
     {
-        public new int Id { get; set; }
+        public int Id { get; set; }
         public int ParentId { get; set; }
-        public int AddressId { get; set; }
+        public int AdressId { get; set; }
         public string Designation { get; set; }
         public int BuildingNr { get; set; }
         public int RoomNr { get; set; }
+
 
         public LocationModel()
         {
 
         }
-        public LocationModel(int id, int parentId, int addressId, string designation, int buildingNr, int roomNr)
+        public LocationModel(int id, /*int parentId,*/ int adressId, string designation, int buildingNr, int roomNr)
         {
             this.Id = id;
-            this.ParentId = parentId;
-            this.AddressId = addressId;
+            //this.ParentId = parentId;
+            this.AdressId = adressId;
             this.Designation = designation;
             this.BuildingNr = buildingNr;
             this.RoomNr = roomNr;
