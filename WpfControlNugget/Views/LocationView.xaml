@@ -12,7 +12,7 @@
     <Grid Height="450" Width="800"  Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading" Text="Locations" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="773">
-            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,97" Name="DataGridLocations" Width="780" ItemsSource="{Binding Path=Locations}" CanUserResizeRows="False">
+            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,222" Name="DataGridLocations" Width="763" ItemsSource="{Binding Path=Locations}" CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="140" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=AddressId}" Header="AddressId" Width="140" IsReadOnly="True" />
@@ -21,13 +21,13 @@
                     <DataGridTextColumn Binding="{Binding Path=RoomNr}" Header="RoomNr" Width="140" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
-            <!--<TreeView Grid.Row="0" Margin="10,50,0,92" ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
+            <TreeView Grid.Row="0" Margin="10,199,0,92" ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding ChildNodesList, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
                         <TreeViewItem Header="{Binding}"/>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
-            </TreeView>-->
+            </TreeView>
             <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="418,355,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="85" Command="{Binding BtnAddDataClick}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
