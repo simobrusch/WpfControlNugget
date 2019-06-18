@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using MySql.Data.MySqlClient;
 
 namespace WpfControlNugget.Repository
@@ -33,28 +34,55 @@ namespace WpfControlNugget.Repository
         }
         public long Count(string whereCondition, Dictionary<string, object> parameterValues)
         {
-            using (var conn = new MySqlConnection(this.ConnectionString))
+            var whereCon = whereCondition;
+            if (parameterValues.Count > 0 && whereCondition != null)
             {
-                using (var cmd = conn.CreateCommand())
+                foreach (KeyValuePair<string, object> p in parameterValues)
                 {
-                    conn.Open();
-                    cmd.CommandText = $"select count(*) from {this.TableName}";
-                    return (long)cmd.ExecuteScalar();
+                    whereCon = whereCon.Replace($"@{p.Key}", p.Value.ToString());
                 }
+            }
+            try
+            {
+                using (var conn = new MySqlConnection(this.ConnectionString))
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        conn.Open();
+                        cmd.CommandText = $"select count(*) from {this.TableName} where {whereCon}";
+                        return (long)cmd.ExecuteScalar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
+                return -1;
             }
         }
         public long Count()
         {
-            using (var conn = new MySqlConnection(this.ConnectionString))
+            try
             {
-                using (var cmd = conn.CreateCommand())
+                using (var conn = new MySqlConnection(this.ConnectionString))
                 {
-                    conn.Open();
-                    cmd.CommandText = $"select count(*) from {this.TableName}";
-                    return (long)cmd.ExecuteScalar();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        conn.Open();
+                        cmd.CommandText = $"select count(*) from {this.TableName}";
+                        return (long) cmd.ExecuteScalar();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
+                return -1;
             }
         }
         public abstract string TableName { get; }
+        public abstract string ColumnsForSelect { get; }
+        public abstract string ColumnsForAdd { get; }
+        public abstract string PrimaryKeyTable { get; }
     }
 }

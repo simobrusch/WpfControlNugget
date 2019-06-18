@@ -37,7 +37,10 @@ namespace WpfControlNugget.Model
 
         public override string ToString()
         {
+            if (ValueObject != null) {
             return ValueObject.ToString();
+            }
+            return "-1";
         }
     }
 }

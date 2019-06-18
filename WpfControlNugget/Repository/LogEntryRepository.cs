@@ -13,6 +13,11 @@ namespace WpfControlNugget.Repository
 {
     class LogEntryRepository : RepositoryBase<LogEntryModel>
     {
+        public override string TableName => "v_logentries";
+        public override string ColumnsForSelect => "id, pod, location, hostname, severity, timestamp, message";
+        public override string ColumnsForAdd { get; }
+        public override string PrimaryKeyTable => "id";
+
         public List<LogEntryModel> Logs { get; set; }
         public LogEntryModel _Logs { get; set; }
 
@@ -30,7 +35,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT id, pod, location, hostname, severity, timestamp, message FROM {TableName} WHERE id = {pkValue}";
+                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName} WHERE {PrimaryKeyTable} = {pkValue}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -105,7 +110,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT id, pod, location, hostname, severity, timestamp, message FROM {TableName} WHERE {whereCon}";
+                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName} WHERE {whereCon}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -138,7 +143,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT id, pod, location, hostname, severity, timestamp, message FROM {TableName}";
+                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -183,6 +188,5 @@ namespace WpfControlNugget.Repository
                 MessageBox.Show(ex.ToString());
             }
         }
-        public override string TableName => "v_logentries";
     }
 }

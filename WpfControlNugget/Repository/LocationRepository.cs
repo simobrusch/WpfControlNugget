@@ -12,6 +12,9 @@ namespace WpfControlNugget.Repository
     public class LocationRepository : RepositoryBase<LocationModel>
     {
         public override string TableName => "Location";
+        public override string ColumnsForSelect => "location_id, parentId, address_fk, designation, building, room";
+        public override string ColumnsForAdd => "parentId, address_fk, designation, building, room";
+        public override string PrimaryKeyTable => "location_id";
 
         public List<LocationModel> Locations { get; set; }
         public LocationModel _Locations { get; set; }
@@ -29,7 +32,9 @@ namespace WpfControlNugget.Repository
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
                         cmd.CommandText =
-                            $"INSERT INTO {TableName} (address_fk , designation , building , room) VALUES (address_fk = {location.Id} , designation = '{location.Designation}', building = {location.BuildingNr} , room = {location.RoomNr} WHERE location_id = {location.Id})";
+                            $"INSERT INTO {TableName} ({ColumnsForAdd}) " +
+                            $"VALUES " +
+                            $"(parentId = {location.ParentId}, address_fk = {location.AdressId} , designation = '{location.Designation}', building = {location.BuildingNr} , room = {location.RoomNr} )";
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -77,7 +82,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT location_id, parentId, address_fk, designation, building, room FROM {TableName} WHERE {whereCon}";
+                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName} WHERE {whereCon}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -110,7 +115,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT location_id, parentId, address_fk, designation, building, room FROM {TableName}";
+                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -150,7 +155,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT location_id, parentId, address_fk, designation, building, room FROM {TableName} WHERE location_id = {pkValue}";
+                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName} WHERE {PrimaryKeyTable} = {pkValue}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
