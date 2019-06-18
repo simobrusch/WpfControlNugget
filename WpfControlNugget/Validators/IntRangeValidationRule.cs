@@ -34,7 +34,7 @@ namespace WpfControlNugget.Validators
             if ((parameter < this.MinimumLength) || (parameter > this.MaximumLength))
             {
                 return new ValidationResult(false,
-                    "Severity must be a number between "
+                    "Input must be a number between "
                     + this.MinimumLength + " - " + this.MaximumLength + ".");
             }
             return new ValidationResult(true, null);

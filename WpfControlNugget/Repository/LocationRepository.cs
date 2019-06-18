@@ -77,14 +77,14 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT location_id, address_fk, designation, building, room FROM {TableName} WHERE {whereCon}";
+                        cmd.CommandText = $"SELECT location_id, parentId, address_fk, designation, building, room FROM {TableName} WHERE {whereCon}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             Locations.Add(new LocationModel(
 
                                 reader.GetInt32("location_id"),
-                                //reader.GetInt32("parentId"),
+                                reader.GetInt32("parentId"),
                                 reader.GetInt32("address_fk"),
                                 reader.GetValue(reader.GetOrdinal("designation")) as string,
                                 reader.GetInt32("building"),
@@ -110,14 +110,14 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT location_id, address_fk, designation, building, room FROM {TableName}";
+                        cmd.CommandText = $"SELECT location_id, parentId, address_fk, designation, building, room FROM {TableName}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             Locations.Add(new LocationModel(
 
                                 reader.GetInt32("location_id"),
-                                //reader.GetInt32("parentId"),
+                                reader.GetInt32("parentId"),
                                 reader.GetInt32("address_fk"),
                                 reader.GetValue(reader.GetOrdinal("designation")) as string,
                                 reader.GetInt32("building"),
@@ -148,14 +148,14 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT location_id, address_fk, designation, building, room FROM {TableName} WHERE location_id = {pkValue}";
+                        cmd.CommandText = $"SELECT location_id, parentId, address_fk, designation, building, room FROM {TableName} WHERE location_id = {pkValue}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
                             _Locations = (new LocationModel(
 
                                 reader.GetInt32("location_id"),
-                                //reader.GetInt32("parentId"),
+                                reader.GetInt32("parentId"),
                                 reader.GetInt32("address_fk"),
                                 reader.GetValue(reader.GetOrdinal("designation")) as string,
                                 reader.GetInt32("building"),

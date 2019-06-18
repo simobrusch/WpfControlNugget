@@ -12,23 +12,24 @@
     <Grid Height="450" Width="800"  Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading" Text="Locations" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="773">
-            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,222" Name="DataGridLocations" Width="763" ItemsSource="{Binding Path=Locations}" CanUserResizeRows="False">
+            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,211,0,79" Name="DataGridLocations" Width="763" ItemsSource="{Binding Path=Locations}" CanUserResizeRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="140" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=AddressId}" Header="AddressId" Width="140" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=Designation}" Header="Designation" Width="202" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=BuildingNr}" Header="BuildingNr" Width="140" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=RoomNr}" Header="RoomNr" Width="140" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="1*" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=ParentId}" Header="ParentId" Width="1*" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=AddressId}" Header="AddressId" Width="1*" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=Designation}" Header="Designation" Width="1*" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=BuildingNr}" Header="BuildingNr" Width="1*" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=RoomNr}" Header="RoomNr" Width="1*" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
-            <TreeView Grid.Row="0" Margin="10,199,0,92" ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
+            <TreeView Grid.Row="0" Margin="10,51,0,240" ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
                 <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding ChildNodesList, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
-                        <TreeViewItem Header="{Binding}"/>
+                    <HierarchicalDataTemplate ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
+                        <TreeViewItem Header="{Binding ChildNodesList}"/>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
-            <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="418,355,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="85" Command="{Binding BtnAddDataClick}">
+            <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="418,366,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="85" Command="{Binding BtnAddDataClick}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Triggers>
@@ -45,12 +46,12 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Update" Height="25" HorizontalAlignment="Left" Margin="508,355,0,0" Name="BtnUpdateDataClick" VerticalAlignment="Top" Width="85" Command="{Binding BtnUpdateDataClick}" />
-            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="598,355,0,0" Name="BtnLoadDataClick" VerticalAlignment="Top" Width="85" Command="{Binding BtnLoadDataClick}" />
-            <Button Content="Delete" Height="25" HorizontalAlignment="Left" Margin="688,355,0,0" Name="BtnDeleteDataClick" VerticalAlignment="Top" Width="85" Command="{Binding BtnDeleteDataClick}"/>
+            <Button Content="Update" Height="25" HorizontalAlignment="Left" Margin="508,366,0,0" Name="BtnUpdateDataClick" VerticalAlignment="Top" Width="85" Command="{Binding BtnUpdateDataClick}" />
+            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="598,366,0,0" Name="BtnLoadDataClick" VerticalAlignment="Top" Width="85" Command="{Binding BtnLoadDataClick}" />
+            <Button Content="Delete" Height="25" HorizontalAlignment="Left" Margin="688,366,0,0" Name="BtnDeleteDataClick" VerticalAlignment="Top" Width="85" Command="{Binding BtnDeleteDataClick}"/>
 
             <TextBox HorizontalAlignment="Left" Height="23" Margin="248,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="TxtConnectionString"  VerticalAlignment="Top" Width="525" />
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,355,0,0" TextWrapping="Wrap" Name="EnterDesignation" VerticalAlignment="Top" Width="110">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="105,366,0,0" TextWrapping="Wrap" Name="EnterDesignation" VerticalAlignment="Top" Width="90">
                 <TextBox.Text>
                     <Binding Path="NewLocationModelEntry.Designation" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -61,7 +62,17 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="125,355,0,0" TextWrapping="Wrap" Name="EnterBuildingNr" VerticalAlignment="Top" Width="110">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,366,0,0" TextWrapping="Wrap" Name="EnterParentId" VerticalAlignment="Top" Width="90">
+                <TextBox.Text>
+                    <Binding Path="NewLocationModelEntry.ParentId" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validators:IntRangeValidationRule
+                                validators:MinimumLength="1" validators:MaximumLength="10000"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="200,366,0,0" TextWrapping="Wrap" Name="EnterBuildingNr" VerticalAlignment="Top" Width="90">
                 <TextBox.Text>
                     <Binding Path="NewLocationModelEntry.BuildingNr" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -71,7 +82,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="240,355,0,0" TextWrapping="Wrap" Name="EnterRoomNr" VerticalAlignment="Top" Width="110" >
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="295,366,0,0" TextWrapping="Wrap" Name="EnterRoomNr" VerticalAlignment="Top" Width="90" >
                 <TextBox.Text>
                     <Binding Path="NewLocationModelEntry.RoomNr" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -85,9 +96,11 @@
             <!--<ComboBox x:Name="SeverityCombobox" DisplayMemberPath="Severity" SelectedValuePath="id" ItemsSource="{Binding SeverityComboBox}" SelectedValue="{Binding Path=Severity , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="240,359,470,66" Width="90" Height="25"/>-->
 
             <Label Content="Database Connection" HorizontalAlignment="Left" Margin="118,22,0,0" VerticalAlignment="Top" Height="23" Width="125" Background="{x:Null}" RenderTransformOrigin="0.366,0.725"/>
-            <Label Content="Enter Designation" HorizontalAlignment="Left" Margin="10,324,0,0" VerticalAlignment="Top" Width="110"/>
-            <Label Content="Enter BuildingNr" HorizontalAlignment="Left" Margin="125,324,0,0" VerticalAlignment="Top" Width="110"/>
-            <Label Content="Enter RoomNr" HorizontalAlignment="Left" Margin="240,324,0,0" VerticalAlignment="Top" Width="110"/>
+            <Label Content="Designation" HorizontalAlignment="Left" Margin="105,337,0,0" VerticalAlignment="Top" Width="90" FontSize="12"/>
+            <Label Content="BuildingNr" HorizontalAlignment="Left" Margin="200,337,0,0" VerticalAlignment="Top" Width="90" FontSize="12"/>
+            <Label Content="RoomNr" HorizontalAlignment="Left" Margin="295,337,0,0" VerticalAlignment="Top" Width="90" FontSize="12"/>
+            <Label Content="ParentId" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="90" FontSize="12"/>
+            <Button Content="Load Tree" Height="25" HorizontalAlignment="Left" Margin="688,181,0,0" x:Name="BtnLoadDataClick_Copy" VerticalAlignment="Top" Width="85" Command="{Binding BtnBuildTreeClick}" />
         </Grid>
     </Grid>
 </UserControl>

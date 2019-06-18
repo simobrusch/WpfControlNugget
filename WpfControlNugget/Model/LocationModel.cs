@@ -8,7 +8,7 @@ namespace WpfControlNugget.Model
 {
     public class LocationModel : ModelBase<LocationModel>
     {
-        public int Id { get; set; }
+        public new int Id { get; set; }
         public int ParentId { get; set; }
         public int AdressId { get; set; }
         public string Designation { get; set; }
@@ -20,10 +20,10 @@ namespace WpfControlNugget.Model
         {
 
         }
-        public LocationModel(int id, /*int parentId,*/ int adressId, string designation, int buildingNr, int roomNr)
+        public LocationModel(int id, int parentId, int adressId, string designation, int buildingNr, int roomNr)
         {
             this.Id = id;
-            //this.ParentId = parentId;
+            this.ParentId = parentId;
             this.AdressId = adressId;
             this.Designation = designation;
             this.BuildingNr = buildingNr;

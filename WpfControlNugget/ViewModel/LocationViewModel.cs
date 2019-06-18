@@ -21,6 +21,7 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnAdddataClick;
         private ICommand _btnDeleteDataClick;
         private ICommand _btnUpdateDataClick;
+        private ICommand _btnBuildTreeClick;
 
         public List<LocationModel> Locations
         {
@@ -97,6 +98,17 @@ namespace WpfControlNugget.ViewModel
                            }));
             }
         }
+        public ICommand BtnBuildTreeClick
+        {
+            get
+            {
+                return _btnBuildTreeClick ?? (_btnBuildTreeClick = new RelayCommand(
+                           x =>
+                           {
+                               LoadTreeData();
+                           }));
+            }
+        }
         private void LoadData()
         {
             try
@@ -148,6 +160,22 @@ namespace WpfControlNugget.ViewModel
                 MessageBox.Show("Error occurred: " + ex.Message);
             }
         }
+        private void LoadTreeData()
+        {
+            try
+            {
+                var locationModelRepository = new LocationRepository(TxtConnectionString);
+                this.Locations = locationModelRepository.GetAll();
+                this.LocationTree = new List<Node<LocationModel>>();
+                GenerateLocationTreeFromList(Locations);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
+            }
+        }
+
+        
         public void GenerateLocationTreeFromList(List<LocationModel> locationList)
         {
             var treeBuilder = new LocationTreeBuilder();

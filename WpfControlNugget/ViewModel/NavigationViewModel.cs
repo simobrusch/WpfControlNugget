@@ -17,15 +17,15 @@ namespace WpfControlNugget.ViewModel
 
         public ICommand LocationsCommand { get; set; }
 
-        private object selectedViewModel;
+        private object _selectedViewModel;
 
         public object SelectedViewModel
 
         {
 
-            get { return selectedViewModel; }
+            get => _selectedViewModel;
 
-            set { selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
+            set { _selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
 
         }
 
