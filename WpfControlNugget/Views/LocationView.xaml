@@ -9,6 +9,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <Control.DataContext>
+        <viewModel:LocationViewModel/>
+    </Control.DataContext>
+
     <Grid Height="450" Width="800"  Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading" Text="Locations" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="773">
@@ -16,7 +20,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="1*" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=ParentId}" Header="ParentId" Width="1*" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=AddressId}" Header="AddressId" Width="1*" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=AdressId}" Header="AdressId" Width="1*" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=Designation}" Header="Designation" Width="1*" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=BuildingNr}" Header="BuildingNr" Width="1*" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=RoomNr}" Header="RoomNr" Width="1*" IsReadOnly="True" />
@@ -100,7 +104,7 @@
             <Label Content="BuildingNr" HorizontalAlignment="Left" Margin="200,337,0,0" VerticalAlignment="Top" Width="90" FontSize="12"/>
             <Label Content="RoomNr" HorizontalAlignment="Left" Margin="295,337,0,0" VerticalAlignment="Top" Width="90" FontSize="12"/>
             <Label Content="ParentId" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="90" FontSize="12"/>
-            <Button Content="Load Tree" Height="25" HorizontalAlignment="Left" Margin="688,181,0,0" x:Name="BtnLoadDataClick_Copy" VerticalAlignment="Top" Width="85" Command="{Binding BtnBuildTreeClick}" />
+            <Button Content="Load Tree" Height="25" HorizontalAlignment="Left" Margin="688,181,0,0" x:Name="BtnLoadDataClickCopy" VerticalAlignment="Top" Width="85" Command="{Binding BtnBuildTreeClick}" />
         </Grid>
     </Grid>
 </UserControl>

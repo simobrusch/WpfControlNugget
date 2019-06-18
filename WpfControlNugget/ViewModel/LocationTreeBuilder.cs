@@ -35,7 +35,7 @@ namespace WpfControlNugget.ViewModel
 
         private Node<LocationModel> FindTreeRoot(List<LocationModel> nodes)
         {
-            var rootNodes = nodes.Where(node => node.ParentId == null);
+            var rootNodes = nodes.Where(node => node.ParentId == 0);
             if (rootNodes.Count() != 1) return new Node<LocationModel>();
             var rootNode = rootNodes.Single();
             nodes.Remove(rootNode);

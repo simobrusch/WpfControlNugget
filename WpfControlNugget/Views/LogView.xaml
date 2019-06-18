@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfControlNugget.Views"
              xmlns:validators="clr-namespace:WpfControlNugget.Validators"
+             xmlns:viewModel="clr-namespace:WpfControlNugget.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <Control.DataContext>
+        <viewModel:LogEntryViewModel/>
+    </Control.DataContext>
 
     <Grid Height="450" Width="800"  Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading" Text="Log Reader" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>

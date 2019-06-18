@@ -25,7 +25,6 @@ namespace WpfControlNugget.Views
         public LogView()
         {
             InitializeComponent();
-            DataContext = new LogEntryViewModel();
         }
     }
 }

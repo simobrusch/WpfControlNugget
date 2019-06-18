@@ -35,13 +35,13 @@ namespace WpfControlNugget.ViewModel
         private List<LocationModel> _locations;
         public LocationModel NewLocationModelEntry { get; set; }
         public List<Node<LocationModel>> LocationTree { get; set; }
-        
+
         public LocationViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             Locations = new List<LocationModel>();
             NewLocationModelEntry = new LocationModel();
-            LocationTree = new List<Node<LocationModel>>();
+            
         }
         public LogEntryModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -116,6 +116,9 @@ namespace WpfControlNugget.ViewModel
             {
                 var locationModelRepository = new LocationRepository(TxtConnectionString);
                 this.Locations = locationModelRepository.GetAll();
+                this.LocationTree = new List<Node<LocationModel>>();
+                GenerateLocationTreeFromList(Locations);
+                PropertyChanged(this, new PropertyChangedEventArgs("LocationTree"));
             }
             catch (Exception ex)
             {
@@ -169,6 +172,7 @@ namespace WpfControlNugget.ViewModel
                 this.Locations = locationModelRepository.GetAll();
                 this.LocationTree = new List<Node<LocationModel>>();
                 GenerateLocationTreeFromList(Locations);
+                PropertyChanged(this, new PropertyChangedEventArgs("LocationTree"));
             }
             catch (Exception ex)
             {

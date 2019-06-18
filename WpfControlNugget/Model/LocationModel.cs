@@ -15,7 +15,6 @@ namespace WpfControlNugget.Model
         public int BuildingNr { get; set; }
         public int RoomNr { get; set; }
 
-
         public LocationModel()
         {
 
@@ -54,6 +53,31 @@ namespace WpfControlNugget.Model
                 hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, RoomNr) ? RoomNr.GetHashCode() : 0);
                 return hash;
             }
+        }
+        public static bool operator ==(LocationModel locA, LocationModel locB)
+        {
+            if (Object.ReferenceEquals(locA, locB))
+            {
+                return true;
+            }
+
+            //Ensure that A isnt Null
+            if (Object.ReferenceEquals(null, locA))
+            {
+                return false;
+            }
+
+            return (locA.Equals(locB));
+        }
+
+        public static bool operator !=(LocationModel locA, LocationModel locB)
+        {
+            return !(locA == locB);
+        }
+
+        public override string ToString()
+        {
+            return Designation;
         }
     }
 }

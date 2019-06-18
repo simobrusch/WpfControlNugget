@@ -24,7 +24,6 @@ namespace WpfControlNugget.Views
         public LocationView()
         {
             InitializeComponent();
-            DataContext = new LocationViewModel();
         }
     }
 }
