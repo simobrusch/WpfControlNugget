@@ -41,6 +41,7 @@ namespace WpfControlNugget.ViewModel
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             Locations = new List<LocationModel>();
             NewLocationModelEntry = new LocationModel();
+            LocationTree = new List<Node<LocationModel>>();
         }
         public LogEntryModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;

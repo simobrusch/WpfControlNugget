@@ -114,10 +114,11 @@ namespace WpfControlNugget.Repository
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
+                            var parentId = reader["parentId"];
                             Locations.Add(new LocationModel(
 
                                 reader.GetInt32("location_id"),
-                                reader.GetInt32("parentId"),
+                                (parentId == DBNull.Value?(int?)null:parentId as int?),
                                 reader.GetInt32("address_fk"),
                                 reader.GetValue(reader.GetOrdinal("designation")) as string,
                                 reader.GetInt32("building"),

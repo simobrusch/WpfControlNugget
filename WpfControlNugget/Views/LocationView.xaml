@@ -24,8 +24,8 @@
             </DataGrid>
             <TreeView Grid.Row="0" Margin="10,51,0,240" ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
                 <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
-                        <TreeViewItem Header="{Binding ChildNodesList}"/>
+                    <HierarchicalDataTemplate ItemsSource="{Binding ChildNodesList, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
+                        <TreeViewItem Header="{Binding}"/>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
