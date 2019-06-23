@@ -14,7 +14,7 @@ namespace WpfControlNugget.Repository
         public override string TableName => "Location";
         public override string ColumnsForSelect => "location_id, parentId, address_fk, designation, building, room";
         public override string ColumnsForAdd => "parentId, address_fk, designation, building, room";
-        public override string PrimaryKeyTable => "location_id";
+        public override string PrimaryKeyFromTable => "location_id";
 
         public List<LocationModel> Locations { get; set; }
         public LocationModel _Locations { get; set; }
@@ -51,7 +51,7 @@ namespace WpfControlNugget.Repository
             {
                 using (var conn = new MySqlConnection(ConnectionString))
                 {
-                    conn.Open(); 
+                    conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = $"DELETE FROM {TableName} WHERE location_id = {location.Id}";
@@ -119,12 +119,10 @@ namespace WpfControlNugget.Repository
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            //var parentId = reader["parentId"];
                             Locations.Add(new LocationModel(
 
                                 reader.GetInt32("location_id"),
                                 reader.GetInt32("parentId"),
-                                //(parentId == DBNull.Value?(int?)null:parentId as int?),
                                 reader.GetInt32("address_fk"),
                                 reader.GetValue(reader.GetOrdinal("designation")) as string,
                                 reader.GetInt32("building"),
@@ -143,7 +141,7 @@ namespace WpfControlNugget.Repository
 
         public override void CallStoredProcedure(LocationModel entity)
         {
-            throw new NotImplementedException();
+            throw new System.NotSupportedException();
         }
 
         public override LocationModel GetSingle<P>(P pkValue)
@@ -155,7 +153,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName} WHERE {PrimaryKeyTable} = {pkValue}";
+                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName} WHERE {PrimaryKeyFromTable} = {pkValue}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {

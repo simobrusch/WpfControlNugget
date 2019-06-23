@@ -24,8 +24,8 @@ namespace WpfControlNugget.ViewModel
         private readonly DuplicateChecker _dupChecker;
 
         private ICommand _btnLoadDataClick;
-        private ICommand _btnConfirmdataClick;
-        private ICommand _btnAdddataClick;
+        private ICommand _btnConfirmDataClick;
+        private ICommand _btnAddDataClick;
         private ICommand _btnFindDuplicatesClick;
 
         public List<LogEntryModel> Logs
@@ -93,7 +93,7 @@ namespace WpfControlNugget.ViewModel
         {
             get
             {
-                return _btnAdddataClick ?? (_btnAdddataClick = new RelayCommand(
+                return _btnAddDataClick ?? (_btnAddDataClick = new RelayCommand(
                            x =>
                            {
                                BtnAdd_Click();
@@ -104,7 +104,7 @@ namespace WpfControlNugget.ViewModel
         {
             get
             {
-                return _btnConfirmdataClick ?? (_btnConfirmdataClick = new RelayCommand(
+                return _btnConfirmDataClick ?? (_btnConfirmDataClick = new RelayCommand(
                            x =>
                            {
                                BtnLogClear_Click();

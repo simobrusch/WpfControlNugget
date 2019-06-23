@@ -13,12 +13,12 @@ using WpfControlNugget.ViewModel.Commands;
 
 namespace WpfControlNugget.ViewModel
 {
-    public class LocationViewModel :INotifyPropertyChanged
+    public class LocationViewModel : INotifyPropertyChanged
     {
         private string _txtConnectionString;
-        
+
         private ICommand _btnLoadDataClick;
-        private ICommand _btnAdddataClick;
+        private ICommand _btnAddDataClick;
         private ICommand _btnDeleteDataClick;
         private ICommand _btnUpdateDataClick;
         private ICommand _btnBuildTreeClick;
@@ -41,7 +41,7 @@ namespace WpfControlNugget.ViewModel
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             Locations = new List<LocationModel>();
             NewLocationModelEntry = new LocationModel();
-            
+
         }
         public LogEntryModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -70,7 +70,7 @@ namespace WpfControlNugget.ViewModel
         {
             get
             {
-                return _btnAdddataClick ?? (_btnAdddataClick = new RelayCommand(
+                return _btnAddDataClick ?? (_btnAddDataClick = new RelayCommand(
                            x =>
                            {
                                AddData();
@@ -118,7 +118,7 @@ namespace WpfControlNugget.ViewModel
                 this.Locations = locationModelRepository.GetAll();
                 this.LocationTree = new List<Node<LocationModel>>();
                 GenerateLocationTreeFromList(Locations);
-                PropertyChanged(this, new PropertyChangedEventArgs("LocationTree"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LocationTree"));
             }
             catch (Exception ex)
             {
@@ -172,7 +172,7 @@ namespace WpfControlNugget.ViewModel
                 this.Locations = locationModelRepository.GetAll();
                 this.LocationTree = new List<Node<LocationModel>>();
                 GenerateLocationTreeFromList(Locations);
-                PropertyChanged(this, new PropertyChangedEventArgs("LocationTree"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LocationTree"));
             }
             catch (Exception ex)
             {
@@ -180,7 +180,6 @@ namespace WpfControlNugget.ViewModel
             }
         }
 
-        
         public void GenerateLocationTreeFromList(List<LocationModel> locationList)
         {
             var treeBuilder = new LocationTreeBuilder();

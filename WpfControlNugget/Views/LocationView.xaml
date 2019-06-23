@@ -16,7 +16,7 @@
     <Grid Height="450" Width="800"  Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading" Text="Locations" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="773">
-            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,211,0,79" Name="DataGridLocations" Width="763" ItemsSource="{Binding Path=Locations}" CanUserResizeRows="False">
+            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,196,0,76" Name="DataGridLocations" Width="763" ItemsSource="{Binding Path=Locations}" CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="1*" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=ParentId}" Header="ParentId" Width="1*" IsReadOnly="True" />
@@ -26,13 +26,15 @@
                     <DataGridTextColumn Binding="{Binding Path=RoomNr}" Header="RoomNr" Width="1*" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
-            <TreeView Grid.Row="0" Margin="10,51,0,240" ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
+            <TreeView Grid.Row="0" Margin="10,51,0,225" ItemsSource="{Binding LocationTree, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding ChildNodesList, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=true, Mode=TwoWay}">
                         <TreeViewItem Header="{Binding}"/>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
+
+            <!--<Button Content="Load Tree" Height="25" HorizontalAlignment="Left" Margin="703,181,0,0" x:Name="BtnLoadTreeClick" VerticalAlignment="Top" Width="70" Command="{Binding BtnBuildTreeClick}" />-->
             <Button Content="Add" Height="25" HorizontalAlignment="Left" Margin="478,366,0,0" Name="BtnAdd" VerticalAlignment="Top" Width="70" Command="{Binding BtnAddDataClick}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -79,12 +81,12 @@
                         <Binding.ValidationRules>
                             <validators:StringRangeValidationRule
                                 validators:MinimumLength="1" validators:MaximumLength="45"
-                                ErrorMessage="Designation must contain atleast 1 characters up to 45" />
+                                ErrorMessage="Designation must contain at least 1 characters up to 45" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            
+
             <TextBox HorizontalAlignment="Left" Height="25" Margin="265,366,0,0" TextWrapping="Wrap" Name="EnterBuildingNr" VerticalAlignment="Top" Width="80">
                 <TextBox.Text>
                     <Binding Path="NewLocationModelEntry.BuildingNr" UpdateSourceTrigger="PropertyChanged">
@@ -114,10 +116,6 @@
             <Label Content="Designation" HorizontalAlignment="Left" Margin="180,340,0,0" VerticalAlignment="Top" Width="80" FontSize="12"/>
             <Label Content="BuildingNr" HorizontalAlignment="Left" Margin="265,340,0,0" VerticalAlignment="Top" Width="80" FontSize="12"/>
             <Label Content="RoomNr" HorizontalAlignment="Left" Margin="350,340,0,0" VerticalAlignment="Top" Width="80" FontSize="12"/>
-            
-            <Button Content="Load Tree" Height="25" HorizontalAlignment="Left" Margin="688,181,0,0" x:Name="BtnLoadTreeClick" VerticalAlignment="Top" Width="85" Command="{Binding BtnBuildTreeClick}" />
-            
-            
         </Grid>
     </Grid>
 </UserControl>

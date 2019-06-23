@@ -42,12 +42,12 @@ namespace WpfControlNugget.ViewModel
             return Map(rootNode, null);
         }
 
-        private Node<LocationModel> Map(LocationModel loc, Node<LocationModel> parentnode)
+        private Node<LocationModel> Map(LocationModel loc, Node<LocationModel> parentNode)
         {
             return new Node<LocationModel>
             {
                 ValueObject = loc,
-                ParentNode = parentnode
+                ParentNode = parentNode
             };
         }
     }

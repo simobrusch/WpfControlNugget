@@ -70,7 +70,7 @@ namespace WpfControlNugget.Repository
                     {
                         conn.Open();
                         cmd.CommandText = $"select count(*) from {this.TableName}";
-                        return (long) cmd.ExecuteScalar();
+                        return (long)cmd.ExecuteScalar();
                     }
                 }
             }
@@ -83,6 +83,6 @@ namespace WpfControlNugget.Repository
         public abstract string TableName { get; }
         public abstract string ColumnsForSelect { get; }
         public abstract string ColumnsForAdd { get; }
-        public abstract string PrimaryKeyTable { get; }
+        public abstract string PrimaryKeyFromTable { get; }
     }
 }

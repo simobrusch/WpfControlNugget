@@ -16,7 +16,7 @@ namespace WpfControlNugget.Repository
         public override string TableName => "v_logentries";
         public override string ColumnsForSelect => "id, pod, location, hostname, severity, timestamp, message";
         public override string ColumnsForAdd { get; }
-        public override string PrimaryKeyTable => "id";
+        public override string PrimaryKeyFromTable => "id";
 
         public List<LogEntryModel> Logs { get; set; }
         public LogEntryModel _Logs { get; set; }
@@ -35,7 +35,7 @@ namespace WpfControlNugget.Repository
                     conn.Open();
                     using (MySqlCommand cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName} WHERE {PrimaryKeyTable} = {pkValue}";
+                        cmd.CommandText = $"SELECT {ColumnsForSelect} FROM {TableName} WHERE {PrimaryKeyFromTable} = {pkValue}";
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
