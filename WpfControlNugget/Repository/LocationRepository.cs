@@ -34,7 +34,7 @@ namespace WpfControlNugget.Repository
                         cmd.CommandText =
                             $"INSERT INTO {TableName} ({ColumnsForAdd}) " +
                             $"VALUES " +
-                            $"(parentId = {location.ParentId}, address_fk = {location.AdressId} , designation = '{location.Designation}', building = {location.BuildingNr} , room = {location.RoomNr} )";
+                            $"(parentId = {location.ParentId}, address_fk = {location.AddressId} , designation = '{location.Designation}', building = {location.BuildingNr} , room = {location.RoomNr} )";
                         cmd.ExecuteNonQuery();
                     }
                 }
