@@ -16,7 +16,7 @@
     <Grid Height="450" Width="800"  Background="#FF89A9B2" >
         <TextBlock Height="32" HorizontalAlignment="Left" Margin="10,18,0,0" Name="TextBlockHeading" Text="Locations" VerticalAlignment="Top" Width="310"  FontSize="20" FontStretch="Normal"/>
         <Grid HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="773">
-            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,196,0,76" Name="DataGridLocations" Width="763" ItemsSource="{Binding Path=Locations}" CanUserResizeRows="False">
+            <DataGrid Validation.ErrorTemplate="{x:Null}" CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,196,0,76" Name="DataGridLocations" Width="763" ItemsSource="{Binding Path=Locations}" CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="1*" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=ParentId}" Header="ParentId" Width="1*" IsReadOnly="True" />
