@@ -6,17 +6,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DuplicateCheckerLib;
+using LinqToDB.Mapping;
 
 namespace WpfControlNugget.Model
 {
+    [Table("v_logentries")]
     public class LogEntryModel : IEntity
     {
+        [Column("id"), PrimaryKey, NotNull]
         public int Id { get; set; }
+        [Column("pod")]
         public string Pod { get; set; }
+        [Column("location")]
         public string Location { get; set; }
+        [Column("hostname")]
         public string Hostname { get; set; }
+        [Column("severity")]
         public string Severity { get; set; }
+        [Column("timestamp")]
         public DateTime Timestamp { get; set; }
+        [Column("message")]
         public string Message { get; set; }
 
         public LogEntryModel()

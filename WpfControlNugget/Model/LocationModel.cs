@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace WpfControlNugget.Model
 {
+    [Table("Location")]
     public class LocationModel : ModelBase<LocationModel>
     {
+        [Column("location_id"), PrimaryKey, NotNull]
         public new int Id { get; set; }
+        [Column("parentId")]
         public int ParentId { get; set; }
+        [Column("address_fk")]
         public int AddressId { get; set; }
+        [Column("designation")]
         public string Designation { get; set; }
+        [Column("building")]
         public int BuildingNr { get; set; }
+        [Column("room")]
         public int RoomNr { get; set; }
 
         public LocationModel()
