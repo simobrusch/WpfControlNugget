@@ -7,8 +7,8 @@ using DuplicateCheckerLib;
 
 namespace WpfControlNugget.Model
 {
-    public abstract class ModelBase<M> : IEntity
+    public abstract class ModelBase<TM> : IEntity
     {
-        public int Id { get; set; }
+        public abstract int Id { get; set; }
     }
 }

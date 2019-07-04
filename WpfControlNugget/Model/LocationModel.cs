@@ -11,7 +11,7 @@ namespace WpfControlNugget.Model
     public class LocationModel : ModelBase<LocationModel>
     {
         [Column("location_id"), PrimaryKey, NotNull]
-        public new int Id { get; set; }
+        public override int Id { get; set; }
         [Column("parentId")]
         public int ParentId { get; set; }
         [Column("address_fk")]

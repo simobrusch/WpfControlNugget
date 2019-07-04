@@ -6,31 +6,31 @@ using System.Threading.Tasks;
 
 namespace WpfControlNugget.Model
 {
-    public class Node<M>
+    public class Node<TM>
     {
-        public M ValueObject { get; set; }
-        public Node<M> ParentNode { get; set; }
-        public List<Node<M>> ChildNodesList { get; set; }
+        public TM ValueObject { get; set; }
+        public Node<TM> ParentNode { get; set; }
+        public List<Node<TM>> ChildNodesList { get; set; }
 
         public Node()
         {
-            this.ChildNodesList = new List<Node<M>>();
+            this.ChildNodesList = new List<Node<TM>>();
         }
-        public Node(M valueObject)
+        public Node(TM valueObject)
         {
             this.ValueObject = valueObject;
             this.ParentNode = default;
-            this.ChildNodesList = new List<Node<M>>();
+            this.ChildNodesList = new List<Node<TM>>();
         }
 
-        public Node(Node<M> parentNode, M valueObject)
+        public Node(Node<TM> parentNode, TM valueObject)
         {
             this.ValueObject = valueObject;
             this.ParentNode = parentNode;
-            this.ChildNodesList = new List<Node<M>>();
+            this.ChildNodesList = new List<Node<TM>>();
         }
 
-        public void AddChildNode(Node<M> childNode)
+        public void AddChildNode(Node<TM> childNode)
         {
             this.ChildNodesList.Add(childNode);
         }

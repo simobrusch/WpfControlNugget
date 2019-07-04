@@ -11,10 +11,10 @@ using LinqToDB.Mapping;
 namespace WpfControlNugget.Model
 {
     [Table("v_logentries")]
-    public class LogEntryModel : IEntity
+    public class LogEntryModel : ModelBase<LogEntryModel>
     {
         [Column("id"), PrimaryKey, NotNull]
-        public int Id { get; set; }
+        public override int Id { get; set; }
         [Column("pod")]
         public string Pod { get; set; }
         [Column("location")]

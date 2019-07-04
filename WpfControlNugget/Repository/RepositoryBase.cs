@@ -1,88 +1,168 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using LinqToDB;
 using MySql.Data.MySqlClient;
+using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    public abstract class RepositoryBase<M> : IRepositoryBase<M>
+    public abstract class RepositoryBase<TM> : IRepositoryBase<TM> where TM : ModelBase<TM>, new()
     {
+        protected string ProviderName { get; }
+        protected string ConnectionString { get; }
         protected RepositoryBase(string connectionString)
         {
             this.ConnectionString = connectionString;
+            this.ProviderName = "MySql";
         }
-        protected string ConnectionString { get; }
-        public abstract M GetSingle<P>(P pkValue);
 
-        public abstract void Add(M entity);
-
-        public abstract void Delete(M entity);
-
-        public abstract void Update(M entity);
-        public abstract List<M> GetAll(string whereCondition, Dictionary<string, object> parameterValues);
-
-        public abstract List<M> GetAll();
-
-        public abstract void CallStoredProcedure(M entity);
-
-        public IQueryable<M> Query(string whereCondition, Dictionary<string, object> parameterValues)
+        public TM GetSingle<TP>(TP pkValue)
         {
-            throw new System.NotSupportedException();
-        }
-        public long Count(string whereCondition, Dictionary<string, object> parameterValues)
-        {
-            var whereCon = whereCondition;
-            if (parameterValues.Count > 0 && whereCondition != null)
+            var pkValueRow = new TM();
+            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
             {
-                foreach (KeyValuePair<string, object> p in parameterValues)
+                try
                 {
-                    whereCon = whereCon.Replace($"@{p.Key}", p.Value.ToString());
+                    pkValueRow = (from e in dataCtx.GetTable<TM>() where e.Id.Equals(pkValue) select e).FirstOrDefault();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
+                }
+                return pkValueRow;
+            }
+        }
+
+        public void Add(TM entity)
+        {
+            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            {
+                try
+                {
+                    dataCtx.Insert<TM>(entity);
+                    dataCtx.BeginTransaction();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
                 }
             }
-            try
+        }
+
+        public void Delete(TM entity)
+        {
+            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
             {
-                using (var conn = new MySqlConnection(this.ConnectionString))
+                try
                 {
-                    using (var cmd = conn.CreateCommand())
+                    var pkValueRow = (from e in dataCtx.GetTable<TM>() where e.Id.Equals(entity.Id) select e).FirstOrDefault();
+                    if (pkValueRow != null)
                     {
-                        conn.Open();
-                        cmd.CommandText = $"select count(*) from {this.TableName} where {whereCon}";
-                        return (long)cmd.ExecuteScalar();
+                        dataCtx.Delete<TM>(pkValueRow);
                     }
+                    dataCtx.BeginTransaction();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
                 }
             }
-            catch (Exception ex)
+        }
+
+        public void Update(TM entity)
+        {
+            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
             {
-                MessageBox.Show("Error occurred: " + ex.Message);
-                return -1;
+                try
+                {
+                    var pkValueRow = (from e in dataCtx.GetTable<TM>() where e.Id.Equals(entity.Id) select e).FirstOrDefault();
+                    dataCtx.Update<TM>(entity);
+                    dataCtx.BeginTransaction();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
+                }
             }
         }
+
+        public IQueryable<TM> GetAll(Expression<Func<TM, bool>> whereCondition)
+        {
+            IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
+            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            {
+                try
+                {
+                    entities = dataCtx.GetTable<TM>().Where<TM>(whereCondition);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
+                }
+            }
+            return entities;
+        }
+
+        public IQueryable<TM> GetAll()
+        {
+            IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
+            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            {
+                try
+                {
+                    entities = dataCtx.GetTable<TM>();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
+                }
+            }
+            return entities;
+        }
+
+        public IQueryable<TM> Query(string whereCondition, Dictionary<string, object> parameterValues)
+        {
+            throw new NotSupportedException();
+        }
+
+        public long Count(Expression<Func<TM, bool>> whereCondition)
+        {
+            IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
+            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            {
+                try
+                {
+                    entities = dataCtx.GetTable<TM>().Where<TM>(whereCondition);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
+                }
+                return entities.Count();
+            }
+        }
+
         public long Count()
         {
-            try
+            IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
+            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
             {
-                using (var conn = new MySqlConnection(this.ConnectionString))
+                try
                 {
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        conn.Open();
-                        cmd.CommandText = $"select count(*) from {this.TableName}";
-                        return (long)cmd.ExecuteScalar();
-                    }
+                    entities = dataCtx.GetTable<TM>();
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred: " + ex.Message);
-                return -1;
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
+                }
+                return entities.Count();
             }
         }
-        public abstract string TableName { get; }
-        public abstract string ColumnsForSelect { get; }
-        public abstract string ColumnsForAdd { get; }
-        public abstract string PrimaryKeyFromTable { get; }
     }
 }
