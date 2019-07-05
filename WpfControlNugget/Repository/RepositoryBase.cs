@@ -45,7 +45,7 @@ namespace WpfControlNugget.Repository
             {
                 try
                 {
-                    dataCtx.Insert<TM>(entity);
+                    dataCtx.Insert(entity);
                     dataCtx.BeginTransaction();
                 }
                 catch (Exception ex)
@@ -64,7 +64,7 @@ namespace WpfControlNugget.Repository
                     var pkValueRow = (from e in dataCtx.GetTable<TM>() where e.Id.Equals(entity.Id) select e).FirstOrDefault();
                     if (pkValueRow != null)
                     {
-                        dataCtx.Delete<TM>(pkValueRow);
+                        dataCtx.Delete(pkValueRow);
                     }
                     dataCtx.BeginTransaction();
                 }
@@ -82,7 +82,7 @@ namespace WpfControlNugget.Repository
                 try
                 {
                     var pkValueRow = (from e in dataCtx.GetTable<TM>() where e.Id.Equals(entity.Id) select e).FirstOrDefault();
-                    dataCtx.Update<TM>(entity);
+                    dataCtx.Update(entity);
                     dataCtx.BeginTransaction();
                 }
                 catch (Exception ex)
@@ -99,7 +99,7 @@ namespace WpfControlNugget.Repository
             {
                 try
                 {
-                    entities = dataCtx.GetTable<TM>().Where<TM>(whereCondition);
+                    entities = dataCtx.GetTable<TM>().Where(whereCondition);
                 }
                 catch (Exception ex)
                 {
@@ -138,7 +138,7 @@ namespace WpfControlNugget.Repository
             {
                 try
                 {
-                    entities = dataCtx.GetTable<TM>().Where<TM>(whereCondition);
+                    entities = dataCtx.GetTable<TM>().Where(whereCondition);
                 }
                 catch (Exception ex)
                 {
