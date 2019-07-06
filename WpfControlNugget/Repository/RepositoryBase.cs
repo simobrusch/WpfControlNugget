@@ -14,7 +14,14 @@ namespace WpfControlNugget.Repository
 {
     public abstract class RepositoryBase<TM> : IRepositoryBase<TM> where TM : ModelBase<TM>, new()
     {
+        /// <summary>
+        /// Name des Datenbankproviders z.B. MySQL, MSSQl, PostgreSQL, etc.
+        /// </summary>
         protected string ProviderName { get; }
+        /// <summary>
+        /// String für Database Verbindung im folgenden Format:
+        /// "Server=localhost;Database=;Uid=root;Pwd=;"
+        /// </summary>
         protected string ConnectionString { get; }
         protected RepositoryBase(string connectionString)
         {
