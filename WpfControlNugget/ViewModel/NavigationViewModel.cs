@@ -13,6 +13,7 @@ namespace WpfControlNugget.ViewModel
     {
         public ICommand LogsCommand { get; set; }
         public ICommand LocationsCommand { get; set; }
+        public ICommand CustomersCommand { get; set; }
 
         private object _selectedViewModel;
         public object SelectedViewModel
@@ -25,6 +26,7 @@ namespace WpfControlNugget.ViewModel
         {
             LogsCommand = new BaseCommand(OpenLogs);
             LocationsCommand = new BaseCommand(OpenLocations);
+            CustomersCommand = new BaseCommand(OpenCustomers);
         }
 
         private void OpenLogs(object obj)
@@ -35,6 +37,10 @@ namespace WpfControlNugget.ViewModel
         private void OpenLocations(object obj)
         {
             SelectedViewModel = new LocationViewModel();
+        }
+        private void OpenCustomers(object obj)
+        {
+            SelectedViewModel = new CustomerViewModel();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

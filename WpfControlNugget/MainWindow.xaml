@@ -18,6 +18,12 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type local:CustomerViewModel}">
+
+            <views:CustomerView/>
+
+        </DataTemplate>
+
     </Window.Resources>
 
     <DockPanel LastChildFill="True">
@@ -30,9 +36,9 @@ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0"  Width="400" Content="Locations" Command="{Binding LocationsCommand}" Margin="394,0,-393,0"/>
-
-            <Button HorizontalAlignment="Right" Width="400" Content="Log Reader" Command="{Binding LogsCommand}" Margin="0,0,2,0"/>
+            <Button HorizontalAlignment="Left" Width="268" Content="Log Reader" Command="{Binding LogsCommand}"/>
+            <Button HorizontalAlignment="Center" Width="265" Content="Locations" Command="{Binding LocationsCommand}" Margin="265,0,-235,0"/>
+            <Button HorizontalAlignment="Right" Width="264" Content="Customers" Command="{Binding CustomersCommand}" Margin="0,0,-498,0"/>
 
         </Grid>
 
