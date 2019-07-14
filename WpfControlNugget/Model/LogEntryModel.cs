@@ -67,5 +67,25 @@ namespace WpfControlNugget.Model
                 return hash;
             }
         }
+        public static bool operator ==(LogEntryModel logA, LogEntryModel logB)
+        {
+            if (Object.ReferenceEquals(logA, logB))
+            {
+                return true;
+            }
+
+            //Ensure that A isnt Null
+            if (Object.ReferenceEquals(null, logA))
+            {
+                return false;
+            }
+
+            return (logA.Equals(logB));
+        }
+
+        public static bool operator !=(LogEntryModel logA, LogEntryModel logB)
+        {
+            return !(logA == logB);
+        }
     }
 }
