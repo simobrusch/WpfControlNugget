@@ -60,66 +60,100 @@
 
             <TextBox HorizontalAlignment="Left" Height="23" Margin="248,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="TxtConnectionString"  VerticalAlignment="Top" Width="525" />
 
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,321,0,0" TextWrapping="Wrap" Name="EnterCustomerId" VerticalAlignment="Top" Width="95">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,321,0,0" TextWrapping="Wrap" Name="EnterFirstName" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.Id" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewCustomerEntry.FirstName" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validators:IntRangeValidationRule
-                                validators:MinimumLength="1" validators:MaximumLength="3"/>
+                            <validators:StringRangeValidationRule
+                                MinimumLength="1" MaximumLength="45"
+                                ErrorMessage="Message must contain at least 1 character up to 45" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="110,321,0,0" TextWrapping="Wrap" Name="EnterPhoneNumber" VerticalAlignment="Top" Width="95" >
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="110,321,0,0" TextWrapping="Wrap" Name="EnterLastName" VerticalAlignment="Top" Width="95" >
+                <TextBox.Text>
+                    <Binding Path="NewCustomerEntry.LastName" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validators:StringRangeValidationRule
+                                MinimumLength="1" MaximumLength="45"
+                                ErrorMessage="Message must contain at least 1 character up to 45" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="210,321,0,0" TextWrapping="Wrap" Name="EnterAddressNumber" VerticalAlignment="Top" Width="95">
+                <TextBox.Text>
+                    <Binding Path="NewCustomerEntry.AddressNumber" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validators:StringRangeValidationRule
+                                MinimumLength="1" MaximumLength="45"
+                                ErrorMessage="Message must contain at least 1 character up to 45" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="310,321,0,0" TextWrapping="Wrap" x:Name="EnterUrl" VerticalAlignment="Top" Width="95">
+                <Binding Path="NewCustomerEntry.Url" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validators:StringRangeValidationRule
+                            MinimumLength="1" MaximumLength="30"
+                            ErrorMessage="Message must contain at least 1 characters up to 30" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,372,0,0" TextWrapping="Wrap" Name="EnterCustomerAccNr" VerticalAlignment="Top" Width="95">
+                <TextBox.Text>
+                    <Binding Path="NewCustomerEntry.CustomerBankAccountId" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validators:IntRangeValidationRule
+                                MinimumLength="1" MaximumLength="8"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="110,372,0,0" TextWrapping="Wrap" Name="EnterPhone" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
                     <Binding Path="NewCustomerEntry.TelephoneNumber" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validators:IntRangeValidationRule
-                  validators:MinimumLength="1" validators:MaximumLength="3"/>
+                            <validators:StringRangeValidationRule
+                                MinimumLength="1" MaximumLength="20"
+                                ErrorMessage="Message must contain at least 1 character up to 20" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="210,321,0,0" TextWrapping="Wrap" Name="EnterEmail" VerticalAlignment="Top" Width="95">
-                <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.EmailAddress" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:StringRangeValidationRule
-                  validators:MinimumLength="3" validators:MaximumLength="255"
-                  ErrorMessage="Message must contain at least 3 characters up to 255" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="210,372,0,0" TextWrapping="Wrap" x:Name="EnterEmail" VerticalAlignment="Top" Width="95">
+                <Binding Path="NewCustomerEntry.EmailAddress" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validators:StringRangeValidationRule
+                            MinimumLength="1" MaximumLength="30"
+                            ErrorMessage="Message must contain at least 1 characters up to 30" />
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,372,0,0" TextWrapping="Wrap" Name="EnterWebsite" VerticalAlignment="Top" Width="95">
-                <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.Url" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:StringRangeValidationRule
-                                validators:MinimumLength="3" validators:MaximumLength="255"
-                                ErrorMessage="Message must contain at least 3 characters up to 255" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="110,372,0,0" TextWrapping="Wrap" Name="EnterPassword" VerticalAlignment="Top" Width="95">
-                <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.Password" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validators:StringRangeValidationRule
-                                validators:MinimumLength="3" validators:MaximumLength="255"
-                                ErrorMessage="Message must contain at least 3 characters up to 255" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="310,372,0,0" TextWrapping="Wrap" x:Name="EnterPassword" VerticalAlignment="Top" Width="95">
+                <Binding Path="NewCustomerEntry.Password" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validators:StringRangeValidationRule
+                            MinimumLength="1" MaximumLength="255"
+                            ErrorMessage="Message must contain at least 1 character up to 255" />
+                    </Binding.ValidationRules>
+                </Binding>
             </TextBox>
 
             <Label Content="Database Connection" HorizontalAlignment="Left" Margin="118,22,0,0" VerticalAlignment="Top" Height="23" Width="125" Background="{x:Null}" RenderTransformOrigin="0.366,0.725"/>
-            <Label Content="Kundennummer" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Telefonnummer" HorizontalAlignment="Left" Margin="110,290,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Email-Adresse" HorizontalAlignment="Left" Margin="210,290,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Website" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Passwort" HorizontalAlignment="Left" Margin="110,346,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Firstname" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Lastname" HorizontalAlignment="Left" Margin="110,290,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Addressnumber" HorizontalAlignment="Left" Margin="210,290,0,0" VerticalAlignment="Top" Width="95"/>       
+            <Label Content="Url" HorizontalAlignment="Left" Margin="310,291,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="CustomerAccNr" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Phone" HorizontalAlignment="Left" Margin="110,346,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Email" HorizontalAlignment="Left" Margin="210,346,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Password" HorizontalAlignment="Left" Margin="310,347,0,0" VerticalAlignment="Top" Width="95"/>
+
+
+
         </Grid>
     </Grid>
 </UserControl>
