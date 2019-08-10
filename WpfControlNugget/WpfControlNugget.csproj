@@ -92,6 +92,7 @@
     <Compile Include="Validators\AddressNumberValidationRule.cs" />
     <Compile Include="Validators\EmailValidationRule.cs" />
     <Compile Include="Validators\PasswordValidationRule.cs" />
+    <Compile Include="Validators\PhoneNumberValidationRule.cs" />
     <Compile Include="Validators\UrlValidationRule.cs" />
     <Compile Include="ViewModel\Commands\BaseCommand.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
