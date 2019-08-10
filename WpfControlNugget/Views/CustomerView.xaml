@@ -86,9 +86,8 @@
                 <TextBox.Text>
                     <Binding Path="NewCustomerEntry.AddressNumber" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validators:StringRangeValidationRule
-                                MinimumLength="1" MaximumLength="45"
-                                ErrorMessage="Message must contain at least 1 character up to 45" />
+                            <validators:AddressNumberValidationRule
+                                ErrorMessage="Addressnumber needs to begin with CU following a 5 digit number!" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -96,9 +95,8 @@
             <TextBox HorizontalAlignment="Left" Height="25" Margin="310,321,0,0" TextWrapping="Wrap" x:Name="EnterUrl" VerticalAlignment="Top" Width="95">
                 <Binding Path="NewCustomerEntry.Url" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <validators:StringRangeValidationRule
-                            MinimumLength="1" MaximumLength="30"
-                            ErrorMessage="Message must contain at least 1 characters up to 30" />
+                        <validators:UrlValidationRule
+                            ErrorMessage="Invalid URL" />
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
@@ -126,18 +124,16 @@
             <TextBox HorizontalAlignment="Left" Height="25" Margin="210,372,0,0" TextWrapping="Wrap" x:Name="EnterEmail" VerticalAlignment="Top" Width="95">
                 <Binding Path="NewCustomerEntry.EmailAddress" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <validators:StringRangeValidationRule
-                            MinimumLength="1" MaximumLength="30"
-                            ErrorMessage="Message must contain at least 1 characters up to 30" />
+                        <validators:EmailValidationRule
+                            ErrorMessage="Invalid Email Address" />
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
             <TextBox HorizontalAlignment="Left" Height="25" Margin="310,372,0,0" TextWrapping="Wrap" x:Name="EnterPassword" VerticalAlignment="Top" Width="95">
                 <Binding Path="NewCustomerEntry.Password" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <validators:StringRangeValidationRule
-                            MinimumLength="1" MaximumLength="255"
-                            ErrorMessage="Message must contain at least 1 character up to 255" />
+                        <validators:PasswordValidationRule
+                            ErrorMessage="Password must at least be 8 characters long up to 15. 1 lower + 1 uppercase letter, a number and a special character." />
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
