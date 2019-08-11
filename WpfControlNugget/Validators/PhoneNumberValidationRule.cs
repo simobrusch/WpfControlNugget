@@ -19,15 +19,16 @@ namespace WpfControlNugget.Validators
         {
 
         }
+
         public PhoneNumberValidationRule(CustomerModel customer)
         {
             this.Customer = customer;
         }
+
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            Regex regex = new Regex(Customer.CustomerCountry.PhoneNumberRegex);
+            Regex regex = new Regex(@"^(\+41|0041|0){1}(\(0\))?[0-9]{9}$");
             Match match = regex.Match(value.ToString());
-
             if (match == Match.Empty)
             {
                 return new ValidationResult(false, ErrorMessage);
@@ -36,6 +37,20 @@ namespace WpfControlNugget.Validators
             {
                 return ValidationResult.ValidResult;
             }
+            //public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+            //{
+            //    Regex regex = new Regex(Customer.CustomerCountry.PhoneNumberRegex);
+            //    Match match = regex.Match(value.ToString());
+
+            //    if (match == Match.Empty)
+            //    {
+            //        return new ValidationResult(false, ErrorMessage);
+            //    }
+            //    else
+            //    {
+            //        return ValidationResult.ValidResult;
+            //    }
+            //}
         }
     }
 }
