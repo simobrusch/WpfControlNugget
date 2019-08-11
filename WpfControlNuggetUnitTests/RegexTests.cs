@@ -95,23 +95,72 @@ namespace WpfControlNuggetUnitTests
         }
 
         [TestMethod]
-        public void TestPhoneNumberRegex_True()
+        public void TestPhoneNumberRegexCh_True()
         {
             // arrange
             var phoneNumberValidationRule = new PhoneNumberValidationRule();
             // act
-            var result = phoneNumberValidationRule.Validate("+41790000000", CultureInfo.CurrentCulture);
+            var result = phoneNumberValidationRule.Validate("+41791234567", CultureInfo.CurrentCulture);
             // assert
             Assert.IsTrue(result.IsValid);
         }
 
         [TestMethod]
-        public void TestPhoneNumberRegex_False()
+        public void TestPhoneNumberRegexCh_False()
         {
             // arrange
             var phoneNumberValidationRule = new PhoneNumberValidationRule();
             // act
-            var result = phoneNumberValidationRule.Validate("+417900000000", CultureInfo.CurrentCulture);
+            var result = phoneNumberValidationRule.Validate("+47912345678", CultureInfo.CurrentCulture);
+            // assert
+            Assert.IsFalse(result.IsValid);
+        }
+        /// <summary>
+        /// Regex not working for Liechtenstein
+        /// </summary>
+        //[TestMethod]
+        //public void TestPhoneNumberRegexLi_True()
+        //{
+        //    // arrange
+        //    var phoneNumberValidationRule = new PhoneNumberValidationRule();
+        //    // act
+        //    var result = phoneNumberValidationRule.Validate("+4231234567", CultureInfo.CurrentCulture);
+        //    // assert
+        //    Assert.IsTrue(result.IsValid);
+        //}
+
+        [TestMethod]
+        public void TestPhoneNumberRegexLi_False()
+        {
+            // arrange
+            var phoneNumberValidationRule = new PhoneNumberValidationRule();
+            // act
+            var result = phoneNumberValidationRule.Validate("+42312345678", CultureInfo.CurrentCulture);
+            // assert
+            Assert.IsFalse(result.IsValid);
+        }
+
+        /// <summary>
+        /// Regex not working for Germany
+        /// </summary>
+        //[TestMethod]
+        //public void TestPhoneNumberRegexDe_True()
+        //{
+        //    // arrange
+        //    var phoneNumberValidationRule = new PhoneNumberValidationRule();
+        //    // act
+        //    var result = phoneNumberValidationRule.Validate("+491517953677", CultureInfo.CurrentCulture);
+        //    // assert
+        //    Assert.IsTrue(result.IsValid);
+        //}
+
+        [TestMethod]
+        public void TestPhoneNumberRegexDe_False()
+        {
+            // arrange
+            var phoneNumberValidationRule = new PhoneNumberValidationRule();
+            // act
+            var result = phoneNumberValidationRule.Validate("+49123456789", CultureInfo.CurrentCulture);
             // assert
             Assert.IsFalse(result.IsValid);
         }

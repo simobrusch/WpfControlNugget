@@ -13,6 +13,13 @@ namespace WpfControlNugget.Validators
     {
         public string ErrorMessage { get; set; }
 
+        /// <summary>
+        /// Regex for Url Validation.
+        /// Doesn't check if the url exists.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="cultureInfo"></param>
+        /// <returns></returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             Regex regex = new Regex(@"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");

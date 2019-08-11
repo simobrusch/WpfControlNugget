@@ -12,10 +12,10 @@ namespace WpfControlNugget.Security
         // 24 = 192 bits
         private const int SaltByteSize = 24;
         private const int HashByteSize = 24;
-        private const int HasingIterationsCount = 10101;
+        private const int HashingIterationsCount = 10101;
 
 
-        public byte[] ComputeHash(string password, byte[] salt, int iterations = HasingIterationsCount, int hashByteSize = HashByteSize)
+        public byte[] ComputeHash(string password, byte[] salt, int iterations = HashingIterationsCount, int hashByteSize = HashByteSize)
         {
             using (Rfc2898DeriveBytes hashGenerator = new Rfc2898DeriveBytes(password, salt))
             {

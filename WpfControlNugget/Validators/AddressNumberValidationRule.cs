@@ -13,6 +13,13 @@ namespace WpfControlNugget.Validators
     {
         public string ErrorMessage { get; set; }
         
+        /// <summary>
+        /// Regex for Address Number Validation.
+        /// Beginning with CU following a 5 digit number.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="cultureInfo"></param>
+        /// <returns></returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             Regex regex = new Regex(@"^CU[0-9]{5}$");

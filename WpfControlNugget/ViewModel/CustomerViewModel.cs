@@ -47,7 +47,7 @@ namespace WpfControlNugget.ViewModel
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             Countries = new ObservableCollection<CountryModel>();
             Customers = new List<CustomerModel>();
-            GenerateListOfCountries();
+            ComboboxCountries();
             SelectedCountry = Countries[0];
             NewCustomerEntry = new CustomerModel();
             _dupChecker = new DuplicateChecker();
@@ -55,11 +55,14 @@ namespace WpfControlNugget.ViewModel
         public CustomerModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void GenerateListOfCountries()
+        /// <summary>
+        /// Combobox doesn't have a functionality at the moment. 
+        /// </summary>
+        private void ComboboxCountries()
         {
-            Countries.Add(new CountryModel("Switzerland", @"^(\+41|0041|0){1}(\(0\))?[0-9]{9}$"));
-            Countries.Add(new CountryModel("Germany", @"[0-9]*\/*(\+49)*[ ]*(\([0-9]+\))*([ ]*(-|–)*[ ]*[0-9]+)*"));
-            Countries.Add(new CountryModel("Liechtenstein", @"^(\+423|00423)?\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}$"));
+            Countries.Add(new CountryModel("Switzerland"));
+            Countries.Add(new CountryModel("Germany"));
+            Countries.Add(new CountryModel("Liechtenstein"));
         }
         public string TxtConnectionString
         {

@@ -35,7 +35,7 @@ namespace WpfControlNugget.Model
 
         public CustomerModel()
         {
-            this.CustomerCountry = new CountryModel("Switzerland", @"^(\+41|0041|0){1}(\(0\))?[0-9]{9}$");
+            this.CustomerCountry = new CountryModel("Switzerland");
         }
 
         public CustomerModel(int id, string firstName, string lastName, string addressNumber, int customerBankAccountId, string telephoneNumber, string emailAddress, string url, string password )
