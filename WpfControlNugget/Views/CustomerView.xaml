@@ -110,7 +110,8 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="110,372,0,0" TextWrapping="Wrap" Name="EnterPhone" VerticalAlignment="Top" Width="95">
+            <ComboBox VerticalAlignment="Center" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Margin="110,372,568,19" Height="25"/>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="210,372,0,0" TextWrapping="Wrap" Name="EnterPhone" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
                     <Binding Path="NewCustomerEntry.TelephoneNumber" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -120,7 +121,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="210,372,0,0" TextWrapping="Wrap" x:Name="EnterEmail" VerticalAlignment="Top" Width="95">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="310,372,0,0" TextWrapping="Wrap" x:Name="EnterEmail" VerticalAlignment="Top" Width="95">
                 <Binding Path="NewCustomerEntry.EmailAddress" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:EmailValidationRule
@@ -128,7 +129,7 @@
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="310,372,0,0" TextWrapping="Wrap" x:Name="EnterPassword" VerticalAlignment="Top" Width="95">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="410,372,0,0" TextWrapping="Wrap" x:Name="EnterPassword" VerticalAlignment="Top" Width="95">
                 <Binding Path="NewCustomerEntry.Password" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:PasswordValidationRule
@@ -140,12 +141,12 @@
             <Label Content="Database Connection" HorizontalAlignment="Left" Margin="118,22,0,0" VerticalAlignment="Top" Height="23" Width="125" Background="{x:Null}" RenderTransformOrigin="0.366,0.725"/>
             <Label Content="Firstname" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="95"/>
             <Label Content="Lastname" HorizontalAlignment="Left" Margin="110,290,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Addressnumber" HorizontalAlignment="Left" Margin="210,290,0,0" VerticalAlignment="Top" Width="95"/>       
+            <Label Content="Addressnumber" HorizontalAlignment="Left" Margin="210,290,0,0" VerticalAlignment="Top" Width="95"/>
             <Label Content="Url" HorizontalAlignment="Left" Margin="310,291,0,0" VerticalAlignment="Top" Width="95"/>
             <Label Content="CustomerAccNr" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Phone" HorizontalAlignment="Left" Margin="110,346,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Email" HorizontalAlignment="Left" Margin="210,346,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Password" HorizontalAlignment="Left" Margin="310,347,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Phone" HorizontalAlignment="Left" Margin="205,346,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Email" HorizontalAlignment="Left" Margin="305,346,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Password" HorizontalAlignment="Left" Margin="410,346,0,0" VerticalAlignment="Top" Width="95"/>
 
 
 

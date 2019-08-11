@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,6 +12,7 @@ using DuplicateCheckerLib;
 using MySql.Data.MySqlClient;
 using WpfControlNugget.Model;
 using WpfControlNugget.Repository;
+using WpfControlNugget.Security;
 using WpfControlNugget.ViewModel.Commands;
 
 namespace WpfControlNugget.ViewModel
@@ -36,19 +38,29 @@ namespace WpfControlNugget.ViewModel
             }
         }
         private List<CustomerModel> _customers;
+        public ObservableCollection<CountryModel> Countries { get; set; }
+        public CountryModel SelectedCountry { get; set; }
         public CustomerModel NewCustomerEntry { get; set; }
 
         public CustomerViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
-
+            Countries = new ObservableCollection<CountryModel>();
             Customers = new List<CustomerModel>();
+            GenerateListOfCountries();
+            SelectedCountry = Countries[0];
             NewCustomerEntry = new CustomerModel();
             _dupChecker = new DuplicateChecker();
         }
         public CustomerModel MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private void GenerateListOfCountries()
+        {
+            Countries.Add(new CountryModel("Switzerland", @"^(\+41|0041|0){1}(\(0\))?[0-9]{9}$"));
+            Countries.Add(new CountryModel("Germany", @"[0-9]*\/*(\+49)*[ ]*(\([0-9]+\))*([ ]*(-|–)*[ ]*[0-9]+)*"));
+            Countries.Add(new CountryModel("Liechtenstein", @"^(\+423|00423)?\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}$"));
+        }
         public string TxtConnectionString
         {
             get => _txtConnectionString;
@@ -139,6 +151,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
+                HashCustomerPassword();
                 var customerModelRepository = new CustomerRepository(TxtConnectionString);
                 customerModelRepository.Add(this.NewCustomerEntry);
                 this.Customers = customerModelRepository.GetAll().ToList();
@@ -165,6 +178,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
+                HashCustomerPassword();
                 var customerModelRepository = new CustomerRepository(TxtConnectionString);
                 customerModelRepository.Update(this.NewCustomerEntry);
                 this.Customers = customerModelRepository.GetAll().ToList();
@@ -174,7 +188,12 @@ namespace WpfControlNugget.ViewModel
                 MessageBox.Show("Error occurred: " + ex.Message);
             }
         }
-    
+        private void HashCustomerPassword()
+        {
+            var encryption = new Encryption();
+            var hash = encryption.ComputeHash(NewCustomerEntry.Password, encryption.GenerateSalt(), 10101, 24);
+            NewCustomerEntry.Password = Convert.ToBase64String(hash);
+        }
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
