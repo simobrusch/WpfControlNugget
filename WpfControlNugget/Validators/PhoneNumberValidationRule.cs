@@ -24,7 +24,13 @@ namespace WpfControlNugget.Validators
         {
             this.Customer = customer;
         }
-
+        /// <summary>
+        /// Regex for Phone number Validation
+        /// Currently only supports Swiss numbers
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="cultureInfo"></param>
+        /// <returns></returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             Regex regex = new Regex(@"^(\+41|0041|0){1}(\(0\))?[0-9]{9}$");

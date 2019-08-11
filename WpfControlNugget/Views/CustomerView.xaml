@@ -116,7 +116,7 @@
                     <Binding Path="NewCustomerEntry.TelephoneNumber" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:PhoneNumberValidationRule
-                                ErrorMessage="Message must contain at least 1 character up to 20" />
+                                ErrorMessage="Invalid Phone number" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
