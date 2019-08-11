@@ -10,8 +10,8 @@ namespace WpfControlNugget.Validators
 {
     public class IntRangeValidationRule : ValidationRule
     {
-        public int MinimumLength { get; set; }
-        public int MaximumLength { get; set; }
+        public int MinimumLength { get; set; } = 1;
+        public int MaximumLength { get; set; } = 8;
         public string ErrorMessage { get; set; }
         public override ValidationResult Validate(object value,
             CultureInfo cultureInfo)
