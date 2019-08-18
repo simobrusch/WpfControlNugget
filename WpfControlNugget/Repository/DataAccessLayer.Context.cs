@@ -15,10 +15,10 @@ namespace WpfControlNugget.Repository
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class InventarisierungsloesungEntitiesNew : DbContext
+    public partial class InventarisierungsloesungEntities : DbContext
     {
-        public InventarisierungsloesungEntitiesNew()
-            : base("name=InventarisierungsloesungEntitiesNew")
+        public InventarisierungsloesungEntities()
+            : base("name=InventarisierungsloesungEntities")
         {
         }
     

@@ -23,7 +23,7 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnUpdateDataClick;
         private ICommand _btnBuildTreeClick;
 
-        public List<LocationModel> Locations
+        public List<location> Locations
         {
             get => _locations;
             set
@@ -32,15 +32,15 @@ namespace WpfControlNugget.ViewModel
                 OnPropertyChanged("Locations");
             }
         }
-        private List<LocationModel> _locations;
-        public LocationModel NewLocationModelEntry { get; set; }
-        public List<Node<LocationModel>> LocationTree { get; set; }
+        private List<location> _locations;
+        public location NewlocationEntry { get; set; }
+        public List<Node<location>> LocationTree { get; set; }
 
         public LocationViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
-            Locations = new List<LocationModel>();
-            NewLocationModelEntry = new LocationModel();
+            Locations = new List<location>();
+            NewlocationEntry = new location();
 
         }
         public LogEntryModel MySelectedItem { get; set; }
@@ -114,10 +114,10 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository();
-                this.Locations = locationModelRepository.GetAll().ToList();
-                this.LocationTree = new List<Node<LocationModel>>();
-                GenerateLocationTreeFromList(Locations);
+                var locationRepository = new LocationRepository();
+                this.Locations = locationRepository.GetAll().ToList();
+                this.LocationTree = new List<Node<location>>();
+                //GenerateLocationTreeFromList(Locations);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LocationTree"));
             }
             catch (Exception ex)
@@ -129,9 +129,9 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository();
-                locationModelRepository.Add(this.NewLocationModelEntry);
-                this.Locations = locationModelRepository.GetAll().ToList();
+                var locationRepository = new LocationRepository();
+                locationRepository.Add(this.NewlocationEntry);
+                this.Locations = locationRepository.GetAll().ToList();
             }
             catch (Exception ex)
             {
@@ -142,9 +142,9 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository();
-                locationModelRepository.Delete(this.NewLocationModelEntry);
-                this.Locations = locationModelRepository.GetAll().ToList();
+                var locationRepository = new LocationRepository();
+                locationRepository.Delete(this.NewlocationEntry);
+                this.Locations = locationRepository.GetAll().ToList();
             }
             catch (Exception ex)
             {
@@ -155,9 +155,9 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository();
-                locationModelRepository.Update(this.NewLocationModelEntry);
-                this.Locations = locationModelRepository.GetAll().ToList();
+                var locationRepository = new LocationRepository();
+                locationRepository.Update(this.NewlocationEntry);
+                this.Locations = locationRepository.GetAll().ToList();
             }
             catch (Exception ex)
             {
@@ -168,9 +168,9 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository();
-                this.Locations = locationModelRepository.GetAll().ToList();
-                this.LocationTree = new List<Node<LocationModel>>();
+                var locationRepository = new LocationRepository();
+                this.Locations = locationRepository.GetAll().ToList();
+                this.LocationTree = new List<Node<location>>();
                 GenerateLocationTreeFromList(Locations);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LocationTree"));
             }
@@ -180,7 +180,7 @@ namespace WpfControlNugget.ViewModel
             }
         }
 
-        public void GenerateLocationTreeFromList(List<LocationModel> locationList)
+        public void GenerateLocationTreeFromList(List<location> locationList)
         {
             var treeBuilder = new LocationTreeBuilder();
             var locationNode = treeBuilder.BuildTree(locationList);

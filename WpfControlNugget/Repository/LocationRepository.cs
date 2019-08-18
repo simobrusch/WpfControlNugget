@@ -9,20 +9,20 @@ using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    public class LocationRepository : RepositoryBase<LocationModel>
+    public class LocationRepository : RepositoryBase<location>
     {
         public LocationRepository() : base()
         {
 
         }
 
-        public override void Delete(LocationModel entity)
+        public override void Delete(location entity)
         {
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            using (var dataCtx = new InventarisierungsloesungEntities())
             {
                 try
                 {
-                    var pkValue = dataCtx.locations.Find(entity.Id);
+                    var pkValue = dataCtx.locations.Find(entity.location_id);
                     dataCtx.locations.Remove(pkValue);
                     dataCtx.SaveChanges();
                 }
@@ -32,13 +32,13 @@ namespace WpfControlNugget.Repository
                 }
             }
         }
-        public override void Update(LocationModel entity)
+        public override void Update(location entity)
         {
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            using (var dataCtx = new InventarisierungsloesungEntities())
             {
                 try
                 {
-                    var pkValue = dataCtx.locations.Find(entity.Id);
+                    var pkValue = dataCtx.locations.Find(entity.location_id);
                     dataCtx.locations.Attach(pkValue);
                     dataCtx.SaveChanges();
                 }

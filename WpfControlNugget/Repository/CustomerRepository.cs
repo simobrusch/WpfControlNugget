@@ -9,44 +9,42 @@ using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    public class CustomerRepository : RepositoryBase<CustomerModel>
+    public class CustomerRepository : RepositoryBase<customer>
     {
         public CustomerRepository() : base()
         {
 
         }
 
-        public override void Delete(CustomerModel entity)
+        public override void Delete(customer entity)
         {
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            var dataCtx = new InventarisierungsloesungEntities();
+
+            try
             {
-                try
-                {
-                    var pkValue = dataCtx.customers.Find(entity.Id);
-                    dataCtx.customers.Remove(pkValue);
-                    dataCtx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error occurred: " + ex.Message);
-                }
+                var pkValue = dataCtx.customers.Find(entity.Id);
+                dataCtx.customers.Remove(pkValue);
+                dataCtx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
             }
         }
 
-        public override void Update(CustomerModel entity)
+        public override void Update(customer entity)
         {
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            var dataCtx = new InventarisierungsloesungEntities();
+
+            try
             {
-                try
-                {
-                    var pkValue = dataCtx.customers.Find(entity.Id);
-                    dataCtx.customers.Attach(pkValue);
-                    dataCtx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error occurred: " + ex.Message);
-                }
+                var pkValue = dataCtx.customers.Find(entity.Id);
+                dataCtx.customers.Attach(pkValue);
+                dataCtx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred: " + ex.Message);
             }
         }
     }

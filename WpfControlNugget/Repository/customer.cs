@@ -7,19 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using WpfControlNugget.Model;
+
 namespace WpfControlNugget.Repository
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class customer
+    public partial class customer : ModelBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public customer()
         {
+            this.CustomerCountry = new CountryModel("Switzerland");
             this.pointofdeliveries = new HashSet<pointofdelivery>();
         }
-    
+
+        public override int Id { get; set; }
         public long customer_id { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
@@ -33,5 +37,35 @@ namespace WpfControlNugget.Repository
         public virtual kundenkonto kundenkonto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pointofdelivery> pointofdeliveries { get; set; }
+
+        public CountryModel CustomerCountry { get; set; }
+        
+        public bool Equals(customer secondcustomer)
+        {
+            if (Object.ReferenceEquals(null, secondcustomer)) return false;
+            if (Object.ReferenceEquals(this, secondcustomer)) return true;
+
+            return String.Equals(firstname, secondcustomer.firstname) && String.Equals(lastname, secondcustomer.lastname) && String.Equals(addressnumber, secondcustomer.addressnumber);
+        }
+        public override bool Equals(object value)
+        {
+            return Equals(value as customer);
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                // Choose large primes to avoid hashing collisions
+                const int hashingBase = (int)2166136261;
+                const int hashingMultiplier = 16777619;
+
+                int hash = hashingBase;
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, firstname) ? firstname.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, lastname) ? lastname.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, addressnumber) ? addressnumber.GetHashCode() : 0);
+                return hash;
+            }
+        }
+
     }
 }

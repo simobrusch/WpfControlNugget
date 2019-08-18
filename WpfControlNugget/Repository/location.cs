@@ -7,12 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using WpfControlNugget.Model;
+
 namespace WpfControlNugget.Repository
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class location
+
+    public partial class location : ModelBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public location()
@@ -21,14 +23,15 @@ namespace WpfControlNugget.Repository
             this.devices = new HashSet<device>();
             this.pointofdeliveries = new HashSet<pointofdelivery>();
         }
-    
+
+        public override int Id { get; set; }
         public long location_id { get; set; }
         public Nullable<long> parent_location { get; set; }
         public long address_fk { get; set; }
         public string designation { get; set; }
         public long building { get; set; }
         public long room { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<abrechnung> abrechnungs { get; set; }
         public virtual address address { get; set; }
@@ -36,5 +39,58 @@ namespace WpfControlNugget.Repository
         public virtual ICollection<device> devices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<pointofdelivery> pointofdeliveries { get; set; }
+
+        public bool Equals(location location)
+        {
+            if (Object.ReferenceEquals(null, location)) return false;
+            if (Object.ReferenceEquals(this, location)) return true;
+
+            return String.Equals(designation, location.designation) && String.Equals(building, location.building) && String.Equals(room, location.room);
+        }
+        public override bool Equals(object value)
+        {
+            return Equals(value as location);
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                // Choose large primes to avoid hashing collisions
+                const int hashingBase = (int)2166136261;
+                const int hashingMultiplier = 16777619;
+
+                int hash = hashingBase;
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, designation) ? designation.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, building) ? building.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, room) ? room.GetHashCode() : 0);
+                return hash;
+            }
+        }
+        public static bool operator ==(location locA, location locB)
+        {
+            if (Object.ReferenceEquals(locA, locB))
+            {
+                return true;
+            }
+
+            //Ensure that A isnt Null
+            if (Object.ReferenceEquals(null, locA))
+            {
+                return false;
+            }
+
+            return (locA.Equals(locB));
+        }
+
+        public static bool operator !=(location locA, location locB)
+        {
+            return !(locA == locB);
+        }
+
+        public override string ToString()
+        {
+            return designation;
+        }
     }
 }
+

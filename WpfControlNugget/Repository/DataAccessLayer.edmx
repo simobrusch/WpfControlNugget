@@ -1327,7 +1327,7 @@
           <End Role="device" Type="Self.device" Multiplicity="*" />
           <End Role="credentials" Type="Self.credential" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="InventarisierungsloesungEntitiesNew" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="InventarisierungsloesungEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="abrechnungs" EntityType="Self.abrechnung" />
           <EntitySet Name="addresses" EntityType="Self.address" />
           <EntitySet Name="contacts" EntityType="Self.contact" />
@@ -1485,7 +1485,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="InventarisierungsloesungModelStoreContainer" CdmEntityContainer="InventarisierungsloesungEntitiesNew">
+        <EntityContainerMapping StorageEntityContainer="InventarisierungsloesungModelStoreContainer" CdmEntityContainer="InventarisierungsloesungEntities">
           <EntitySetMapping Name="abrechnungs">
             <EntityTypeMapping TypeName="InventarisierungsloesungModel.abrechnung">
               <MappingFragment StoreEntitySet="abrechnung">

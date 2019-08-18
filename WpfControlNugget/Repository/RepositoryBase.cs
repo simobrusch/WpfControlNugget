@@ -12,7 +12,7 @@ using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    public abstract class RepositoryBase<TM> : IRepositoryBase<TM> where TM : ModelBase<TM>, new()
+    public abstract class RepositoryBase<TM> : IRepositoryBase<TM> where TM : ModelBase, new()
     {
         /// <summary>
         /// Name des Datenbankproviders z.B. MySQL, MSSQl, PostgreSQL, etc.
@@ -22,7 +22,7 @@ namespace WpfControlNugget.Repository
         public TM GetSingle<TP>(TP pkValue)
         {
             var pkValueRow = new TM();
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            var dataCtx = new InventarisierungsloesungEntities();
             {
                 try
                 {
@@ -38,7 +38,7 @@ namespace WpfControlNugget.Repository
 
         public void Add(TM entity)
         {
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            var dataCtx = new InventarisierungsloesungEntities();
             {
                 try
                 {
@@ -55,13 +55,13 @@ namespace WpfControlNugget.Repository
         public abstract void Delete(TM entity);
 
         public abstract void Update(TM entity);
-        
+
 
         public IQueryable<TM> GetAll(Expression<Func<TM, bool>> whereCondition)
         {
             IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
-            var dataCtx = new InventarisierungsloesungEntitiesNew();
-            
+            var dataCtx = new InventarisierungsloesungEntities();
+            {
                 try
                 {
                     entities = dataCtx.Set<TM>().Where(whereCondition);
@@ -70,15 +70,15 @@ namespace WpfControlNugget.Repository
                 {
                     MessageBox.Show("Error occurred: " + ex.Message);
                 }
-            
-            return entities;
+                return entities;
+            }
         }
 
         public IQueryable<TM> GetAll()
         {
             IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
-            var dataCtx = new InventarisierungsloesungEntitiesNew();
-            
+            var dataCtx = new InventarisierungsloesungEntities();
+            {
                 try
                 {
                     entities = dataCtx.Set<TM>();
@@ -87,8 +87,8 @@ namespace WpfControlNugget.Repository
                 {
                     MessageBox.Show("Error occurred: " + ex.Message);
                 }
-            
-            return entities;
+                return entities;
+            }
         }
 
         public IQueryable<TM> Query(string whereCondition, Dictionary<string, object> parameterValues)
@@ -99,7 +99,7 @@ namespace WpfControlNugget.Repository
         public long Count(Expression<Func<TM, bool>> whereCondition)
         {
             IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            var dataCtx = new InventarisierungsloesungEntities();
             {
                 try
                 {
@@ -116,7 +116,7 @@ namespace WpfControlNugget.Repository
         public long Count()
         {
             IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            var dataCtx = new InventarisierungsloesungEntities();
             {
                 try
                 {

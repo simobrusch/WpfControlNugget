@@ -63,7 +63,7 @@ namespace WpfControlNugget.Repository
 
         public override void Delete(LogEntryModel entity)
         {
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            using (var dataCtx = new InventarisierungsloesungEntities())
             {
                 try
                 {
@@ -80,7 +80,7 @@ namespace WpfControlNugget.Repository
 
         public override void Update(LogEntryModel entity)
         {
-            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            using (var dataCtx = new InventarisierungsloesungEntities())
             {
                 try
                 {

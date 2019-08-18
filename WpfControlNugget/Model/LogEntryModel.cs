@@ -11,7 +11,7 @@ using LinqToDB.Mapping;
 namespace WpfControlNugget.Model
 {
     [Table("v_logentries")]
-    public class LogEntryModel : ModelBase<LogEntryModel>
+    public class LogEntryModel : ModelBase
     {
         [Column("id"), PrimaryKey, NotNull]
         public override int Id { get; set; }

@@ -28,23 +28,23 @@ namespace WpfControlNugget.ViewModel
         private ICommand _btnLoadDataClick;
         private ICommand _btnDeleteDataClick;
 
-        public List<CustomerModel> Customers { get; set; }
+        public List<customer> Customers { get; set; }
 
         public ObservableCollection<CountryModel> Countries { get; set; }
         public CountryModel SelectedCountry { get; set; }
-        public CustomerModel NewCustomerEntry { get; set; }
+        public customer NewCustomerEntry { get; set; }
 
         public CustomerViewModel()
         {
             TxtConnectionString = "Server=localhost;Database=;Uid=root;Pwd=;";
             Countries = new ObservableCollection<CountryModel>();
-            Customers = Enumerable.Empty<CustomerModel>().AsQueryable().ToList();
+            Customers = Enumerable.Empty<customer>().AsQueryable().ToList();
             ComboboxCountries();
             SelectedCountry = Countries[0];
-            NewCustomerEntry = new CustomerModel();
+            NewCustomerEntry = new customer();
             _dupChecker = new DuplicateChecker();
         }
-        public CustomerModel MySelectedItem { get; set; }
+        public customer MySelectedItem { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -131,12 +131,12 @@ namespace WpfControlNugget.ViewModel
                            }));
             }
         }
-        public List<CustomerModel> BtnFindDuplicates_Click()
+        public List<customer> BtnFindDuplicates_Click()
         {
-            var customerModelRepository = new CustomerRepository();
-            this.Customers = customerModelRepository.GetAll().ToList();
+            var customerRepository = new CustomerRepository();
+            this.Customers = customerRepository.GetAll().ToList();
             var dupList = _dupChecker.FindDuplicates(Customers);
-            Customers = new List<CustomerModel>(dupList.Cast<CustomerModel>());
+            Customers = new List<customer>(dupList.Cast<customer>());
 
             return Customers;
         }
@@ -144,9 +144,9 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var customerModelRepository = new CustomerRepository();
-                this.Customers = customerModelRepository.GetAll().ToList();
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LocationTree"));
+                var customerRepository = new CustomerRepository();
+                this.Customers = customerRepository.GetAll().ToList();
+                OnPropertyChanged("Customers");
             }
             catch (Exception ex)
             {
@@ -158,9 +158,9 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var customerModelRepository = new CustomerRepository();
-                customerModelRepository.GetSingle(this.NewCustomerEntry);
-                this.Customers = customerModelRepository.GetAll().ToList();
+                var customerRepository = new CustomerRepository();
+                customerRepository.GetSingle(this.NewCustomerEntry);
+                this.Customers = customerRepository.GetAll().ToList();
             }
             catch (Exception ex)
             {
@@ -172,9 +172,10 @@ namespace WpfControlNugget.ViewModel
             try
             {
                 HashCustomerPassword();
-                var customerModelRepository = new CustomerRepository();
-                customerModelRepository.Add(this.NewCustomerEntry);
-                this.Customers = customerModelRepository.GetAll().ToList();
+                var customerRepository = new CustomerRepository();
+                customerRepository.Add(this.NewCustomerEntry);
+                this.Customers = customerRepository.GetAll().ToList();
+                OnPropertyChanged("Customers");
             }
             catch (Exception ex)
             {
@@ -185,9 +186,11 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var customerModelRepository = new CustomerRepository();
-                customerModelRepository.Delete(this.NewCustomerEntry);
-                this.Customers = customerModelRepository.GetAll().ToList();
+                var customerRepository = new CustomerRepository();
+                customerRepository.Delete(this.NewCustomerEntry);
+                this.Customers = customerRepository.GetAll().ToList();
+                OnPropertyChanged("MySelectedItem");
+                OnPropertyChanged("Customers");
             }
             catch (Exception ex)
             {
@@ -199,9 +202,9 @@ namespace WpfControlNugget.ViewModel
             try
             {
                 HashCustomerPassword();
-                var customerModelRepository = new CustomerRepository();
-                customerModelRepository.Update(this.NewCustomerEntry);
-                this.Customers = customerModelRepository.GetAll().ToList();
+                var customerRepository = new CustomerRepository();
+                customerRepository.Update(this.NewCustomerEntry);
+                this.Customers = customerRepository.GetAll().ToList();
             }
             catch (Exception ex)
             {
