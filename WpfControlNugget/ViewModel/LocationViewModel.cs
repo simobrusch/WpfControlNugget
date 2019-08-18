@@ -114,7 +114,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository(TxtConnectionString);
+                var locationModelRepository = new LocationRepository();
                 this.Locations = locationModelRepository.GetAll().ToList();
                 this.LocationTree = new List<Node<LocationModel>>();
                 GenerateLocationTreeFromList(Locations);
@@ -129,7 +129,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository(TxtConnectionString);
+                var locationModelRepository = new LocationRepository();
                 locationModelRepository.Add(this.NewLocationModelEntry);
                 this.Locations = locationModelRepository.GetAll().ToList();
             }
@@ -142,7 +142,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository(TxtConnectionString);
+                var locationModelRepository = new LocationRepository();
                 locationModelRepository.Delete(this.NewLocationModelEntry);
                 this.Locations = locationModelRepository.GetAll().ToList();
             }
@@ -155,7 +155,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository(TxtConnectionString);
+                var locationModelRepository = new LocationRepository();
                 locationModelRepository.Update(this.NewLocationModelEntry);
                 this.Locations = locationModelRepository.GetAll().ToList();
             }
@@ -168,7 +168,7 @@ namespace WpfControlNugget.ViewModel
         {
             try
             {
-                var locationModelRepository = new LocationRepository(TxtConnectionString);
+                var locationModelRepository = new LocationRepository();
                 this.Locations = locationModelRepository.GetAll().ToList();
                 this.LocationTree = new List<Node<LocationModel>>();
                 GenerateLocationTreeFromList(Locations);

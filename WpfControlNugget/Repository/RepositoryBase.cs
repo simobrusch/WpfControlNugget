@@ -17,26 +17,21 @@ namespace WpfControlNugget.Repository
         /// <summary>
         /// Name des Datenbankproviders z.B. MySQL, MSSQl, PostgreSQL, etc.
         /// </summary>
-        protected string ProviderName { get; }
-        /// <summary>
-        /// String für Database Verbindung im folgenden Format:
-        /// "Server=localhost;Database=;Uid=root;Pwd=;"
-        /// </summary>
-        protected string ConnectionString { get; }
-        protected RepositoryBase(string connectionString)
+        protected string ProviderName = "System.Data.SqlClient";
+
+        protected RepositoryBase()
         {
-            this.ConnectionString = connectionString;
-            this.ProviderName = "MySql";
+
         }
 
         public TM GetSingle<TP>(TP pkValue)
         {
             var pkValueRow = new TM();
-            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
             {
                 try
                 {
-                    pkValueRow = (from e in dataCtx.GetTable<TM>() where e.Id.Equals(pkValue) select e).FirstOrDefault();
+                    pkValueRow = (from e in dataCtx.Set<TM>() where e.Id.Equals(pkValue) select e).FirstOrDefault();
                 }
                 catch (Exception ex)
                 {
@@ -48,12 +43,12 @@ namespace WpfControlNugget.Repository
 
         public void Add(TM entity)
         {
-            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
             {
                 try
                 {
-                    dataCtx.Insert(entity);
-                    dataCtx.BeginTransaction();
+                    dataCtx.Set<TM>().Add(entity);
+                    dataCtx.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -62,74 +57,42 @@ namespace WpfControlNugget.Repository
             }
         }
 
-        public void Delete(TM entity)
-        {
-            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
-            {
-                try
-                {
-                    var pkValueRow = (from e in dataCtx.GetTable<TM>() where e.Id.Equals(entity.Id) select e).FirstOrDefault();
-                    if (pkValueRow != null)
-                    {
-                        dataCtx.Delete(pkValueRow);
-                    }
-                    dataCtx.BeginTransaction();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error occurred: " + ex.Message);
-                }
-            }
-        }
+        public abstract void Delete(TM entity);
 
-        public void Update(TM entity)
-        {
-            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
-            {
-                try
-                {
-                    var pkValueRow = (from e in dataCtx.GetTable<TM>() where e.Id.Equals(entity.Id) select e).FirstOrDefault();
-                    dataCtx.Update(entity);
-                    dataCtx.BeginTransaction();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error occurred: " + ex.Message);
-                }
-            }
-        }
+        public abstract void Update(TM entity);
+        
 
         public IQueryable<TM> GetAll(Expression<Func<TM, bool>> whereCondition)
         {
             IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
-            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
-            {
+            var dataCtx = new InventarisierungsloesungEntitiesNew();
+            
                 try
                 {
-                    entities = dataCtx.GetTable<TM>().Where(whereCondition);
+                    entities = dataCtx.Set<TM>().Where(whereCondition);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error occurred: " + ex.Message);
                 }
-            }
+            
             return entities;
         }
 
         public IQueryable<TM> GetAll()
         {
             IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
-            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
-            {
+            var dataCtx = new InventarisierungsloesungEntitiesNew();
+            
                 try
                 {
-                    entities = dataCtx.GetTable<TM>();
+                    entities = dataCtx.Set<TM>();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error occurred: " + ex.Message);
                 }
-            }
+            
             return entities;
         }
 
@@ -141,11 +104,11 @@ namespace WpfControlNugget.Repository
         public long Count(Expression<Func<TM, bool>> whereCondition)
         {
             IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
-            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
             {
                 try
                 {
-                    entities = dataCtx.GetTable<TM>().Where(whereCondition);
+                    entities = dataCtx.Set<TM>().Where(whereCondition);
                 }
                 catch (Exception ex)
                 {
@@ -158,11 +121,11 @@ namespace WpfControlNugget.Repository
         public long Count()
         {
             IQueryable<TM> entities = Enumerable.Empty<TM>().AsQueryable();
-            using (var dataCtx = new LinqToDB.DataContext(ProviderName, ConnectionString))
+            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
             {
                 try
                 {
-                    entities = dataCtx.GetTable<TM>();
+                    entities = dataCtx.Set<TM>();
                 }
                 catch (Exception ex)
                 {

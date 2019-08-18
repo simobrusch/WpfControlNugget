@@ -94,20 +94,97 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataAccessLayer.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataAccessLayer.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccessLayer.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataAccessLayer.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Model\CountryModel.cs" />
     <Compile Include="Model\CustomerModel.cs" />
     <Compile Include="Model\LocationModel.cs" />
+    <Compile Include="Repository\abrechnung.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\address.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\contact.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\credential.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\customer.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\CustomerRepository.cs" />
+    <Compile Include="Repository\device.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\deviceport.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\devicetype.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\devicetype_has_operatingsystem.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\interface.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\InventarisierungsloesungEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungsloesungEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\InventarisierungsloesungEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\InventarisierungsloesungEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungsloesungEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\kundenkonto.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\location.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\log.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\network.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\operatingsystem.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\person.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\pointofdelivery.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\produkte.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\produktegruppe.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\softwaredienstleistung.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\sysdiagram.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\town.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\transportmedium.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\v_logentries.cs">
+      <DependentUpon>InventarisierungsloesungEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Validators\AddressNumberValidationRule.cs" />
     <Compile Include="Validators\EmailValidationRule.cs" />
@@ -183,19 +260,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DataAccessLayer.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataAccessLayer.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DataAccessLayer.edmx.diagram">
-      <DependentUpon>DataAccessLayer.edmx</DependentUpon>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="Repository\InventarisierungsloesungEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InventarisierungsloesungEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Repository\InventarisierungsloesungEntities.edmx.diagram">
+      <DependentUpon>InventarisierungsloesungEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -204,13 +281,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataAccessLayer.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataAccessLayer.Context.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Repository\InventarisierungsloesungEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventarisierungsloesungEntities.edmx</DependentUpon>
+      <LastGenOutput>InventarisierungsloesungEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Repository\InventarisierungsloesungEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventarisierungsloesungEntities.edmx</DependentUpon>
+      <LastGenOutput>InventarisierungsloesungEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

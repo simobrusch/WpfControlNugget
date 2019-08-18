@@ -8,27 +8,21 @@ using LinqToDB.Mapping;
 
 namespace WpfControlNugget.Model
 {
-    [Table("Customer")]
+
     public class CustomerModel : ModelBase<CustomerModel>
     {
-        [Column("customer_id"), PrimaryKey, NotNull]
         public override int Id { get; set; }
-        [Column("firstname")]
-        public string FirstName { get; set; }
-        [Column("lastname")]
-        public string LastName { get; set; }
-        [Column("addressnumber")]
-        public string AddressNumber { get; set; }
-        [Column("kundenkonto_fk")]
-        public int CustomerBankAccountId { get; set; }
-        [Column("tel")]
-        public string TelephoneNumber { get; set; }
-        [Column("eMail")]
-        public string EmailAddress { get; set; }
-        [Column("url")]
-        public string Url { get; set; }
-        [Column("password")]
-        public string Password { get; set; }
+
+        public long customer_id { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string customernumber { get; set; }
+        public long kundenkonto_fk { get; set; }
+        public string tel { get; set; }
+        public string eMail { get; set; }
+        public string url { get; set; }
+        public string password { get; set; }
+
         public CountryModel CustomerCountry { get; set; }
 
 
@@ -38,25 +32,12 @@ namespace WpfControlNugget.Model
             this.CustomerCountry = new CountryModel("Switzerland");
         }
 
-        public CustomerModel(int id, string firstName, string lastName, string addressNumber, int customerBankAccountId, string telephoneNumber, string emailAddress, string url, string password )
-        {
-            this.Id = id;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.AddressNumber = addressNumber;
-            this.CustomerBankAccountId = customerBankAccountId;
-            this.TelephoneNumber = telephoneNumber;
-            this.EmailAddress = emailAddress;
-            this.Url = url;
-            this.Password = password;
-        }
-
         public bool Equals(CustomerModel secondCustomerModel)
         {
             if (Object.ReferenceEquals(null, secondCustomerModel)) return false;
             if (Object.ReferenceEquals(this, secondCustomerModel)) return true;
 
-            return String.Equals(FirstName, secondCustomerModel.FirstName) && String.Equals(LastName, secondCustomerModel.LastName) && String.Equals(AddressNumber, secondCustomerModel.AddressNumber);
+            return String.Equals(firstname, secondCustomerModel.firstname) && String.Equals(lastname, secondCustomerModel.lastname) && String.Equals(customernumber, secondCustomerModel.customernumber);
         }
         public override bool Equals(object value)
         {
@@ -71,9 +52,9 @@ namespace WpfControlNugget.Model
                 const int hashingMultiplier = 16777619;
 
                 int hash = hashingBase;
-                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, FirstName) ? FirstName.GetHashCode() : 0);
-                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, LastName) ? LastName.GetHashCode() : 0);
-                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, AddressNumber) ? AddressNumber.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, firstname) ? firstname.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, lastname) ? lastname.GetHashCode() : 0);
+                hash = (hash * hashingMultiplier) ^ (!Object.ReferenceEquals(null, customernumber) ? customernumber.GetHashCode() : 0);
                 return hash;
             }
         }

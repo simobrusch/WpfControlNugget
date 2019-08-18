@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WpfControlNugget
+namespace WpfControlNugget.Repository
 {
     using System;
     using System.Data.Entity;
@@ -15,10 +15,10 @@ namespace WpfControlNugget
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class InventarisierungsloesungEntities : DbContext
+    public partial class InventarisierungsloesungEntitiesNew : DbContext
     {
-        public InventarisierungsloesungEntities()
-            : base("name=InventarisierungsloesungEntities")
+        public InventarisierungsloesungEntitiesNew()
+            : base("name=InventarisierungsloesungEntitiesNew")
         {
         }
     

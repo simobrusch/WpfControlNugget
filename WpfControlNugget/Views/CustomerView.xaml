@@ -19,14 +19,14 @@
             <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,131" Name="DataGridLogs" Width="763" ItemsSource="{Binding Path=Customers}" CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="40" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=FirstName}" Header="First Name" Width="70" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=LastName}" Header="Last Name" Width="70" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=AddressNumber}" Header="AddressNumber" Width="100" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=CustomerBankAccountId}" Header="BankAccountId" Width="100" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=TelephoneNumber}" Header="TelephoneNumber" Width="115" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=EmailAddress}" Header="Email" Width="115" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=Url}" Header="Url" Width="80" IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Path=Password}" Header="Password" Width="71" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=firstname}" Header="First Name" Width="70" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=lastname}" Header="Last Name" Width="70" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=customernumber}" Header="customernumber" Width="100" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=kundenkonto_fk}" Header="BankAccountId" Width="100" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=tel}" Header="tel" Width="115" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=eMail}" Header="Email" Width="115" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=url}" Header="url" Width="80" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=password}" Header="password" Width="71" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -55,14 +55,15 @@
             </Button>
             <Button Content="Find Duplicates" Height="25" HorizontalAlignment="Left" Margin="688,321,0,0" Name="BtnFindDuplicates" VerticalAlignment="Top" Width="85" Command="{Binding BtnFindDuplicatesClick}" />
             <Button Content="Update" Height="25" HorizontalAlignment="Left" Margin="598,372,0,0" Name="BtnUpdate" VerticalAlignment="Top" Width="85" Command="{Binding BtnUpdateDataClick}" />
-            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="598,321,0,0" Name="BtnLoadData" VerticalAlignment="Top" Width="85" Command="{Binding BtnLoadDataClick}" />
+            <Button Content="Load Data" Height="25" HorizontalAlignment="Left" Margin="508,321,0,0" Name="BtnLoadData" VerticalAlignment="Top" Width="85" Command="{Binding BtnLoadDataClick}" />
+            <Button Content="Search" Height="25" HorizontalAlignment="Left" Margin="598,321,0,0" x:Name="BtnSearch" VerticalAlignment="Top" Width="85" Command="{Binding BtnLoadDataClick}" />
             <Button Content="Delete" Height="25" HorizontalAlignment="Left" Margin="688,372,0,0" Name="BtnDelete" VerticalAlignment="Top" Width="85" Command="{Binding BtnDeleteDataClick}"/>
 
             <TextBox HorizontalAlignment="Left" Height="23" Margin="248,22,0,0" TextWrapping="Wrap" Text="{Binding TxtConnectionString}" Name="TxtConnectionString"  VerticalAlignment="Top" Width="525" />
 
             <TextBox HorizontalAlignment="Left" Height="25" Margin="10,321,0,0" TextWrapping="Wrap" Name="EnterFirstName" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.FirstName" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewCustomerEntry.firstname" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:StringRangeValidationRule
                                 MinimumLength="1" MaximumLength="45"
@@ -73,7 +74,7 @@
             </TextBox>
             <TextBox HorizontalAlignment="Left" Height="25" Margin="110,321,0,0" TextWrapping="Wrap" Name="EnterLastName" VerticalAlignment="Top" Width="95" >
                 <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.LastName" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewCustomerEntry.lastname" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:StringRangeValidationRule
                                 MinimumLength="1" MaximumLength="45"
@@ -82,27 +83,35 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="210,321,0,0" TextWrapping="Wrap" Name="EnterAddressNumber" VerticalAlignment="Top" Width="95">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="210,321,0,0" TextWrapping="Wrap" Name="EnterCustomerNumber" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.AddressNumber" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewCustomerEntry.customernumber" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:AddressNumberValidationRule
-                                ErrorMessage="Addressnumber needs to begin with CU following a 5 digit number!" />
+                                ErrorMessage="Customer number needs to begin with CU following a 5 digit number!" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
             <TextBox HorizontalAlignment="Left" Height="25" Margin="310,321,0,0" TextWrapping="Wrap" x:Name="EnterUrl" VerticalAlignment="Top" Width="95">
-                <Binding Path="NewCustomerEntry.Url" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="NewCustomerEntry.url" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:UrlValidationRule
                             ErrorMessage="Invalid URL" />
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,372,0,0" TextWrapping="Wrap" Name="EnterCustomerAccNr" VerticalAlignment="Top" Width="95">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="410,321,0,0" TextWrapping="Wrap" x:Name="EnterCustomerId" VerticalAlignment="Top" Width="95">
+                <Binding Path="NewCustomerEntry.customer_id" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validators:UrlValidationRule
+                            ErrorMessage="Invalid CustomerId" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="10,372,0,0" TextWrapping="Wrap" Name="EnterKundenkonto_fk" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.CustomerBankAccountId" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewCustomerEntry.kundenkonto_fk" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:IntRangeValidationRule
                                 MinimumLength="1" MaximumLength="8"/>
@@ -113,7 +122,7 @@
             <ComboBox VerticalAlignment="Center" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Margin="110,372,568,19" Height="25"/>
             <TextBox HorizontalAlignment="Left" Height="25" Margin="210,372,0,0" TextWrapping="Wrap" Name="EnterPhone" VerticalAlignment="Top" Width="95">
                 <TextBox.Text>
-                    <Binding Path="NewCustomerEntry.TelephoneNumber" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="NewCustomerEntry.tel" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validators:PhoneNumberValidationRule
                                 ErrorMessage="Invalid Phone number" />
@@ -122,7 +131,7 @@
                 </TextBox.Text>
             </TextBox>
             <TextBox HorizontalAlignment="Left" Height="25" Margin="310,372,0,0" TextWrapping="Wrap" x:Name="EnterEmail" VerticalAlignment="Top" Width="95">
-                <Binding Path="NewCustomerEntry.EmailAddress" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="NewCustomerEntry.eMail" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:EmailValidationRule
                             ErrorMessage="Invalid Email Address" />
@@ -130,10 +139,10 @@
                 </Binding>
             </TextBox>
             <TextBox HorizontalAlignment="Left" Height="25" Margin="410,372,0,0" TextWrapping="Wrap" x:Name="EnterPassword" VerticalAlignment="Top" Width="95">
-                <Binding Path="NewCustomerEntry.Password" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="NewCustomerEntry.password" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:PasswordValidationRule
-                            ErrorMessage="Password must at least be 8 characters long up to 15. 1 lower + 1 uppercase letter, a number and a special character." />
+                            ErrorMessage="password must at least be 8 characters long up to 15. 1 lower + 1 uppercase letter, a number and a special character." />
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
@@ -141,12 +150,16 @@
             <Label Content="Database Connection" HorizontalAlignment="Left" Margin="118,22,0,0" VerticalAlignment="Top" Height="23" Width="125" Background="{x:Null}" RenderTransformOrigin="0.366,0.725"/>
             <Label Content="Firstname" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="95"/>
             <Label Content="Lastname" HorizontalAlignment="Left" Margin="110,290,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Addressnumber" HorizontalAlignment="Left" Margin="210,290,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Url" HorizontalAlignment="Left" Margin="310,291,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="CustomerAccNr" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Customernumber" HorizontalAlignment="Left" Margin="205,290,0,0" VerticalAlignment="Top" Width="117"/>
+            <Label Content="url" HorizontalAlignment="Left" Margin="310,290,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="customerid" HorizontalAlignment="Left" Margin="410,290,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Kundenkonto_fk" HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="95"/>
             <Label Content="Phone" HorizontalAlignment="Left" Margin="205,346,0,0" VerticalAlignment="Top" Width="95"/>
             <Label Content="Email" HorizontalAlignment="Left" Margin="305,346,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Password" HorizontalAlignment="Left" Margin="410,346,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="password" HorizontalAlignment="Left" Margin="410,346,0,0" VerticalAlignment="Top" Width="95"/>
+            
+            
+
 
 
 

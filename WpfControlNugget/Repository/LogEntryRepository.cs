@@ -14,7 +14,7 @@ namespace WpfControlNugget.Repository
 {
     public class LogEntryRepository : RepositoryBase<LogEntryModel>
     {
-        public LogEntryRepository(string connectionString) : base(connectionString)
+        public LogEntryRepository() : base()
         {
 
         }
@@ -25,7 +25,7 @@ namespace WpfControlNugget.Repository
         /// <param name="newLogModelEntry"></param>
         public void ExecuteLogMessageAdd(LogEntryModel newLogModelEntry)
         {
-            using (var dataConn = new DataConnection(ProviderName, ConnectionString))
+            using (var dataConn = new DataConnection(ProviderName))
             {
                 try
                 {
@@ -48,11 +48,45 @@ namespace WpfControlNugget.Repository
         /// <param name="logModelEntry"></param>
         public void ExecuteLogClear(LogEntryModel logModelEntry)
         {
-            using (var dataConn = new DataConnection(ProviderName, ConnectionString))
+            using (var dataConn = new DataConnection(ProviderName))
             {
                 try
                 {
                     dataConn.QueryProc<LogEntryModel>("LogClear", new DataParameter("@_logentries_id", logModelEntry.Id));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        public override void Delete(LogEntryModel entity)
+        {
+            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            {
+                try
+                {
+                    var pkValue = dataCtx.logs.Find(entity.Id);
+                    dataCtx.logs.Remove(pkValue);
+                    dataCtx.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        public override void Update(LogEntryModel entity)
+        {
+            using (var dataCtx = new InventarisierungsloesungEntitiesNew())
+            {
+                try
+                {
+                    var pkValue = dataCtx.logs.Find(entity.Id);
+                    dataCtx.logs.Attach(pkValue);
+                    dataCtx.SaveChanges();
                 }
                 catch (Exception ex)
                 {

@@ -14,7 +14,7 @@ namespace WpfControlNugget.Validators
         public string ErrorMessage { get; set; }
 
         /// <summary>
-        /// Regex for Url Validation.
+        /// Regex for url Validation.
         /// Doesn't check if the url exists.
         /// </summary>
         /// <param name="value"></param>
