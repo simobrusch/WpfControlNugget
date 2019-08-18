@@ -18,7 +18,7 @@
         <Grid HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="773">
             <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" HorizontalAlignment="Left" SelectedItem="{Binding MySelectedItem, Mode=TwoWay}" Margin="10,55,0,131" Name="DataGridLogs" Width="763" ItemsSource="{Binding Path=Customers}" CanUserResizeRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=Id}" Header="id" Width="40" IsReadOnly="True" />
+                    <DataGridTextColumn Binding="{Binding Path=customer_id}" Header="id" Width="40" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=firstname}" Header="First Name" Width="70" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=lastname}" Header="Last Name" Width="70" IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=addressnumber}" Header="addressnumber" Width="100" IsReadOnly="True" />
@@ -102,8 +102,8 @@
             <TextBox HorizontalAlignment="Left" Height="25" Margin="410,321,0,0" TextWrapping="Wrap" x:Name="EnterCustomerId" VerticalAlignment="Top" Width="95">
                 <Binding Path="NewCustomerEntry.customer_id" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <validators:UrlValidationRule
-                            ErrorMessage="Invalid CustomerId" />
+                        <validators:IntRangeValidationRule
+                            MinimumLength="1" MaximumLength="1000000"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>

@@ -12,9 +12,9 @@ using WpfControlNugget.Model;
 
 namespace WpfControlNugget.Repository
 {
-    public class LogEntryRepository : RepositoryBase<LogEntryModel>
+    public class LogEntryRepository : RepositoryBaseMySql<LogEntryModel>
     {
-        public LogEntryRepository() : base()
+        public LogEntryRepository(string connectionString) : base(connectionString)
         {
 
         }
@@ -25,7 +25,7 @@ namespace WpfControlNugget.Repository
         /// <param name="newLogModelEntry"></param>
         public void ExecuteLogMessageAdd(LogEntryModel newLogModelEntry)
         {
-            using (var dataConn = new DataConnection(ProviderName))
+            using (var dataConn = new DataConnection(ProviderName, ConnectionString))
             {
                 try
                 {
@@ -48,45 +48,11 @@ namespace WpfControlNugget.Repository
         /// <param name="logModelEntry"></param>
         public void ExecuteLogClear(LogEntryModel logModelEntry)
         {
-            using (var dataConn = new DataConnection(ProviderName))
+            using (var dataConn = new DataConnection(ProviderName, ConnectionString))
             {
                 try
                 {
                     dataConn.QueryProc<LogEntryModel>("LogClear", new DataParameter("@_logentries_id", logModelEntry.Id));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error occurred: " + ex.Message);
-                }
-            }
-        }
-
-        public override void Delete(LogEntryModel entity)
-        {
-            using (var dataCtx = new InventarisierungsloesungEntities())
-            {
-                try
-                {
-                    var pkValue = dataCtx.logs.Find(entity.Id);
-                    dataCtx.logs.Remove(pkValue);
-                    dataCtx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error occurred: " + ex.Message);
-                }
-            }
-        }
-
-        public override void Update(LogEntryModel entity)
-        {
-            using (var dataCtx = new InventarisierungsloesungEntities())
-            {
-                try
-                {
-                    var pkValue = dataCtx.logs.Find(entity.Id);
-                    dataCtx.logs.Attach(pkValue);
-                    dataCtx.SaveChanges();
                 }
                 catch (Exception ex)
                 {

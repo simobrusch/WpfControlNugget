@@ -168,6 +168,7 @@
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\CustomerRepository.cs" />
+    <Compile Include="Repository\RepositoryBaseMySql.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Repository\softwaredienstleistung.cs">
       <DependentUpon>DataAccessLayer.tt</DependentUpon>
