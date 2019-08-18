@@ -146,7 +146,7 @@ namespace WpfControlNugget.ViewModel
             {
                 var customerModelRepository = new CustomerRepository();
                 this.Customers = customerModelRepository.GetAll().ToList();
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LocationTree"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LocationTree"));
             }
             catch (Exception ex)
             {

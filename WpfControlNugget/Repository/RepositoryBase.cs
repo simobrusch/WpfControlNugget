@@ -19,11 +19,6 @@ namespace WpfControlNugget.Repository
         /// </summary>
         protected string ProviderName = "System.Data.SqlClient";
 
-        protected RepositoryBase()
-        {
-
-        }
-
         public TM GetSingle<TP>(TP pkValue)
         {
             var pkValueRow = new TM();
