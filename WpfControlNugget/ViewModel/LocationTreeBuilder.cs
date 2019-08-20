@@ -21,7 +21,7 @@ namespace WpfControlNugget.ViewModel
 
         private void BuildTree(Node<location> locationNode, List<location> descendants)
         {
-            var children = descendants.Where(node => node.parent_location == locationNode.ValueObject.Id).ToArray();
+            var children = descendants.Where(node => node.parent_location == locationNode.ValueObject.location_id).ToArray();
             foreach (var child in children)
             {
                 var branch = Map(child, locationNode);

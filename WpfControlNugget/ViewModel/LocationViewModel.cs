@@ -117,7 +117,7 @@ namespace WpfControlNugget.ViewModel
                 var locationRepository = new LocationRepository();
                 this.Locations = locationRepository.GetAll().ToList();
                 this.LocationTree = new List<Node<location>>();
-                //GenerateLocationTreeFromList(Locations);
+                GenerateLocationTreeFromList(Locations);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LocationTree"));
             }
             catch (Exception ex)
